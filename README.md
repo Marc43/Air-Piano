@@ -1,4 +1,4 @@
-# Air-Piano
+# Air-Pianoo
 ## De la música a los dedos...
 
 ### Como va a funcionar el piano (por ahora, sujeto a cambios):
