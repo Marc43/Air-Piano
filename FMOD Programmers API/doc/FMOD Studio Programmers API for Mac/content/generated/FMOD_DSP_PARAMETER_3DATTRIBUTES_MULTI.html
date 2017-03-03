@@ -1,0 +1,45 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI</H1>
+<P>
+<p>Structure for data parameters of type <A HREF="FMOD_DSP_PARAMETER_DATA_TYPE.html">FMOD_DSP_PARAMETER_DATA_TYPE_3DATTRIBUTES_MULTI</A>.
+A parameter of this type is used in effects that respond to a sound's 3D position, and support multiple listeners.
+The system will set this parameter automatically if a sound's position changes.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  int <I>numlisteners</I>;
+  FMOD_3D_ATTRIBUTES <I>relative</I>[FMOD_MAX_LISTENERS];
+  float <I>weight</I>[FMOD_MAX_LISTENERS];
+  FMOD_3D_ATTRIBUTES <I>absolute</I>;
+} FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>numlisteners</I></P>
+<P class=indent>[w] The number of listeners. </P>
+<P class=dt><I>relative</I></P>
+<P class=indent>[w] The position of the sound relative to the listeners. </P>
+<P class=dt><I>weight</I></P>
+<P class=indent>[w] The weighting of the listeners where 0 means listener has no contribution and 1 means full contribution. </P>
+<P class=dt><I>absolute</I></P>
+<P class=indent>[w] The position of the sound in world coordinates. </P>
+<h2>Remarks</h2><P>
+<p>FMOD will convert passed in co-ordinates to left-handed for the plugin if the System was initialized with the <A HREF="FMOD_INITFLAGS.html">FMOD_INIT_3D_RIGHTHANDED</A> flag.</p>
+
+<p>Members marked with [r] mean the variable is modified by FMOD and is for reading purposes only.  Do not change this value.<br>
+Members marked with [w] mean the variable can be written to.  The user can set the value.<br></p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_PARAMETER_DATA_TYPE.html">FMOD_DSP_PARAMETER_DATA_TYPE</A></LI>
+<LI><A HREF="FMOD_DSP_PARAMETER_DESC.html">FMOD_DSP_PARAMETER_DESC</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

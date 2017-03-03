@@ -1,0 +1,40 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FSBank_FetchFSBMemory</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FSBank_FetchFSBMemory</H1>
+<P>
+<p>After <A HREF="FSBank_Build.html">FSBank_Build</A> has completed, fetch the built FSB data from memory.</p>
+</P>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FSBANK_RESULT FSBank_FetchFSBMemory(
+  const void **<I>data</I>,
+  unsigned int *<I>length</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>data</I></P>
+<P class=indent>Address of a variable that receives a pointer to the built FSB data.</P>
+<P class=dt><I>length</I></P>
+<P class=indent>Address of a variable that receives the length of the FSB data pointed to by 'data'.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FSBANK_RESULT.html">FSBANK_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FSBANK_RESULT.html">FSBANK_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>Only available if outputFileName is set to NULL during <A HREF="FSBank_Build.html">FSBank_Build</A>.</p>
+
+<p>The memory allocated as part of <A HREF="FSBank_Build.html">FSBank_Build</A> will be freed automatically by the next <A HREF="FSBank_Build.html">FSBank_Build</A> or <A HREF="FSBank_Release.html">FSBank_Release</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FSBank_Build.html">FSBank_Build</A></LI>
+<LI><A HREF="FSBank_Release.html">FSBank_Release</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,39 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_OUTPUT_MIXER_CALLBACK</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_OUTPUT_MIXER_CALLBACK</H1>
+<P>
+<p>Called from the mixer thread, only when the 'polling' member of <A HREF="FMOD_OUTPUT_DESCRIPTION.html">FMOD_OUTPUT_DESCRIPTION</A> is set to <strong>FALSE</strong>.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT F_CALLBACK FMOD_OUTPUT_MIXER_CALLBACK(
+  FMOD_OUTPUT_STATE *<I>output_state</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>output_state</I></P>
+<P class=indent>Pointer to the plugin state.  The user can use this variable to access runtime plugin specific variables and plugin writer user data.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>Called repeatedly to give a thread for waiting on an audio hardware synchronization primitive, used in conjunction with <A HREF="FMOD_OUTPUT_READFROMMIXER.html">FMOD_OUTPUT_READFROMMIXER</A>.</p>
+
+<p>Ensure you have a reasonable timeout (~200ms) on your synchronization primitive and allow this callback to return once per wakeup to avoid deadlocks.</p>
+
+<p>Remember to return <A HREF="FMOD_RESULT.html">FMOD_OK</A> at the bottom of the function, or an appropriate error code from <A HREF="FMOD_RESULT.html">FMOD_RESULT</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_OUTPUT_DESCRIPTION.html">FMOD_OUTPUT_DESCRIPTION</A></LI>
+<LI><A HREF="FMOD_OUTPUT_STATE.html">FMOD_OUTPUT_STATE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

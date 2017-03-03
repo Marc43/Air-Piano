@@ -1,0 +1,91 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_MULTIBAND_EQ</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_MULTIBAND_EQ</H1>
+<P>
+<p>Parameter types for the <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_MULTIBAND_EQ</A> filter.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_MULTIBAND_EQ_A_FILTER,
+  FMOD_DSP_MULTIBAND_EQ_A_FREQUENCY,
+  FMOD_DSP_MULTIBAND_EQ_A_Q,
+  FMOD_DSP_MULTIBAND_EQ_A_GAIN,
+  FMOD_DSP_MULTIBAND_EQ_B_FILTER,
+  FMOD_DSP_MULTIBAND_EQ_B_FREQUENCY,
+  FMOD_DSP_MULTIBAND_EQ_B_Q,
+  FMOD_DSP_MULTIBAND_EQ_B_GAIN,
+  FMOD_DSP_MULTIBAND_EQ_C_FILTER,
+  FMOD_DSP_MULTIBAND_EQ_C_FREQUENCY,
+  FMOD_DSP_MULTIBAND_EQ_C_Q,
+  FMOD_DSP_MULTIBAND_EQ_C_GAIN,
+  FMOD_DSP_MULTIBAND_EQ_D_FILTER,
+  FMOD_DSP_MULTIBAND_EQ_D_FREQUENCY,
+  FMOD_DSP_MULTIBAND_EQ_D_Q,
+  FMOD_DSP_MULTIBAND_EQ_D_GAIN,
+  FMOD_DSP_MULTIBAND_EQ_E_FILTER,
+  FMOD_DSP_MULTIBAND_EQ_E_FREQUENCY,
+  FMOD_DSP_MULTIBAND_EQ_E_Q,
+  FMOD_DSP_MULTIBAND_EQ_E_GAIN
+} FMOD_DSP_MULTIBAND_EQ;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_A_FILTER</I></P>
+<P class=indent>(Type:int)   - Band A: <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE</A> used to interpret the behavior of the remaining parameters. Default = <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_LOWPASS_12DB</A> </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_A_FREQUENCY</I></P>
+<P class=indent>(Type:float) - Band A: Significant frequency in Hz, cutoff [low/high pass, low/high shelf], center [notch, peaking, band-pass], phase transition point [all-pass]. 20 to 22000. Default = 8000. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_A_Q</I></P>
+<P class=indent>(Type:float) - Band A: Quality factor, resonance [low/high pass], bandwidth [notch, peaking, band-pass], phase transition sharpness [all-pass], unused [low/high shelf]. 0.1 to 10.0. Default = 0.707. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_A_GAIN</I></P>
+<P class=indent>(Type:float) - Band A: Boost or attenuation in dB [peaking, high/low shelf only]. -30 to 30. Default = 0. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_B_FILTER</I></P>
+<P class=indent>(Type:int)   - Band B: See Band A. Default = <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_DISABLED</A> </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_B_FREQUENCY</I></P>
+<P class=indent>(Type:float) - Band B: See Band A </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_B_Q</I></P>
+<P class=indent>(Type:float) - Band B: See Band A </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_B_GAIN</I></P>
+<P class=indent>(Type:float) - Band B: See Band A </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_C_FILTER</I></P>
+<P class=indent>(Type:int)   - Band C: See Band A. Default = <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_DISABLED</A> </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_C_FREQUENCY</I></P>
+<P class=indent>(Type:float) - Band C: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_C_Q</I></P>
+<P class=indent>(Type:float) - Band C: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_C_GAIN</I></P>
+<P class=indent>(Type:float) - Band C: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_D_FILTER</I></P>
+<P class=indent>(Type:int)   - Band D: See Band A. Default = <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_DISABLED</A> </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_D_FREQUENCY</I></P>
+<P class=indent>(Type:float) - Band D: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_D_Q</I></P>
+<P class=indent>(Type:float) - Band D: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_D_GAIN</I></P>
+<P class=indent>(Type:float) - Band D: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_E_FILTER</I></P>
+<P class=indent>(Type:int)   - Band E: See Band A. Default = <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_DISABLED</A> </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_E_FREQUENCY</I></P>
+<P class=indent>(Type:float) - Band E: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_E_Q</I></P>
+<P class=indent>(Type:float) - Band E: See Band A. </P>
+<P class=dt><I>FMOD_DSP_MULTIBAND_EQ_E_GAIN</I></P>
+<P class=indent>(Type:float) - Band E: See Band A. </P>
+<h2>Remarks</h2><P>
+<p>Flexible five band parametric equalizer.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_SetParameterInt.html">DSP::setParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterInt.html">DSP::getParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_SetParameterFloat.html">DSP::setParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterFloat.html">DSP::getParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

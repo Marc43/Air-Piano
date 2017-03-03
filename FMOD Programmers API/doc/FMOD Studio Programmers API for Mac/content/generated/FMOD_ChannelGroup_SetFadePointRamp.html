@@ -1,0 +1,57 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>ChannelGroup::setFadePointRamp</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>ChannelGroup::setFadePointRamp</H1>
+<P>
+<p>Add a short 64 sample volume ramp to the specified time in the future using fade points.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT ChannelGroup::setFadePointRamp(
+  unsigned long long <I>dspclock</I>,
+  float <I>volume</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_ChannelGroup_SetFadePointRamp(
+  FMOD_CHANNELGROUP *<I>channelgroup</I>,
+  unsigned long long <I>dspclock</I>,
+  float <I>volume</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT ChannelGroup.setFadePointRamp(
+  ulong <i>dspclock</i>,
+  float <i>volume</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>dspclock</dt>
+<dd>DSP clock of the parent channel group when the volume will be ramped to.</dd>
+<dt>volume</dt>
+<dd>Volume level where 0 is silent and 1.0 is normal volume.  Amplification is supported.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This is a helper function that automatically ramps from the current fade volume to the newly provided volume at a specified time.  It will clear any fade points set after this time.
+Use in conjunction with <A HREF="FMOD_ChannelControl_SetDelay.html">ChannelControl::setDelay</A> stop delay, to ramp down volume before it stops.  The user would specify the same clock value for the fade ramp and stop delay.
+This can also be used as a way to provide sample accurate delayed volume changes without clicks.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_ChannelControl_SetDelay.html">ChannelControl::setDelay</A></LI>
+<LI><A HREF="FMOD_ChannelControl_RemoveFadePoints.html">ChannelControl::removeFadePoints</A></LI>
+<LI><A HREF="FMOD_ChannelControl_AddFadePoint.html">ChannelControl::addFadePoint</A></LI>
+<LI><A HREF="FMOD_ChannelControl_GetFadePoints.html">ChannelControl::getFadePoints</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,37 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_FILE_ASYNCDONE_FUNC</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_FILE_ASYNCDONE_FUNC</H1>
+<P>
+<p>Function to be called when asynchronous reading is finished.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT F_CALLBACK FMOD_FILE_ASYNCDONE_FUNC(
+  FMOD_ASYNCREADINFO *<I>info</I>,
+  FMOD_RESULT <I>result</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>info</I></P>
+<P class=indent>Pointer to <A HREF="FMOD_ASYNCREADINFO.html">FMOD_ASYNCREADINFO</A> structure.  Use this structure to get a reference for your own system, note that the read that use this structure may have already completed.</P>
+<P class=dt><I>result</I></P>
+<P class=indent>The result of the read operation to pass back to FMOD.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>FMOD file system wake up function.  Call this when the user file read is finished.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_ASYNCREADINFO.html">FMOD_ASYNCREADINFO</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

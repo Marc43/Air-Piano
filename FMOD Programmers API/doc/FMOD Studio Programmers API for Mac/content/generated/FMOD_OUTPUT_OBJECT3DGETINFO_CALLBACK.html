@@ -1,0 +1,38 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_OUTPUT_OBJECT3DGETINFO_CALLBACK</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_OUTPUT_OBJECT3DGETINFO_CALLBACK</H1>
+<P>
+<p>Called from the mixer thread to provide information about the capabilities of 3D object hardware. Called during a mix.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT F_CALLBACK FMOD_OUTPUT_OBJECT3DGETINFO_CALLBACK(
+  FMOD_OUTPUT_STATE *<I>output_state</I>,
+  int *<I>maxhardwareobjects</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>output_state</I></P>
+<P class=indent>Pointer to the plugin state.  The user can use this variable to access runtime plugin specific variables and plugin writer user data.</P>
+<P class=dt><I>maxhardwareobjects</I></P>
+<P class=indent>Maximum number of 3D objects supported by the audio API, if FMOD requires more objects than this number they will be automatically virtualized.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_OUTPUT_DESCRIPTION.html">FMOD_OUTPUT_DESCRIPTION</A></LI>
+<LI><A HREF="FMOD_OUTPUT_STATE.html">FMOD_OUTPUT_STATE</A></LI>
+<LI><A HREF="FMOD_OUTPUT_OBJECT3DALLOC_CALLBACK.html">FMOD_OUTPUT_OBJECT3DALLOC_CALLBACK</A></LI>
+<LI><A HREF="FMOD_OUTPUT_OBJECT3DFREE_CALLBACK.html">FMOD_OUTPUT_OBJECT3DFREE_CALLBACK</A></LI>
+<LI><A HREF="FMOD_OUTPUT_OBJECT3DUPDATE_CALLBACK.html">FMOD_OUTPUT_OBJECT3DUPDATE_CALLBACK</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

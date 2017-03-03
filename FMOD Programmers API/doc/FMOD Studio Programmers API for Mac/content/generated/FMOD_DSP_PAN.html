@@ -1,0 +1,106 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_PAN</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_PAN</H1>
+<P>
+<p>Parameter types for the <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_PAN</A> DSP.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_PAN_MODE,
+  FMOD_DSP_PAN_2D_STEREO_POSITION,
+  FMOD_DSP_PAN_2D_DIRECTION,
+  FMOD_DSP_PAN_2D_EXTENT,
+  FMOD_DSP_PAN_2D_ROTATION,
+  FMOD_DSP_PAN_2D_LFE_LEVEL,
+  FMOD_DSP_PAN_2D_STEREO_MODE,
+  FMOD_DSP_PAN_2D_STEREO_SEPARATION,
+  FMOD_DSP_PAN_2D_STEREO_AXIS,
+  FMOD_DSP_PAN_ENABLED_SPEAKERS,
+  FMOD_DSP_PAN_3D_POSITION,
+  FMOD_DSP_PAN_3D_ROLLOFF,
+  FMOD_DSP_PAN_3D_MIN_DISTANCE,
+  FMOD_DSP_PAN_3D_MAX_DISTANCE,
+  FMOD_DSP_PAN_3D_EXTENT_MODE,
+  FMOD_DSP_PAN_3D_SOUND_SIZE,
+  FMOD_DSP_PAN_3D_MIN_EXTENT,
+  FMOD_DSP_PAN_3D_PAN_BLEND,
+  FMOD_DSP_PAN_LFE_UPMIX_ENABLED,
+  FMOD_DSP_PAN_OVERALL_GAIN,
+  FMOD_DSP_PAN_SURROUND_SPEAKER_MODE
+} FMOD_DSP_PAN;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_PAN_MODE</I></P>
+<P class=indent>(Type:int)   - Panner mode.               <A HREF="FMOD_DSP_PAN_MODE_TYPE.html">FMOD_DSP_PAN_MODE_MONO</A> for mono down-mix, <A HREF="FMOD_DSP_PAN_MODE_TYPE.html">FMOD_DSP_PAN_MODE_STEREO</A> for stereo panning or <A HREF="FMOD_DSP_PAN_MODE_TYPE.html">FMOD_DSP_PAN_MODE_SURROUND</A> for surround panning.  Default = <A HREF="FMOD_DSP_PAN_MODE_TYPE.html">FMOD_DSP_PAN_MODE_SURROUND</A> </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_STEREO_POSITION</I></P>
+<P class=indent>(Type:float) - 2D Stereo pan position.    -100.0 to 100.0.  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_DIRECTION</I></P>
+<P class=indent>(Type:float) - 2D Surround pan direction. Direction from center point of panning circle. -180.0 (degrees) to 180.0 (degrees).  0 = front center, -180 or +180 = rear speakers center point. Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_EXTENT</I></P>
+<P class=indent>(Type:float) - 2D Surround pan extent.    Distance from center point of panning circle.  0.0 (degrees) to 360.0 (degrees).  Default = 360.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_ROTATION</I></P>
+<P class=indent>(Type:float) - 2D Surround pan rotation.  -180.0 (degrees) to 180.0 (degrees).  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_LFE_LEVEL</I></P>
+<P class=indent>(Type:float) - 2D Surround pan LFE level. 2D LFE level in dB.  -80.0 (db) to 20.0 (db).  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_STEREO_MODE</I></P>
+<P class=indent>(Type:int)   - Stereo-To-Surround Mode.   <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISTRIBUTED</A> to <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISCRETE</A>.  Default = <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISCRETE</A>.</P>
+<P class=dt><I>FMOD_DSP_PAN_2D_STEREO_SEPARATION</I></P>
+<P class=indent>(Type:float) - Stereo-To-Surround Stereo  For <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISCRETE</A> mode.  Separation/width of L/R parts of stereo sound. -180.0 (degrees) to +180.0 (degrees).  Default = 60.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_2D_STEREO_AXIS</I></P>
+<P class=indent>(Type:float) - Stereo-To-Surround Stereo  For <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISCRETE</A> mode.  Axis/rotation of L/R parts of stereo sound. -180.0 (degrees) to +180.0 (degrees).  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_ENABLED_SPEAKERS</I></P>
+<P class=indent>(Type:int)   - Speakers Enabled.          Bitmask for each speaker from 0 to 32 to be considered by panner.  Use to disable speakers from being panned to.  0 to 0xFFF.  Default = 0xFFF (All on).  </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_POSITION</I></P>
+<P class=indent>(Type:data)  - 3D Position.               Data of type <A HREF="FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.html">FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI</A>.  See remarks on what to fill out. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_ROLLOFF</I></P>
+<P class=indent>(Type:int)   - 3D Rolloff.                <A HREF="FMOD_DSP_PAN_3D_ROLLOFF_TYPE.html">FMOD_DSP_PAN_3D_ROLLOFF_LINEARSQUARED</A> to <A HREF="FMOD_DSP_PAN_3D_ROLLOFF_TYPE.html">FMOD_DSP_PAN_3D_ROLLOFF_CUSTOM</A>.  Default = <A HREF="FMOD_DSP_PAN_3D_ROLLOFF_TYPE.html">FMOD_DSP_PAN_3D_ROLLOFF_LINEARSQUARED</A>. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_MIN_DISTANCE</I></P>
+<P class=indent>(Type:float) - 3D Min Distance.           0.0 to 1e+18f.  Default = 1.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_MAX_DISTANCE</I></P>
+<P class=indent>(Type:float) - 3D Max Distance.           0.0 to 1e+18f.  Default = 20.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_EXTENT_MODE</I></P>
+<P class=indent>(Type:int)   - 3D Extent Mode.            <A HREF="FMOD_DSP_PAN_3D_EXTENT_MODE_TYPE.html">FMOD_DSP_PAN_3D_EXTENT_MODE_AUTO</A> to <A HREF="FMOD_DSP_PAN_3D_EXTENT_MODE_TYPE.html">FMOD_DSP_PAN_3D_EXTENT_MODE_OFF</A>.  Default = <A HREF="FMOD_DSP_PAN_3D_EXTENT_MODE_TYPE.html">FMOD_DSP_PAN_3D_EXTENT_MODE_AUTO</A>. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_SOUND_SIZE</I></P>
+<P class=indent>(Type:float) - 3D Sound Size.             0.0 to 1e+18f.  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_MIN_EXTENT</I></P>
+<P class=indent>(Type:float) - 3D Min Extent.             0.0 (degrees) to 360.0 (degrees).  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_3D_PAN_BLEND</I></P>
+<P class=indent>(Type:float) - 3D Pan Blend.              0.0 (fully 2D) to 1.0 (fully 3D).  Default = 0.0. </P>
+<P class=dt><I>FMOD_DSP_PAN_LFE_UPMIX_ENABLED</I></P>
+<P class=indent>(Type:int)   - LFE Upmix Enabled.         Determines whether non-LFE source channels should mix to the LFE or leave it alone.  0 (off) to 1 (on).  Default = 0 (off). </P>
+<P class=dt><I>FMOD_DSP_PAN_OVERALL_GAIN</I></P>
+<P class=indent>(Type:data)  - Overall gain.              For information only, not set by user.  Data of type <A HREF="FMOD_DSP_PARAMETER_DATA_TYPE.html">FMOD_DSP_PARAMETER_DATA_TYPE_OVERALLGAIN</A> to provide to FMOD, to allow FMOD to know the DSP is scaling the signal for virtualization purposes. </P>
+<P class=dt><I>FMOD_DSP_PAN_SURROUND_SPEAKER_MODE</I></P>
+<P class=indent>(Type:int)   - Surround speaker mode.     Target speaker mode for surround panning.  Default = <A HREF="FMOD_SPEAKERMODE.html">FMOD_SPEAKERMODE_DEFAULT</A>. </P>
+<h2>Remarks</h2><P>
+<p><A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_3D_PAN_BLEND</A> controls the percentage of the effect supplied by <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_DIRECTION</A> and <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_EXTENT</A>.</p>
+
+<p>For <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_3D_POSITION</A>, the following members in the <A HREF="FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.html">FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI</A> struct should be non zero.
+- numlisteners                   - This is typically 1, can be up to 8.  Typically more than 1 is only used for split screen purposes.  The FMOD Panner will average angles and produce the best compromise for panning and attenuation.
+- relative[listenernum].position - This is the delta between the listener position and the sound position.  Typically the listener position is subtracted from the sound position.
+- relative[listenernum].forward  - This is the sound's forward vector.  Optional, set to 0,0,1 if not needed.  This is only relevant for more than mono sounds in 3D, that are spread amongst the destination speakers at the time of panning.
+                                   If the sound rotates then the L/R part of a stereo sound will rotate amongst its destination speakers.
+                                   If the sound has moved and pinpointed into a single speaker, rotation of the sound will have no effect as at that point the channels are collapsed into a single point.</p>
+
+<p>For <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_STEREO_MODE</A>, when it is set to <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISCRETE</A>, only <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_STEREO_SEPARATION</A> and <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_STEREO_AXIS</A> are used.
+When it is set to <A HREF="FMOD_DSP_PAN_2D_STEREO_MODE_TYPE.html">FMOD_DSP_PAN_2D_STEREO_MODE_DISTRIBUTED</A>, then standard <A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_DIRECTION</A>/<A HREF="FMOD_DSP_PAN.html">FMOD_DSP_PAN_2D_EXTENT</A> parameters are used.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_SetParameterFloat.html">DSP::setParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterFloat.html">DSP::getParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_SetParameterInt.html">DSP::setParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterInt.html">DSP::getParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_SetParameterData.html">DSP::setParameterData</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterData.html">DSP::getParameterData</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

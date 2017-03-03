@@ -1,0 +1,52 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_PARAMEQ</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_PARAMEQ</H1>
+<P>
+<p>Parameter types for the <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_PARAMEQ</A> filter.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_PARAMEQ_CENTER,
+  FMOD_DSP_PARAMEQ_BANDWIDTH,
+  FMOD_DSP_PARAMEQ_GAIN
+} FMOD_DSP_PARAMEQ;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_PARAMEQ_CENTER</I></P>
+<P class=indent>(Type:float) - Frequency center.  20.0 to 22000.0.  Default = 8000.0. </P>
+<P class=dt><I>FMOD_DSP_PARAMEQ_BANDWIDTH</I></P>
+<P class=indent>(Type:float) - Octave range around the center frequency to filter.  0.2 to 5.0.  Default = 1.0. </P>
+<P class=dt><I>FMOD_DSP_PARAMEQ_GAIN</I></P>
+<P class=indent>(Type:float) - Frequency Gain in dB.  -30 to 30.  Default = 0.  </P>
+<h2>Remarks</h2><P>
+<p>Deprecated and will be removed in a future release, to emulate with <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_MULTIBAND_EQ</A>:</p>
+
+<pre><code>// Configure a single band (band A) as a peaking EQ (all other bands default to off).
+// Center frequency can be used as with the old effect.
+// Bandwidth can be applied by setting the 'Q' value of the new effect.
+// Gain at the center frequency can be used the same as with the old effect.
+<A HREF="FMOD_DSP_SetParameterInt.html">FMOD_DSP_SetParameterInt</A>(multiband, <A HREF="FMOD_DSP_MULTIBAND_EQ.html">FMOD_DSP_MULTIBAND_EQ_A_FILTER</A>, <A HREF="FMOD_DSP_MULTIBAND_EQ_FILTER_TYPE.html">FMOD_DSP_MULTIBAND_EQ_FILTER_PEAKING</A>);
+<A HREF="FMOD_DSP_SetParameterFloat.html">FMOD_DSP_SetParameterFloat</A>(multiband, <A HREF="FMOD_DSP_MULTIBAND_EQ.html">FMOD_DSP_MULTIBAND_EQ_A_FREQUENCY</A>, center);
+<A HREF="FMOD_DSP_SetParameterFloat.html">FMOD_DSP_SetParameterFloat</A>(multiband, <A HREF="FMOD_DSP_MULTIBAND_EQ.html">FMOD_DSP_MULTIBAND_EQ_A_Q</A>, bandwidth);
+<A HREF="FMOD_DSP_SetParameterFloat.html">FMOD_DSP_SetParameterFloat</A>(multiband, <A HREF="FMOD_DSP_MULTIBAND_EQ.html">FMOD_DSP_MULTIBAND_EQ_A_GAIN</A>, gain);
+</code></pre>
+
+<p>Parametric EQ is a single band peaking EQ filter that attenuates or amplifies a selected frequency and its neighbouring frequencies.</p>
+
+<p>When a frequency has its gain set to 1.0, the sound will be unaffected and represents the original signal exactly.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_SetParameterFloat.html">DSP::setParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterFloat.html">DSP::getParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

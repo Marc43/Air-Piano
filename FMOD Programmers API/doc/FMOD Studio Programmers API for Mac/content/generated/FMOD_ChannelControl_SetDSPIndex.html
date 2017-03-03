@@ -1,0 +1,42 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>ChannelControl::setDSPIndex</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>ChannelControl::setDSPIndex</H1>
+<P>
+<p>Moves the position in the DSP chain of a specified DSP unit.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT ChannelControl::setDSPIndex(
+  DSP *<I>dsp</I>,
+  int <I>index</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>dsp</I></P>
+<P class=indent>Pointer to a DSP unit that exists in the DSP chain.</P>
+<P class=dt><I>index</I></P>
+<P class=indent>Offset in the DSP chain to move the DSP to, see <A HREF="FMOD_CHANNELCONTROL_DSP_INDEX.html">FMOD_CHANNELCONTROL_DSP_INDEX</A> for special named offsets.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function is useful for reordering DSP units inside a Channel or ChannelGroup so that processing can happen in the desired order.</p>
+
+<p>You can verify the order of the DSP chain using iteration via <A HREF="FMOD_ChannelControl_GetNumDSPs.html">ChannelControl::getNumDSPs</A> and <A HREF="FMOD_ChannelControl_GetDSP.html">ChannelControl::getDSP</A> or with the FMOD Profiler tool.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_ChannelControl_GetDSPIndex.html">ChannelControl::getDSPIndex</A></LI>
+<LI><A HREF="FMOD_ChannelControl_GetNumDSPs.html">ChannelControl::getNumDSPs</A></LI>
+<LI><A HREF="FMOD_ChannelControl_GetDSP.html">ChannelControl::getDSP</A></LI>
+<LI><A HREF="FMOD_CHANNELCONTROL_DSP_INDEX.html">FMOD_CHANNELCONTROL_DSP_INDEX</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

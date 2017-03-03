@@ -1,0 +1,51 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_OUTPUT_OBJECT3DINFO</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_OUTPUT_OBJECT3DINFO</H1>
+<P>
+<p>This structure is passed to the plugin via <A HREF="FMOD_OUTPUT_OBJECT3DUPDATE_CALLBACK.html">FMOD_OUTPUT_OBJECT3DUPDATE_CALLBACK</A>, so that whatever object based panning solution available can position it in the speakers correctly.
+Object based panning is a 3D panning solution that sends a mono only signal to a hardware device, such as Dolby Atmos or other similar panning solutions.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  float *<I>buffer</I>;
+  unsigned int <I>bufferlength</I>;
+  FMOD_VECTOR <I>position</I>;
+  float <I>gain</I>;
+  float <I>spread</I>;
+  float <I>priority</I>;
+} FMOD_OUTPUT_OBJECT3DINFO;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>buffer</I></P>
+<P class=indent>[r] Mono PCM floating point buffer. This buffer needs to be scaled by the gain value to get distance attenuation.  </P>
+<P class=dt><I>bufferlength</I></P>
+<P class=indent>[r] Length in PCM samples of buffer. </P>
+<P class=dt><I>position</I></P>
+<P class=indent>[r] Vector relative between object and listener. </P>
+<P class=dt><I>gain</I></P>
+<P class=indent>[r] 0.0 to 1.0 - 1 = 'buffer' is not attenuated, 0 = 'buffer' is fully attenuated. </P>
+<P class=dt><I>spread</I></P>
+<P class=indent>[r] 0 - 360 degrees.  0 = point source, 360 = sound is spread around all speakers </P>
+<P class=dt><I>priority</I></P>
+<P class=indent>[r] 0.0 to 1.0 - 0 = most important, 1 = least important. Based on height and distance (height is more important). </P>
+<h2>Remarks</h2><P>
+<p>FMOD does not attenuate the buffer, but provides a 'gain' parameter that the user must use to scale the buffer by.  Rather than pre-attenuating the buffer, the plugin developer
+can access untouched data for other purposes, like reverb sending for example.
+The 'gain' parameter is based on the user's 3D custom rolloff model.</p>
+
+<p>Members marked with [r] mean read only for the developer, read/write for the FMOD system.
+Members marked with [w] mean read/write for the developer, read only for the FMOD system.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_OUTPUT_OBJECT3DUPDATE_CALLBACK.html">FMOD_OUTPUT_OBJECT3DUPDATE_CALLBACK</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

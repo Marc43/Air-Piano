@@ -1,0 +1,52 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_SOUND_FORMAT</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_SOUND_FORMAT</H1>
+<P>
+<p>These definitions describe the native format of the hardware or software buffer that will be used.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_SOUND_FORMAT_NONE,
+  FMOD_SOUND_FORMAT_PCM8,
+  FMOD_SOUND_FORMAT_PCM16,
+  FMOD_SOUND_FORMAT_PCM24,
+  FMOD_SOUND_FORMAT_PCM32,
+  FMOD_SOUND_FORMAT_PCMFLOAT,
+  FMOD_SOUND_FORMAT_BITSTREAM,
+  FMOD_SOUND_FORMAT_MAX
+} FMOD_SOUND_FORMAT;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_SOUND_FORMAT_NONE</I></P>
+<P class=indent>Unitialized / unknown. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_PCM8</I></P>
+<P class=indent>8bit integer PCM data. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_PCM16</I></P>
+<P class=indent>16bit integer PCM data. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_PCM24</I></P>
+<P class=indent>24bit integer PCM data. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_PCM32</I></P>
+<P class=indent>32bit integer PCM data. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_PCMFLOAT</I></P>
+<P class=indent>32bit floating point PCM data. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_BITSTREAM</I></P>
+<P class=indent>Sound data is in its native compressed format. </P>
+<P class=dt><I>FMOD_SOUND_FORMAT_MAX</I></P>
+<P class=indent>Maximum number of sound formats supported. </P>
+<h2>Remarks</h2><P>
+<p>This is the format the native hardware or software buffer will be or is created in.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_System_CreateSound.html">System::createSound</A></LI>
+<LI><A HREF="FMOD_Sound_GetFormat.html">Sound::getFormat</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

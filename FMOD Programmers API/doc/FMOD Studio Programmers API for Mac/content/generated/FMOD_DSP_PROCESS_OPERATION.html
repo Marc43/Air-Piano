@@ -1,0 +1,42 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_PROCESS_OPERATION</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_PROCESS_OPERATION</H1>
+<P>
+<p>Operation type for <A HREF="FMOD_DSP_PROCESS_CALLBACK.html">FMOD_DSP_PROCESS_CALLBACK</A>.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_PROCESS_PERFORM,
+  FMOD_DSP_PROCESS_QUERY
+} FMOD_DSP_PROCESS_OPERATION;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_PROCESS_PERFORM</I></P>
+<P class=indent>Process the incoming audio in 'inbufferarray' and output to 'outbufferarray'. </P>
+<P class=dt><I>FMOD_DSP_PROCESS_QUERY</I></P>
+<P class=indent>The DSP is being queried for the expected output format and whether it needs to process audio or should be bypassed.  The function should return <A HREF="FMOD_RESULT.html">FMOD_OK</A>, or <A HREF="FMOD_RESULT.html">FMOD_ERR_DSP_DONTPROCESS</A> or <A HREF="FMOD_RESULT.html">FMOD_ERR_DSP_SILENCE</A> if audio can pass through unprocessed. See remarks for more.  If audio is to be processed, 'outbufferarray' must be filled with the expected output format, channel count and mask. </P>
+<h2>Remarks</h2><P>
+<p>A process callback will be called twice per mix for a DSP unit.  Once with the <A HREF="FMOD_DSP_PROCESS_OPERATION.html">FMOD_DSP_PROCESS_QUERY</A> command, then conditionally, <A HREF="FMOD_DSP_PROCESS_OPERATION.html">FMOD_DSP_PROCESS_PERFORM</A>.<br>
+<A HREF="FMOD_DSP_PROCESS_OPERATION.html">FMOD_DSP_PROCESS_QUERY</A> is to be handled only by filling out the outputarray information, and returning a relevant return code.<br>
+It should not really do any logic besides checking and returning one of the following codes:<br>
+- <A HREF="FMOD_RESULT.html">FMOD_OK</A> - Meaning yes, it should execute the dsp process function with <A HREF="FMOD_DSP_PROCESS_OPERATION.html">FMOD_DSP_PROCESS_PERFORM</A><br>
+- <A HREF="FMOD_RESULT.html">FMOD_ERR_DSP_DONTPROCESS</A> - Meaning no, it should skip the process function and not call it with <A HREF="FMOD_DSP_PROCESS_OPERATION.html">FMOD_DSP_PROCESS_PERFORM</A>.<br>
+- <A HREF="FMOD_RESULT.html">FMOD_ERR_DSP_SILENCE</A> - Meaning no, it should skip the process function and not call it with <A HREF="FMOD_DSP_PROCESS_OPERATION.html">FMOD_DSP_PROCESS_PERFORM</A>, AND, tell the signal chain to follow that it is now idle, so that no more processing happens down the chain.<br>
+If audio is to be processed, 'outbufferarray' must be filled with the expected output format, channel count and mask.  Mask can be 0.<br>
+<br>
+FMOD_DSP_PROCESS_PROCESS  is to be handled by reading the data from the input, processing it, and writing it to the output.  Always write to the output buffer and fill it fully to avoid unpredictable audio output.<br>
+Always return <A HREF="FMOD_RESULT.html">FMOD_OK</A>, the return value is ignored from the process stage.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_DESCRIPTION.html">FMOD_DSP_DESCRIPTION</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

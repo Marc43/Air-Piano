@@ -1,0 +1,55 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DEBUG_FLAGS</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DEBUG_FLAGS</H1>
+<P>
+<p>Specify the requested information to be output when using the logging version of FMOD.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>#define FMOD_DEBUG_LEVEL_NONE 0x00000000
+#define FMOD_DEBUG_LEVEL_ERROR 0x00000001
+#define FMOD_DEBUG_LEVEL_WARNING 0x00000002
+#define FMOD_DEBUG_LEVEL_LOG 0x00000004
+#define FMOD_DEBUG_TYPE_MEMORY 0x00000100
+#define FMOD_DEBUG_TYPE_FILE 0x00000200
+#define FMOD_DEBUG_TYPE_CODEC 0x00000400
+#define FMOD_DEBUG_TYPE_TRACE 0x00000800
+#define FMOD_DEBUG_DISPLAY_TIMESTAMPS 0x00010000
+#define FMOD_DEBUG_DISPLAY_LINENUMBERS 0x00020000
+#define FMOD_DEBUG_DISPLAY_THREAD 0x00040000
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DEBUG_LEVEL_NONE</I></P>
+<P class=indent>Disable all messages </P>
+<P class=dt><I>FMOD_DEBUG_LEVEL_ERROR</I></P>
+<P class=indent>Enable only error messages. </P>
+<P class=dt><I>FMOD_DEBUG_LEVEL_WARNING</I></P>
+<P class=indent>Enable warning and error messages. </P>
+<P class=dt><I>FMOD_DEBUG_LEVEL_LOG</I></P>
+<P class=indent>Enable informational, warning and error messages (default). </P>
+<P class=dt><I>FMOD_DEBUG_TYPE_MEMORY</I></P>
+<P class=indent>Verbose logging for memory operations, only use this if you are debugging a memory related issue. </P>
+<P class=dt><I>FMOD_DEBUG_TYPE_FILE</I></P>
+<P class=indent>Verbose logging for file access, only use this if you are debugging a file related issue. </P>
+<P class=dt><I>FMOD_DEBUG_TYPE_CODEC</I></P>
+<P class=indent>Verbose logging for codec initialization, only use this if you are debugging a codec related issue. </P>
+<P class=dt><I>FMOD_DEBUG_TYPE_TRACE</I></P>
+<P class=indent>Verbose logging for internal errors, use this for tracking the origin of error codes. </P>
+<P class=dt><I>FMOD_DEBUG_DISPLAY_TIMESTAMPS</I></P>
+<P class=indent>Display the time stamp of the log message in milliseconds. </P>
+<P class=dt><I>FMOD_DEBUG_DISPLAY_LINENUMBERS</I></P>
+<P class=indent>Display the source code file and line number for where the message originated. </P>
+<P class=dt><I>FMOD_DEBUG_DISPLAY_THREAD</I></P>
+<P class=indent>Display the thread ID of the calling function that generated the message. </P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Debug_Initialize.html">FMOD_Debug_Initialize</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

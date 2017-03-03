@@ -1,0 +1,67 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::System::loadBankCustom</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::System::loadBankCustom</H1>
+<P>
+<p>Loads a Studio event bank using custom read callbacks.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::System::loadBankCustom(
+  const FMOD_STUDIO_BANK_INFO *<I>info</I>,
+  FMOD_STUDIO_LOAD_BANK_FLAGS <I>flags</I>,
+  Studio::Bank **<I>bank</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_System_LoadBankCustom(
+  FMOD_STUDIO_SYSTEM *<I>system</I>,
+  const FMOD_STUDIO_BANK_INFO *<I>info</I>,
+  FMOD_STUDIO_LOAD_BANK_FLAGS <I>flags</I>,
+  FMOD_STUDIO_BANK **<I>bank</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.System.loadBankCustom(
+  BANK_INFO <i>info</i>,
+  LOAD_BANK_FLAGS <i>flags</i>,
+  out Bank <i>bank</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>info</dt>
+<dd>Information for loading the bank.</dd>
+<dt>flags</dt>
+<dd>Flags to control bank loading.</dd>
+<dt>bank</dt>
+<dd>Address of a variable to receive the Bank object.  Optional. Specify 0 or NULL to ignore.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>By default this function will block until the file load finishes, and then return the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> indicating
+the result.  If there was a file error for blocking bank loads, then the bank variable will be returned as NULL.</p>
+
+<p>Using the <A HREF="FMOD_STUDIO_LOAD_BANK_FLAGS.html">FMOD_STUDIO_LOAD_BANK_NONBLOCKING</A> flag will cause the bank to be loaded asynchronously.  In that case
+it will always return <A HREF="FMOD_RESULT.html">FMOD_OK</A> and a valid bank handle.  File errors for asynchronous banks can be detected by calling
+<A HREF="FMOD_Studio_Bank_GetLoadingState.html">Studio::Bank::getLoadingState</A>.  Failed asynchronous banks should be released by calling <A HREF="FMOD_Studio_Bank_Unload.html">Studio::Bank::unload</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_STUDIO_BANK_INFO.html">FMOD_STUDIO_BANK_INFO</A></LI>
+<LI><A HREF="FMOD_STUDIO_LOAD_BANK_FLAGS.html">FMOD_STUDIO_LOAD_BANK_FLAGS</A></LI>
+<LI><A HREF="FMOD_Studio_System_LoadBankFile.html">Studio::System::loadBankFile</A></LI>
+<LI><A HREF="FMOD_Studio_System_LoadBankMemory.html">Studio::System::loadBankMemory</A></LI>
+<LI><A HREF="FMOD_Studio_Bank_GetLoadingState.html">Studio::Bank::getLoadingState</A></LI>
+<LI><A HREF="FMOD_Studio_Bank_Unload.html">Studio::Bank::unload</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,49 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::Bus::setMute</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::Bus::setMute</H1>
+<P>
+<p>Sets the mute state of the bus.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::Bus::setMute(
+  bool <I>mute</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_Bus_SetMute(
+  FMOD_STUDIO_BUS *<I>bus</I>,
+  FMOD_BOOL <I>mute</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.Bus.setMute(
+  bool <i>mute</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>mute</dt>
+<dd>The desired mute state. true = mute, false = unmute.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function allows muting/unmuting of all audio routed into the bus.
+If mute is true, it overrides the mute state of all objects routed into this bus.
+If mute is false, objects routed into this bus obey their own mute state.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_Bus_GetMute.html">Studio::Bus::getMute</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,65 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>System::getDefaultMixMatrix</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>System::getDefaultMixMatrix</H1>
+<P>
+<p>Gets the default matrix used to convert from one speaker mode to another.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT System::getDefaultMixMatrix(
+  FMOD_SPEAKERMODE <I>sourcespeakermode</I>,
+  FMOD_SPEAKERMODE <I>targetspeakermode</I>,
+  float *<I>matrix</I>,
+  int <I>matrixhop</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_System_GetDefaultMixMatrix(
+  FMOD_SYSTEM *<I>system</I>,
+  FMOD_SPEAKERMODE <I>sourcespeakermode</I>,
+  FMOD_SPEAKERMODE <I>targetspeakermode</I>,
+  float *<I>matrix</I>,
+  int <I>matrixhop</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT System.getDefaultMixMatrix(
+  SPEAKERMODE <i>sourcespeakermode</i>,
+  SPEAKERMODE <i>targetspeakermode</i>,
+  float[] <i>matrix</i>,
+  int <i>matrixhop</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>sourcespeakermode</dt>
+<dd>The speaker mode being converted from.</dd>
+<dt>targetspeakermode</dt>
+<dd>The speaker mode being converted to.</dd>
+<dt>matrix</dt>
+<dd>The output matrix.  Its minumum size in floats must be the number of source channels multiplied by the number of target channels.  Source and target channels cannot exceed <A HREF="FMOD_MAX_CHANNEL_WIDTH.html">FMOD_MAX_CHANNEL_WIDTH</A>.</dd>
+<dt>matrixhop</dt>
+<dd>The number of source channels in the matrix.  Optional.  If this is 0, the number of source channels will be derived from 'sourcespeakermode'.  Maximum of <A HREF="FMOD_MAX_CHANNEL_WIDTH.html">FMOD_MAX_CHANNEL_WIDTH</A>.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>The gain for source channel 's' to target channel 't' is matrix[t * matrixhop + s].</p>
+
+<p>If 'sourcespeakermode' or 'targetspeakermode' is <A HREF="FMOD_SPEAKERMODE.html">FMOD_SPEAKERMODE_RAW</A>, this function will return <A HREF="FMOD_RESULT.html">FMOD_ERR_INVALID_PARAM</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_System_GetSpeakerModeChannels.html">System::getSpeakerModeChannels</A></LI>
+<LI><A HREF="FMOD_MAX_CHANNEL_WIDTH.html">FMOD_MAX_CHANNEL_WIDTH</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

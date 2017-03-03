@@ -1,0 +1,36 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES</H1>
+<P>
+<p>This structure holds information about a DSP plugin instance.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  const char *<I>name</I>;
+  FMOD_DSP *<I>dsp</I>;
+} FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>name</I></P>
+<P class=indent>The name of the plugin effect or sound (set in FMOD Studio). </P>
+<P class=dt><I>dsp</I></P>
+<P class=indent>The DSP plugin instance. This can be cast to FMOD::DSP* type. </P>
+<h2>Remarks</h2><P>
+<p>This data is passed to the event callback function when type is <A HREF="FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_PLUGIN_CREATED</A>
+or <A HREF="FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_PLUGIN_DESTROYED</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_STUDIO_EVENT_CALLBACK.html">FMOD_STUDIO_EVENT_CALLBACK</A></LI>
+<LI><A HREF="FMOD_Studio_EventDescription_SetCallback.html">Studio::EventDescription::setCallback</A></LI>
+<LI><A HREF="FMOD_Studio_EventInstance_SetCallback.html">Studio::EventInstance::setCallback</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

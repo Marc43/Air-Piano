@@ -1,0 +1,44 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::EventDescription::getSoundSize</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::EventDescription::getSoundSize</H1>
+<P>
+<p>Retrieves the sound size for 3D panning of the event.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::EventDescription::getSoundSize(
+  float *<I>size</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_EventDescription_GetSoundSize(
+  FMOD_STUDIO_EVENTDESCRIPTION *<I>eventdescription</I>,
+  float *<I>size</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.EventDescription.getSoundSize(
+  out float <i>size</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>size</dt>
+<dd>Address of a variable to receive the sound size.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This is the largest Sound Size value out of all of the event's
+3D Panners, or zero if there are no 3D Panners.</p>
+</P>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

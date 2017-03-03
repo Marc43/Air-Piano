@@ -1,0 +1,64 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::EventInstance::getParameterValue</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::EventInstance::getParameterValue</H1>
+<P>
+<p>Gets a parameter instance value by name.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::EventInstance::getParameterValue(
+  const char *<I>name</I>,
+  float *<I>value</I>,
+  float *<I>finalvalue</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_EventInstance_GetParameterValue(
+  FMOD_STUDIO_EVENTINSTANCE *<I>eventinstance</I>,
+  const char *<I>name</I>,
+  float *<I>value</I>,
+  float *<I>finalvalue</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.EventInstance.getParameterValue(
+  string <i>name</i>,
+  out float <i>value</i>,
+  out float <i>finalvalue</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>name</dt>
+<dd>Name of the parameter (case-insensitive).</dd>
+<dt>value</dt>
+<dd>Address of a variable to receive the value as set from the public API. Specify 0 or NULL to ignore.</dd>
+<dt>finalvalue</dt>
+<dd>Address of a variable to receive the final combined value. Specify 0 or NULL to ignore.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function finds the parameter by name and then gets the value.  This function can return both the user
+side value set from the last call to <A HREF="FMOD_Studio_EventInstance_SetParameterValue.html">Studio::EventInstance::setParameterValue</A>, as well as the final
+combined value which may be the result of automation, modulation, and smoothing.   Automatic parameters
+always return the user value as 0, since they can never be set from the public API.</p>
+
+<p><strong>NOTE</strong>: The final value will not change immediately.  It will change during subsequent asynchronous updates.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_EventInstance_GetParameterValue.html">Studio::EventInstance::getParameterValue</A></LI>
+<LI><A HREF="FMOD_Studio_EventInstance_SetParameterValue.html">Studio::EventInstance::setParameterValue</A></LI>
+<LI><A HREF="FMOD_Studio_EventInstance_GetParameterValueByIndex.html">Studio::EventInstance::getParameterValueByIndex</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

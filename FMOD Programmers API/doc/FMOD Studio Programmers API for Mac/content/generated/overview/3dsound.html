@@ -1,0 +1,149 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>3D SOUND</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>3D SOUND</h1>
+
+<h2>Introduction</h2>
+
+<p>This section will introduce you to using 3D sound with FMOD Studio.  With it you can easily implement interactive 3D audio and have access to features such as 5.1 or 7.1 speaker output, and automatic attenuation, doppler and more advanced psychoacoustic 3D audio techniques.</p>
+
+<p>For information specific to FMOD Studio Events, see the <a href="3dstudio.html">Studio 3D Events</a> page.</p>
+
+<h2>Loading sounds as '3D'</h2>
+
+<p>When loading a sound or sound bank, the sound must be created with <A HREF="../FMOD_System_CreateSound.html">System::createSound</A> or <A HREF="../FMOD_System_CreateStream.html">System::createStream</A> using the <A HREF="../FMOD_MODE.html">FMOD_3D</A> flag.
+ie.</p>
+
+<pre><code>result = system-&gt;createSound("../media/drumloop.wav", <A HREF="../FMOD_MODE.html">FMOD_3D</A>, 0, &amp;sound);
+if (result != <A HREF="../FMOD_RESULT.html">FMOD_OK</A>)
+{
+    HandleError(result);
+}
+</code></pre>
+
+<p>It is generally best not to try and switch between 3D and 2D at all, if you want though, you can change the sound or channel's mode to <A HREF="../FMOD_MODE.html">FMOD_3D_HEADRELATIVE</A> at runtime which places the sound always relative to the listener, effectively sounding 2D as it will always follow the listener as the listener moves around.</p>
+
+<h2>Distance models and linear rolloff vs inverse</h2>
+
+<p><strong>Inverse</strong></p>
+
+<p>This is the default FMOD 3D distance model.  All sounds naturally attenuate (fade out) in the real world using a inverse distance attenuation.  The flag to set to this mode is <A HREF="../FMOD_MODE.html">FMOD_3D_INVERSEROLLOFF</A> but if you're loading a sound you don't need to set this because it is the default.  It is more for the purpose or resetting the mode back to the original if you set it to <A HREF="../FMOD_MODE.html">FMOD_3D_LINEARROLLOFF</A> at some later stage.</p>
+
+<p>When FMOD uses this model, <strong>'mindistance'</strong> of a sound / channel, is the distance that the sound <em>starts</em> to attenuate from.  This can simulate the sound being smaller or larger.  By default, for every doubling of this mindistance, the sound volume will halve.  This rolloff rate can be changed with <A HREF="../FMOD_System_Set3DSettings.html">System::set3DSettings</A>.</p>
+
+<p>As an example of relative sound sizes, we can compare a bee and a jumbo jet.  At only a meter or 2 away from a bee we will probably not hear it any more.  In contrast, a jet will be heard from hundreds of meters away.
+In this case we might set the bee's mindistance to 0.1 meters.  After a few meters it should fall silent.
+The jumbo jet's mindistance could be set to 50 meters.  This could take many hundreds of meters of distance between listener and sound before it falls silent.
+In this case we now have a more realistic representation of the loudness of the sound, even though each wave file has a fully normalized 16bit waveform within. (ie if you played them in 2D they would both be the same volume).</p>
+
+<p>The <strong>'maxdistance'</strong> does not affect the rate of rolloff, it simply means the distance where the sound <em>stops</em> attenuating.
+<strong>Don't set the maxdistance</strong> to a low number unless you want it to artificially stop attenuating.  This is usually not wanted.  Leave it at its default of 10000.0.</p>
+
+<p><strong>Linear and Linear Squared</strong></p>
+
+<p>These are an alternative distance model that FMOD has introduced.  It is supported by adding the <A HREF="../FMOD_MODE.html">FMOD_3D_LINEARROLLOFF</A> or FMOD_3D_LINEARSQUAREDROLLOFF flag to <A HREF="../FMOD_System_CreateSound.html">System::createSound</A> or <A HREF="../FMOD_Sound_SetMode.html">Sound::setMode</A> / <A HREF="../FMOD_Channel_SetMode.html">Channel::setMode</A>.
+This is a more fake, but usually more game programmer friendly method of attenuation.  It allows the <strong>'mindistance'</strong> and <strong>'maxdistance'</strong> settings to change the attenuation behaviour to fading linearly between the two distances.
+Effectively the mindistance is the same as the logarithmic method (ie the minimum distance before the sound starts to attenuate, otherwise it is full volume), but the maxdistance now becomes the point where the volume = 0 due to 3D distance.
+The attenuation inbetween those 2 points is linear or linear squared.</p>
+
+<h2>Some global 3D settings</h2>
+
+<p>The 3 main configurable settings in FMOD Studio that affect all 3D sounds are:
+* Doppler factor.  This is just a way to exaggerate or minimize the doppler effect.
+* Distance factor.  This allows the user to set FMOD to use units that match their own (ie centimeters, meters, feet)
+* Rolloff scale.  Affects 3d sounds that use FMOD_3D_LOGROLLOFF.  Controls how fast all sounds attenuate using this mode.</p>
+
+<p>All 3 settings can be set with <A HREF="../FMOD_System_Set3DSettings.html">System::set3DSettings</A>.  Generally the user will not want to set these.</p>
+
+<h2>Velocity and keeping it frame rate independent</h2>
+
+<p>Velocity is only required if you want doppler effects. Otherwise you can pass 0 or NULL to both <A HREF="../FMOD_System_Set3DListenerAttributes.html">System::set3DListenerAttributes</A> and <A HREF="../FMOD_Channel_Set3DAttributes.html">Channel::set3DAttributes</A> for the velocity parameter, and no doppler effect will be heard.</p>
+
+<p>This must be stressed again. It is important that the velocity passed to FMOD Studio is meters <strong>per second</strong> and not meters <strong>per frame</strong>.  Notice the difference.
+To get the correct velocity vector, use vectors from physics code etc, and don't just subtract last frames position from the current position.  This is affected by framerate.   The higher the framerate the smaller the position deltas, and therefore smaller doppler effects, which is incorrect.</p>
+
+<p>If the only way you can get the velocity is to subtract this and last frame's position vectors, then remember to time adjust them from meters per frame back up to meters per second.
+This is done simply by scaling the difference vector obtained by subtracting the 2 position vectors, by one over the frame time delta.</p>
+
+<p>Here is an example.</p>
+
+<pre><code>velx = (posx-lastposx) * 1000 / timedelta;
+velz = (posy-lastposy) * 1000 / timedelta;
+velz = (posz-lastposz) * 1000 / timedelta;
+</code></pre>
+
+<p>timedelta is the time since the last frame in milliseconds. This can be obtained with functions such as timeGetTime().
+So at 60fps, the timedelta would be 16.67ms. if the source moved 0.1 meters in this time, the actual velocity in meters per second would be:</p>
+
+<pre><code>vel = 0.1 * 1000 / 16.67 = 6 meters per second.
+</code></pre>
+
+<p>Similarly, if we only have half the framerate of 30fps, then subtracting position deltas will gives us twice the distance that it would at 60fps (so it would have moved 0.2 meters this time).</p>
+
+<pre><code>vel = 0.2 * 1000 / 33.33 = 6 meters per second.
+</code></pre>
+
+<h2>Orientation and left-handed vs right-handed coordinate systems</h2>
+
+<p>Getting the correct orientation set up is essential if you want the source to move around you in 3d space.
+FMOD Uses a left handed coordinate system by default, (+X = right, +Y = up, +Z = forwards).</p>
+
+<p>If you use a different coordinate system, then you will need to flip certain axis or even swap them around inside the call to <A HREF="../FMOD_System_Set3DListenerAttributes.html">System::set3DListenerAttributes</A> and <A HREF="../FMOD_Channel_Set3DAttributes.html">Channel::set3DAttributes</A>.</p>
+
+<p>Take the right handed coordinate system, where +X = right, +Y = up, +Z = backwards or towards you.   To convert this to FMOD coordinate system simply negate all instances of the Z coordinate for listener and sound position and velocity, as well as listener up and forward vector Z components.</p>
+
+<p>To make things easier for people using the right handed coordinate system, you can initialize FMOD Studio using <A HREF="../FMOD_INITFLAGS.html">FMOD_INIT_3D_RIGHTHANDED</A> in <A HREF="../FMOD_System_Init.html">System::init</A> and not do any conversion.  FMOD will automatically convert its internal 3D calculations to be right handed instead of left handed.</p>
+
+<h2>A typical game loop</h2>
+
+<p>3D sound and the FMOD channel management system need to be updated once per frame.
+To do this use <A HREF="../FMOD_System_Update.html">System::update</A>.</p>
+
+<p>This would be a typical example of a game audio loop.</p>
+
+<pre><code>do
+{ 
+    UpdateGame();       // here the game is updated and the sources would be moved with channel-&gt;set3DAttibutes.
+
+    system-&gt;set3DListenerAttributes(0, &amp;listener_pos, &amp;listener_vel, &amp;listener_forward, &amp;listener_up);     // update 'ears'
+
+    system-&gt;update();   // needed to update 3d engine, once per frame.
+
+} while (gamerunning);
+</code></pre>
+
+<p>Most games usually take the position,velocity and orientation from the camera's vectors and matrix. </p>
+
+<h2>Stereo and multichannel sounds can be 3D!</h2>
+
+<p>A stereo sound when played as 3d, will be split into 2 mono voices internally which are separately 3d positionable.  Multi-channel sounds are also supported, so an 8 channel sound for example will allocate 8 mono voices internally in FMOD.
+To rotate the left and right part of the stereo 3d sound in 3D space, use the <A HREF="../FMOD_Channel_Set3DSpread.html">Channel::set3DSpread</A> function.
+By default the subchannels position themselves in the same place, therefore sounding 'mono'.</p>
+
+<h2>Split screen / multiple listeners</h2>
+
+<p>In some games, there may be a split screen mode.  When it comes to audio, this means that FMOD Studio has to know about having more than 1 listener on the screen at once.
+This is easily handled via <A HREF="../FMOD_System_Set3DNumListeners.html">System::set3DNumListeners</A> and <A HREF="../FMOD_System_Set3DListenerAttributes.html">System::set3DListenerAttributes</A>.</p>
+
+<p>If you have 2 player split screen, then for each 'camera' or 'listener' simply call <A HREF="../FMOD_System_Set3DListenerAttributes.html">System::set3DListenerAttributes</A> with 0 as the listener number of the first camera, and 1 for the listener number of the second camera.
+<A HREF="../FMOD_System_Set3DNumListeners.html">System::set3DNumListeners</A> would be set to 2.</p>
+
+<p>When using the low-level, 3D channels have the following behaviour:</p>
+
+<ul>
+<li>It turns off all doppler.  This is because one listener might be going towards the sound, and another listener might be going away from the sound.  To avoid confusion, the doppler is simply turned off.</li>
+<li>All audio is mono.  If to one listener the sound should be coming out of the left speaker, and to another listener it should be coming out of the right speaker, there will be a conflict, and more confusion, so all sounds are simply panned to the middle.  This removes confusion.</li>
+<li>Each sound is played only once as it would with a single player game, saving voice and cpu resources.  This means the sound's effective audibility is determined by the closest listener to the sound.  This makes sense as the sound should be the loudest to the nearest listener.  Any listeners that are further away wouldn't have any impact on the volume at this point.</li>
+</ul>
+
+<h2>Speaker modes / output</h2>
+
+<p>To get 5.1 sound is easy.  If the sound card supports it, then any sound using <A HREF="../FMOD_MODE.html">FMOD_3D</A> will automatically position itself in a surround speaker system, and only the user has to be sure that the speaker settings in the operating system are correct so that the sound device can output the audio in 5.1 or 7.1.
+You do not need to set the speaker mode for FMOD.</p>
+
+<pre><code>.
+</code></pre>

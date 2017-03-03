@@ -1,0 +1,51 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::System::setNumListeners</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::System::setNumListeners</H1>
+<P>
+<p>Sets the number of listeners in the 3D sound scene.  This function is useful mainly for split-screen game purposes.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::System::setNumListeners(
+  int <I>numlisteners</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_System_SetNumListeners(
+  FMOD_STUDIO_SYSTEM *<I>system</I>,
+  int <I>numlisteners</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.System.setNumListeners(
+  int <i>numlisteners</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>numlisteners</dt>
+<dd>Number of listeners in the scene.  Valid values are from 1 to <A HREF="FMOD_MAX_LISTENERS.html">FMOD_MAX_LISTENERS</A> inclusive.  Default = 1.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>If the number of listeners is set to more than 1, then FMOD uses a 'closest sound to the listener' method to
+determine what should be heard.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_System_GetNumListeners.html">Studio::System::getNumListeners</A></LI>
+<LI><A HREF="FMOD_Studio_System_SetListenerAttributes.html">Studio::System::setListenerAttributes</A></LI>
+<LI><A HREF="FMOD_Studio_System_SetListenerWeight.html">Studio::System::setListenerWeight</A></LI>
+<LI><A HREF="FMOD_MAX_LISTENERS.html">FMOD_MAX_LISTENERS</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,47 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_PARAMETER_FFT</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_PARAMETER_FFT</H1>
+<P>
+<p>Structure for data parameters of type <A HREF="FMOD_DSP_PARAMETER_DATA_TYPE.html">FMOD_DSP_PARAMETER_DATA_TYPE_FFT</A>.
+A parameter of this type is declared for the <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_FFT</A> effect.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  int <I>length</I>;
+  int <I>numchannels</I>;
+  float *<I>spectrum</I>[32];
+} FMOD_DSP_PARAMETER_FFT;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>length</I></P>
+<P class=indent>[r] Number of entries in this spectrum window.   Divide this by the output rate to get the hz per entry. </P>
+<P class=dt><I>numchannels</I></P>
+<P class=indent>[r] Number of channels in spectrum. </P>
+<P class=dt><I>spectrum</I></P>
+<P class=indent>[r] Per channel spectrum arrays.  See remarks for more. </P>
+<h2>Remarks</h2><P>
+<p>Members marked with [r] mean the variable is modified by FMOD and is for reading purposes only.  Do not change this value.<br>
+Members marked with [w] mean the variable can be written to.  The user can set the value.<br>
+<br>
+Notes on the spectrum data member.  Values inside the float buffer are typically between 0 and 1.0.<br>
+Each top level array represents one PCM channel of data.<br>
+Address data as spectrum[channel][bin].  A bin is 1 fft window entry.<br>
+Only read/display half of the buffer typically for analysis as the 2nd half is usually the same data reversed due to the nature of the way FFT works.<br></p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_PARAMETER_DATA_TYPE.html">FMOD_DSP_PARAMETER_DATA_TYPE</A></LI>
+<LI><A HREF="FMOD_DSP_PARAMETER_DESC.html">FMOD_DSP_PARAMETER_DESC</A></LI>
+<LI><A HREF="FMOD_DSP_PARAMETER_DATA_TYPE.html">FMOD_DSP_PARAMETER_DATA_TYPE_FFT</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+<LI><A HREF="FMOD_DSP_FFT.html">FMOD_DSP_FFT</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

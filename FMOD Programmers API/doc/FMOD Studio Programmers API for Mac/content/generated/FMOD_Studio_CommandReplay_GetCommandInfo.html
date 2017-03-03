@@ -1,0 +1,52 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::CommandReplay::getCommandInfo</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::CommandReplay::getCommandInfo</H1>
+<P>
+<p>Retrieves information about the command at the given index.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::CommandReplay::getCommandInfo(
+  int <I>commandIndex</I>,
+  FMOD_STUDIO_COMMAND_INFO *<I>info</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_CommandReplay_GetCommandInfo(
+  FMOD_STUDIO_COMMANDREPLAY *<I>commandreplay</I>,
+  int <I>commandIndex</I>,
+  FMOD_STUDIO_COMMAND_INFO *<I>info</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.CommandReplay.getCommandInfo(
+  int <i>commandIndex</i>,
+  out COMMAND_INFO <i>info</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>commandIndex</dt>
+<dd>The index of the command.</dd>
+<dt>info</dt>
+<dd>Address of the variable to receive command info structure.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI>    <A HREF="FMOD_Studio_CommandReplay_GetCommandCount.html">Studio::CommandReplay::getCommandCount</A></LI>
+<LI>    <A HREF="FMOD_Studio_CommandReplay_GetCommandString.html">Studio::CommandReplay::getCommandString</A></LI>
+<LI>    <A HREF="FMOD_Studio_CommandReplay_GetCommandAtTime.html">Studio::CommandReplay::getCommandAtTime</A></LI>
+<LI>    <A HREF="FMOD_STUDIO_COMMAND_INFO.html">FMOD_STUDIO_COMMAND_INFO</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

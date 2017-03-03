@@ -1,0 +1,64 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>OSX Specific Starter Guide</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>OSX Specific Starter Guide</h1>
+
+<h2>SDK Version</h2>
+
+<p>FMOD is compiled using the following tools.</p>
+
+<ul>
+<li><strong>Xcode</strong> - version 7.1 targeting OS X 10.11.</li>
+</ul>
+
+<h2>Compatibility</h2>
+
+<p>FMOD supports the below architectures back to OS X 10.5. Please note that PPC is not accepted for submission to the Mac App Store and thus is no longer supported by FMOD.</p>
+
+<ul>
+<li><strong>x86</strong>    - optimized with SSE3.</li>
+<li><strong>x86_64</strong> - optimized with SSE3 (and AVX if detected at runtime).</li>
+</ul>
+
+<h2>Libraries</h2>
+
+<p><em>Each binary is universal containing the architectures from the 'Compatibility' list above.</em></p>
+
+<p>FMOD Low level library</p>
+
+<ul>
+<li><strong>/api/lowlevel/lib/libfmod.dylib</strong> - Release binary for production code.</li>
+<li><strong>/api/lowlevel/lib/libfmodL.dylib</strong> - Release binary with logging enabled for development.</li>
+</ul>
+
+<p>FMOD Studio Runtime library (used in conjunction with low level library)</p>
+
+<ul>
+<li><strong>/api/studio/lib/libfmodstudio.dylib</strong> - Release binary for production code.</li>
+<li><strong>/api/studio/lib/libfmodstudioL.dylib</strong> - Release binary with logging enabled for development.</li>
+</ul>
+
+<h2>Latency</h2>
+
+<p>The default latency introduced by FMOD for this platform is 4 blocks of 512 samples at a sample rate of 48KHz, which equates to approximately 43ms. You are free to change this using two APIs, <A HREF="../FMOD_System_SetDSPBufferSize.html">System::setDSPBufferSize</A> and <A HREF="../FMOD_System_SetSoftwareFormat.html">System::setSoftwareFormat</A> but there are some important considerations.</p>
+
+<p>All audio devices have a number of samples they prefer to operate in, on Mac this is almost always 512, which makes our default a natural fit. If you use <A HREF="../FMOD_System_SetDSPBufferSize.html">System::setDSPBufferSize</A> to reduce FMODs granularity (to 256 samples for instance), be aware the audio device will still operate at its native block of 512 samples. If you would like to reduce the block size of the audio device (to 256 samples), after you have set the FMOD granularity and initialized the System object use the follow code:</p>
+
+<pre><code>AudioUnit audioUnit;
+gSystem-&gt;getOutputHandle((void **)&amp;audioUnit);
+
+AudioDeviceID audioDeviceID;
+UInt32 audioDeviceIDSize = sizeof(audioDeviceID);
+AudioUnitGetProperty(audioUnit, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global, 0, &amp;audioDeviceID, &amp;audioDeviceIDSize);
+
+UInt32 bufferFrameSize = 256;
+AudioDeviceSetProperty(audioDeviceID, NULL, 0, FALSE, kAudioDevicePropertyBufferFrameSize, sizeof(bufferFrameSize), &amp;bufferFrameSize);
+</code></pre>
+
+<h2>Known Issues</h2>
+
+<p>No known issues, please contact <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x73;&#117;&#112;&#x70;&#x6F;&#114;&#x74;&#64;&#x66;&#x6D;&#x6F;&#100;&#x2E;&#99;o&#109;">&#x73;&#117;&#112;&#x70;&#x6F;&#114;&#x74;&#64;&#x66;&#x6D;&#x6F;&#100;&#x2E;&#99;o&#109;</a> if you discover a problem.</p>

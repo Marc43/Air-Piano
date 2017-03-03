@@ -1,0 +1,64 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>System::getNestedPlugin</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>System::getNestedPlugin</H1>
+<P>
+<p>Returns nested plugin definition for the given index.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT System::getNestedPlugin(
+  unsigned int <I>handle</I>,
+  int <I>index</I>,
+  unsigned int *<I>nestedhandle</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_System_GetNestedPlugin(
+  FMOD_SYSTEM *<I>system</I>,
+  unsigned int <I>handle</I>,
+  int <I>index</I>,
+  unsigned int *<I>nestedhandle</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT System.getNestedPlugin(
+  uint <i>handle</i>,
+  int <i>index</i>,
+  out uint <i>nestedhandle</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>handle</dt>
+<dd>Handle obtained from <A HREF="FMOD_System_LoadPlugin.html">System::loadPlugin</A>.</dd>
+<dt>index</dt>
+<dd>Index into the list of plugin definitions.</dd>
+<dt>nestedhandle</dt>
+<dd></dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function is used to iterate handles for plugins that have a list of definitions.</p>
+
+<p>For plugins consisting of a single definition, only index 0 is valid and the returned handle
+is the same as the handle passed in.</p>
+
+<p>See the DSP Plugin API Programmer Topic for more information.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_System_LoadPlugin.html">System::loadPlugin</A></LI>
+<LI><A HREF="FMOD_System_GetNumNestedPlugins.html">System::getNumNestedPlugins</A></LI>
+<LI><A HREF="FMOD_PLUGINLIST.html">FMOD_PLUGINLIST</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

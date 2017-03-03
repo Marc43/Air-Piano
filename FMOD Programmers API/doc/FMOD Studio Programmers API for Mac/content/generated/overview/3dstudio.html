@@ -1,0 +1,105 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio 3D Events</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>Studio 3D Events</h1>
+
+<h2>Introduction</h2>
+
+<p>This section will introduce you to using 3D sound with FMOD Studio events.  </p>
+
+<h2>Updating orientations</h2>
+
+<p>The programmer needs to call <A HREF="../FMOD_Studio_System_SetListenerAttributes.html">Studio::System::setListenerAttributes</A> once per frame for the listener,
+and to update 3D events with <A HREF="../FMOD_Studio_EventInstance_Set3DAttributes.html">Studio::EventInstance::set3DAttributes</A>.  It is important to update all orientations before calling <A HREF="../FMOD_Studio_System_Update.html">Studio::System::update</A>.  If some orientations are set before <A HREF="../FMOD_Studio_System_Update.html">Studio::System::update</A>
+and some are set afterwards, then some frames may end up having old positions relative to others.  This is particularly important when both the listener and the events are moving fast and together - if there
+a frame where the listener moves but the event does not it becomes very noticeable.</p>
+
+<h2>FMOD Studio 3D Panner</h2>
+
+<p>FMOD Studio supports panning events with the FMOD Studio panner on the master track.  If there is no panner, the event is considered 2D and the orientation has no effect on the event.  It is possible
+to use other sorts of panners by replacing the FMOD Studio panner with a different type, for example a third party panner.</p>
+
+<h2>FMOD Object Panner</h2>
+
+<p>The Object panner is a special type of panner that interfaces with Object based output modes such as Dolby Atmos.  These output modes accept mono signals with a 3D position and do their own panning and
+mixing to the final speaker configuration.  To use Object panners, the programmer has to specify an output mode that supports Object based panning otherwise the signal will be mixed down at the final stage
+by FMOD.</p>
+
+<p>The benefit of the Object panner is that it allows the sound designer to leverage Object based technologies.  However it does come at a cost, since the signal leaves the mix at the Object panner and does
+<em>NOT</em> receive DSP effects on the parent buses like normal panners do.  The Object panner automatically bases its volume on the combined volumes of parant buses for basic mixing, but no complex effects
+can be used.  For this reason the mix has to be set up very carefully with knowledge of the limitations of the Object panning.</p>
+
+<p>It is possible for the sound designer to use a mixture of normal 3D panned events and Object panned 3D events.  Normal events will have signal going through the mixer hierarchy, and Object based events
+will have signal that leaves the mix at the master track.  As far as the programming API goes, both sorts of events are treated exactly the same.</p>
+
+<h2>Automatic Parameters</h2>
+
+<p>FMOD Studio supports setting automations based on parameters that automatically update based on position.  For example, the sound designer could add a volume automation based on Distance, with a 2D panning
+that is automated on the Direction parameter.  The event is still considered 3D in that case, even if it has no panner on the master track.</p>
+
+<p>An event may have both a 3D panner on the master track, as well as an automation based on a Distance parameter.  As the event and listener moves, both the panner and the automation will be updated.</p>
+
+<h2>Multiple listeners</h2>
+
+<p>FMOD Studio supports multiple listeners.  Call <A HREF="../FMOD_Studio_System_SetNumListeners.html">Studio::System::setNumListeners</A> to set the number of listeners, and use <A HREF="../FMOD_Studio_System_SetListenerAttributes.html">Studio::System::setListenerAttributes</A> to set the orientations for listeners, with an index for the 
+listener.</p>
+
+<h3>Studio panning for multiple listeners</h3>
+
+<p>Consider the case of an event with three nearby listeners.  In this case, listener A is slightly closer to the event than B, and C is the furthest away, outside the max distance of the event.</p>
+
+<p>The Studio 3D panner will take listener A and B into account.  The gain will be based off the closest listener distance (in this case, the distance to listener A).  Listener B will have an effect on the panning.
+However, both A and B agree that the event is to the front, so the final pan matrix will be towards the front speakers.  Listener C has no effect on the calculation since it is out of range.</p>
+
+<p><img src="../../static/overview/3d_studio_1.png" alt="" title=""></p>
+
+<p><br></p>
+
+<p>Consider this case where listener A and B have moved and now the event is to the right of A and to the left of B.  In this case, the gain will be based of the closest listener distance (which is B), but the pan matrix 
+will have signal out of both the left and the right since both listeners have an effect on the mix.  If A moved further away then the contribution of A would diminish and to the signal would start to come more
+out of the left speakers.  If A moved further enough away, the signal would smoothly interpolate to just B having an influence on the panning.</p>
+
+<p><img src="../../static/overview/3d_studio_2.png" alt="" title=""></p>
+
+<p><br></p>
+
+<h3>Studio panning for listener weights</h3>
+
+<p>A new feature of 1.09 is the ability to set listener weights using <A HREF="../FMOD_Studio_System_SetListenerWeight.html">Studio::System::setListenerWeight</A>.  This allows listeners to fade in and out of existence, as well as to allow cross-fading of listeners to a new
+position.  In the following picture, we have 4 listeners.  Listener C is out of range so it has no influence, and listener D has 0% weighting so it has no influence either.  The remaining two listeners have
+a weight of 40% and 60%.  In this example, perhaps the camera is teleporting to a new position and the game is smoothly interpolating to a new orientation.</p>
+
+<p>The gain is a weighted average between A and B, so it is equivalent to having a distance somewhere between the two listeners.  The panning of the signal is a mixture of A and B.  A is further away and has a lower weight,
+so the biggest contribution is due to B, meaning the signal sounds mostly in the front speakers.  If you imagine panning from A to B, the signal will smoothly interpolate from the back speakers to the front and get louder
+when the weights scale from A to B.</p>
+
+<p><img src="../../static/overview/3d_studio_3.png" alt="" title=""></p>
+
+<h2>Listener Mask</h2>
+
+<p>Events can have a mask that specifies which listeners are active for that event.  By default all listeners apply to all events.  By calling <A HREF="../FMOD_Studio_EventInstance_SetListenerMask.html">Studio::EventInstance::setListenerMask</A>, some listeners can
+be disabled for that event so that they have no influence on the panning.  This could be used to group some events and listeners together and have that set only affected by that one listener.  When
+performing the calculation above, any listener not included in the mask is ignored and is as if it does not exist for that event.  It is an error to set a combination of mask and weight such that
+no listener is active for an event.</p>
+
+<h2>Doppler</h2>
+
+<p>FMOD events support doppler.  The sound designer specifies doppler on a per event basis with a scale, so some events may be affected less than others.  It is up to the programmer to correctly specify the
+listener and event velocity.  The scale of doppler can be specified at initialization time using <A HREF="../FMOD_System_Set3DSettings.html">System::set3DSettings</A>.</p>
+
+<p>For the case of multiple listeners, the doppler is based on the closest listener.  If listener has a weight then it is a combination of the closest listeners up to 100%.  For example if there were three listeners
+at increasing distance with weight of 60%, 60% and 60%, then the doppler would be calculated from 60% of the first listener, 40% of the second, and 0% of the third.</p>
+
+<h2>Automatic Parameters and multiple listeners</h2>
+
+<p>For the case of multiple listeners, the FMOD Studio automatic parameters are based on the closest listener.  If listener has a weight then it is a combination of the closest listeners up to 100%.  For example if there were three listeners
+at increasing distance with weight of 60%, 60% and 60%, then the automatic parameters would be calculated from 60% of the first listener, 40% of the second, and 0% of the third.</p>
+
+<h2>Interface with Low Level API</h2>
+
+<p>When calling <A HREF="../FMOD_Studio_System_SetNumListeners.html">Studio::System::setNumListeners</A> and <A HREF="../FMOD_Studio_System_SetListenerAttributes.html">Studio::System::setListenerAttributes</A>, there is no need to call the equivalent low-level functions <A HREF="../FMOD_System_Set3DNumListeners.html">System::set3DNumListeners</A> and <A HREF="../FMOD_System_Set3DListenerAttributes.html">System::set3DListenerAttributes</A>.
+FMOD Studio will pass the information into the low-level API automatically.  That means it is possible to have a mixture of FMOD Studio 3D Events and low-level 3D Channels playing at the same time.</p>

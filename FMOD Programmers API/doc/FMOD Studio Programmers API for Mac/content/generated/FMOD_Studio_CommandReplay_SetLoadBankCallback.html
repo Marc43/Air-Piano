@@ -1,0 +1,52 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::CommandReplay::setLoadBankCallback</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::CommandReplay::setLoadBankCallback</H1>
+<P>
+<p>Sets a callback that is invoked when the replay reaches a load bank command.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::CommandReplay::setLoadBankCallback(
+  FMOD_STUDIO_COMMANDREPLAY_LOAD_BANK_CALLBACK <I>callback</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_CommandReplay_SetLoadBankCallback(
+  FMOD_STUDIO_COMMANDREPLAY *<I>commandreplay</I>,
+  FMOD_STUDIO_COMMANDREPLAY_LOAD_BANK_CALLBACK <I>callback</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.CommandReplay.setLoadBankCallback(
+  COMMANDREPLAY_LOAD_BANK_CALLBACK <i>callback</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>callback</dt>
+<dd>The callback to use.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>The load bank callback is invoked whenever any of the Studio load bank functions are reached.  For <A HREF="FMOD_Studio_System_LoadBankFile.html">Studio::System::loadBankFile</A>, the callback will
+have the filename used in the replay file, modified by any path set in <A HREF="FMOD_Studio_CommandReplay_SetBankPath.html">Studio::CommandReplay::setBankPath</A>.  For banks loaded with
+<A HREF="FMOD_Studio_System_LoadBankMemory.html">Studio::System::loadBankMemory</A> and <A HREF="FMOD_Studio_System_LoadBankCustom.html">Studio::System::loadBankCustom</A>, the path will be NULL but the guid can be used to identify what bank was loaded.</p>
+
+<p>If this callback is not set the bank is loaded automatically.  If the callback is set the bank is not loaded automatically and should be
+loaded in the callback.  Failing to load the bank in the callback will mean the replay will continue but some later events may not be found.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_STUDIO_COMMANDREPLAY_LOAD_BANK_CALLBACK.html">FMOD_STUDIO_COMMANDREPLAY_LOAD_BANK_CALLBACK</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

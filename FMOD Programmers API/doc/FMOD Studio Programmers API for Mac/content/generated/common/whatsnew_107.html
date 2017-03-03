@@ -1,0 +1,97 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>What's New in 1.07</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>What's New in 1.07</h1>
+
+<p>This section describes the major features introduced in the 1.07 release.  See the
+<a href="revision.html">Detailed Revision History</a> for information regarding each patch release.</p>
+
+<h2>64-bit version of Studio</h2>
+
+<p>Studio is now a 64-bit application, providing greater memory capacity and improved performance.
+On Windows, separate 32-bit and 64-bit versions are available. On Mac, Studio is now 64-bit only.</p>
+
+<p>All plugin libraries must be built for 64-bit architecture in order to be compatible with
+the 64-bit version of Studio.</p>
+
+<h2>Nested events have been converted to reference events</h2>
+
+<p>The concept of nested events and referenced events has been unified to just having reference 
+events.  As part of this change, <A HREF="../FMOD_Studio_Bank_GetEventCount.html">Studio::Bank::getEventCount</A> and <A HREF="../FMOD_Studio_Bank_GetEventList.html">Studio::Bank::getEventList</A> now
+only return top level events that have been explicitly added to banks by the sound designer.
+They do not include any reference events that have been included in the bank implicitly via 
+event instrument references.</p>
+
+<h2>Bus Polyphony</h2>
+
+<p>This setting allows the designer to set a limit on the number of event instances that route through a bus.</p>
+
+<h2>Improved recording and enumeration support</h2>
+
+<p>When using <A HREF="../FMOD_System_GetRecordNumDrivers.html">System::getRecordNumDrivers</A> and <A HREF="../FMOD_System_GetRecordDriverInfo.html">System::getRecordDriverInfo</A> you can now be sure that
+a particular list index will always be valid. As devices are added the list will grow over time,
+if a device is removed it will remain in the list. You can now query <A HREF="../FMOD_DRIVER_STATE.html">FMOD_DRIVER_STATE</A> to 
+determine <A HREF="../FMOD_DRIVER_STATE.html">FMOD_DRIVER_STATE_CONNECTED</A>.</p>
+
+<p>To take advantage of these improvements all major platforms support dynamic device addition and
+removal allowing developers to query the current state of all recording hardware. For notifications
+about changes <A HREF="../FMOD_System_SetCallback.html">System::setCallback</A> can be used with <A HREF="../FMOD_SYSTEM_CALLBACK_TYPE.html">FMOD_SYSTEM_CALLBACK_RECORDLISTCHANGED</A>. All
+recording device changes are now decoupled from output changes.</p>
+
+<h2>Multi-channel compressed sample support</h2>
+
+<p>In previous versions of FMOD multi-channel (greater than stereo) sounds could be streamed or played
+after being decompressed into memory, but not as an in memory compressed sound (ie Vorbis).
+This release allows any FSB compressed sound to be multi-channel, accessible via 
+<A HREF="../FMOD_MODE.html">FMOD_CREATECOMPRESSEDSAMPLE</A> flag if using the low level API, or just drag and drop multi-channel 
+sounds into FMOD Studio's UI and play as normal.</p>
+
+<h2>Added <A HREF="../FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_CHANNELMIX</A> effect</h2>
+
+<p>This new DSP effect allows the user to control gain levels for up to 32 input channel signals, and pipe
+the output to a range of speaker formats i.e. repeating mono, stereo, quad, 5.1, 7.1 or only LFE out.</p>
+
+<h2>Performance improvements</h2>
+
+<ul>
+<li>Improved Vorbis decoding performance on Windows.</li>
+<li>Metering / Profiling performance significantly improved.</li>
+</ul>
+
+<h2>Platform specific improvements</h2>
+
+<ul>
+<li>New platforms - Universal Windows Platform (UWP) and AppleTV support.</li>
+<li>Mac - Added support for recording from multiple microphones at the same time.</li>
+<li>iOS - Added support for bitcode.</li>
+<li>Win - Reduced dll and exe sizes.</li>
+</ul>
+
+<h2>New Plugins</h2>
+
+<ul>
+<li>AudioGaming - AudioMotors.  Create realtime interactive car engine sounds from a single recorded engine sweep!</li>
+<li>Two Big Ears - 3DCEPTION.  3Dception is a real-time 3D audio and environmental modelling engine. </li>
+</ul>
+
+<h1>What's new since 1.06 initial release</h1>
+
+<p>This section covers some of the improvements introduced between the first 1.06 release and the new 1.07 release.</p>
+
+<ul>
+<li>Internet streams.  Add Sound::setPosition and <A HREF="../FMOD_Sound_SeekData.html">Sound::seekData</A> support for HTTP streams.</li>
+<li>UE4 - Added blueprint functions for loading and unloading sample data, new initialization settings, beat and marker callbacks as Blueprint events, reverb zones, and 4.9 engine preview build.</li>
+<li>Studio Profiler now shows nested instance information.</li>
+<li>Reduced memory overhead of bank metadata.</li>
+<li><A HREF="../FMOD_STUDIO_LOAD_BANK_FLAGS.html">FMOD_STUDIO_LOAD_BANK_DECOMPRESS_SAMPLES</A> flag has been added to allow compressed banks to be decompressed at load time, to help low spec machines.</li>
+<li>Tempo and marker event callbacks added to Studio API.  See <A HREF="../FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_TIMELINE_MARKER</A> and <A HREF="../FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_TIMELINE_BEAT</A>.</li>
+<li>Additional event callback types: <A HREF="../FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_CREATED</A>, <A HREF="../FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_DESTROYED</A> and  <A HREF="../FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_START_FAILED</A>.</li>
+<li><A HREF="../FMOD_DSP_COMPRESSOR.html">FMOD_DSP_COMPRESSOR</A> now supports unlinked channel compression, so multichannel sidechaining for example can compress each destination channel individually.</li>
+<li>DSP Plugin writers - FMOD_DSP_DESCRIPTION::sys_register, sys_deregister and sys_mix callbacks have been added, to allow a per type (not instance) level init/shutdown/mix callback for a plugin.</li>
+</ul>
+
+<p>See the <a href="revision.html">Detailed Revision History</a> for more information on features introduced during the 1.06 lifetime.</p>

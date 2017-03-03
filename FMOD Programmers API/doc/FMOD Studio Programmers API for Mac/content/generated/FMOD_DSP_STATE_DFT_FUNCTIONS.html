@@ -1,0 +1,35 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_STATE_DFT_FUNCTIONS</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_STATE_DFT_FUNCTIONS</H1>
+<P>
+<p>Struct containing DFT functions to enable a plugin to perform optimized time-frequency domain conversion.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  FMOD_DSP_DFT_FFTREAL_FUNC <I>fftreal</I>;
+  FMOD_DSP_DFT_IFFTREAL_FUNC <I>inversefftreal</I>;
+} FMOD_DSP_STATE_DFT_FUNCTIONS;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>fftreal</I></P>
+<P class=indent>[r] Function for performing an FFT on a real signal. </P>
+<P class=dt><I>inversefftreal</I></P>
+<P class=indent>[r] Function for performing an inverse FFT to get a real signal. </P>
+<h2>Remarks</h2><P>
+<p>Members marked with [r] mean read only for the developer, read/write for the FMOD system.</p>
+
+<p>Members marked with [w] mean read/write for the developer, read only for the FMOD system.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_STATE_FUNCTIONS.html">FMOD_DSP_STATE_FUNCTIONS</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

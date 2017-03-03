@@ -1,0 +1,89 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Terminology / Basic Concepts</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>Terminology / Basic Concepts</h1>
+
+<h2>Introduction</h2>
+
+<p>Throughout FMOD documentation certain terms and concepts will be used.  This section will explain some of these to alleviate confusion.<br>
+<br>
+It is recommended when you see an API function highlighted as a link, that you check the API reference for more detail. </p>
+
+<h2>Samples vs bytes vs milliseconds</h2>
+
+<p>Within FMOD functions you will see references to PCM samples, bytes and milliseconds.<br>
+To understand what the difference is a diagram has been provided to show how raw PCM sample data is stored in FMOD buffers.<br>
+<br>
+<center>
+<img src="../../static/overview/sampledata.gif" alt="sampledata" title="">
+</center>
+In this diagram you will see that a stereo sound has its left/right data interleaved one after the other.<br>
+<br>
+* A left/right pair (a sound with 2 <strong>channels</strong>) is called a <strong>sample</strong>.
+* Because this is made up of 16bit data, <strong>1 sample = 4 bytes</strong>.
+* If the sample rate, or playback rate is 44.1khz, or 44100 samples per second, then <strong>1 sample is 1/44100th of a second</strong>, or <strong>1/44th of a millisecond</strong>.  Therefore 44100 samples = 1 second or 1000ms worth of data.
+<br>
+<br>
+To convert between the different terminologies, the following formulas can be used:</p>
+
+<ul>
+<li><strong>ms</strong> = samples * 1000 / samplerate.</li>
+<li><strong>samples</strong> = ms * samplerate / 1000.</li>
+<li><strong>samplerate</strong> = samples * 1000 / ms.</li>
+<li><strong>bytes</strong> = samples * bits * channels / 8.</li>
+<li><strong>samples</strong> = bytes * 8 / bits / channels.</li>
+</ul>
+
+<p>Some functions like <A HREF="../FMOD_Sound_GetLength.html">Sound::getLength</A> provide the length in milliseconds, bytes and samples to avoid needing to do these calculations.<br></p>
+
+<h2>Sounds.  Samples vs compressed samples vs streams</h2>
+
+<p>When a sound is loaded, it is either decompressed as a static sample into memory as PCM (samples), loaded into memory in its native format and decompressed at runtime (compressed samples), or streamed and decoded in realtime (in chunks) from an external media such as a harddisk or CD (streams).<br></p>
+
+<ul>
+<li>"<strong>Samples</strong>" are good for small sounds that need to be played more than once at a time, for example sound effects.  These generally use little or no CPU to play back and can be hardware accelerated.  See <A HREF="../FMOD_MODE.html">FMOD_CREATESAMPLE</A>.</li>
+<li>"<strong>Streams</strong>" are good for large sounds that are too large to fit into memory and need to be streamed from disk into a small ringbuffer that FMOD manages.  These take a small amount of CPU and disk bandwidth based on the file format.  For example mp3 takes more cpu power to decode in real-time than a PCM decompressed wav file does.  A streaming sound can only be played once, not multiple times due to it only having 1 file handle per stream and 1 ringbuffer to decode into.  See <A HREF="../FMOD_MODE.html">FMOD_CREATESTREAM</A>.</li>
+<li>"<strong>Compressed samples</strong>" are a new advanced option that allows the user to load a certain compressed file format (such as IMA ADPCM, MP2, MP3 and XMA formats currently), and leave them compressed in memory without decompressing them.  They are software mixed on the CPU and don't have the 'once only' limitation of streams.  They take more cpu than a standard PCM sample, but actually less than a stream due to not doing any disk access and much smaller memory buffers. See <A HREF="../FMOD_MODE.html">FMOD_CREATECOMPRESSEDSAMPLE</A>.</li>
+</ul>
+
+<p><br>
+You may notice "Sample" and "Stream" terminology is used here but there is no class name with this terminology in them.  That is because all FMOD APIs are now consolidated into one "Sound" type.<br>
+<strong>By default <A HREF="../FMOD_System_CreateSound.html">System::createSound</A> will want to decode the whole sound fully into memory</strong> (ie, as a decompressed sample).<br>
+To have it stream in realtime and save memory, use the <A HREF="../FMOD_MODE.html">FMOD_CREATESTREAM</A> flag when creating a sound, or use the helper function <A HREF="../FMOD_System_CreateStream.html">System::createStream</A> which is essentially the same as <A HREF="../FMOD_System_CreateSound.html">System::createSound</A> but just has the <A HREF="../FMOD_MODE.html">FMOD_CREATESTREAM</A> flag added in automatically for you.<br>
+To make a compressed sample use <A HREF="../FMOD_System_CreateSound.html">System::createSound</A> with <A HREF="../FMOD_MODE.html">FMOD_CREATECOMPRESSEDSAMPLE</A>.<br></p>
+
+<h2>Channels and sounds</h2>
+
+<p>When you have loaded your sounds, you will want to play them.  When you play them you will use <A HREF="../FMOD_System_PlaySound.html">System::playSound</A>, which will return you a pointer to a Channel / FMOD_CHANNEL handle.<br>
+FMOD will automatically select a channel for the sound to play on, you do not have to manage your own channels.<br></p>
+
+<h2>2D vs 3D</h2>
+
+<p>A 3D sound <strong>source</strong> is a channel that has a position and a velocity.  When a 3D channel is playing, its volume, speaker placement and pitch will be affected automatically based on the relation to the <strong>listener</strong>.<br>
+A <strong>listener</strong> is the player, or the game camera.  It has a position, velocity like a sound <strong>source</strong>, but it also has an <em>orientation</em>.<br>
+<br>
+The <strong>listener</strong> and the <strong>source</strong> distance from each other determine the <em>volume</em>.<br>
+The <strong>listener</strong> and the <strong>source</strong> relative velocity determines the <em>pitch</em> (doppler effect).<br>
+The orientation of the <strong>listener</strong> to the <strong>source</strong> determines the <em>pan</em> or <em>speaker placement</em>.<br>
+<br>
+A 2D sound is simply different in that it is not affected by the 3D sound <strong>listener</strong>, and does not have doppler or attenuation or speaker placement affected by it.
+<br>
+A 2D sound can call <A HREF="../FMOD_Channel_SetMixLevelsOutput.html">Channel::setMixLevelsOutput</A>, <A HREF="../FMOD_Channel_SetMixMatrix.html">Channel::setMixMatrix</A> or <A HREF="../FMOD_Channel_SetPan.html">Channel::setPan</A>, whereas these commands on a 3D sound will not have any effect, unless you call <A HREF="../FMOD_Channel_Set3DLevel.html">Channel::set3DLevel</A> to alter the 2D component of the 3D sound.  You can blend a sound between 3D and 2D using this function.<br>
+A 3D sound can call any function with the word <strong>3D</strong> in the function name, whereas a 2D sound cannot.<br>
+<br>
+For a more detailed description of 3D sound, read the tutorial in the documentation on 3D sound.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>

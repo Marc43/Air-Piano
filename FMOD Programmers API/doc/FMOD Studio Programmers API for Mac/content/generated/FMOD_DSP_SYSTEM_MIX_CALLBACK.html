@@ -1,0 +1,41 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_SYSTEM_MIX_CALLBACK</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_SYSTEM_MIX_CALLBACK</H1>
+<P>
+<p>This callback is called once, for each mix for this type of DSP.  It is not associated with any DSP instance.
+The function can be used as a global pre/mid/post mix function for this type of DSP to do things like update a global state for the plugin type.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT F_CALLBACK FMOD_DSP_SYSTEM_MIX_CALLBACK(
+  FMOD_DSP_STATE *<I>dsp_state</I>,
+  int <I>stage</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>dsp_state</I></P>
+<P class=indent>Pointer to the plugin state.  The user can use this variable to access runtime plugin specific variables and plugin writer user data.  Do not cast this to FMOD_DSP!  The instance pointer in the state for this callback will be 0 / null.  Only 'systemobject' and 'callbacks' are valid for use.</P>
+<P class=dt><I>stage</I></P>
+<P class=indent>0 = premix, or before the mixer has executed.  1 = postmix, or after the after the mix has been executed.  2 = midmix, after clocks calculation before the main mix has occurred.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>The callback is not associated with any DSP instance, so the instance member of <A HREF="FMOD_DSP_STATE.html">FMOD_DSP_STATE</A> will be 0 / NULL.
+The callback is triggered automatically by the mixer and is not triggered by any API function.
+Remember to return <A HREF="FMOD_RESULT.html">FMOD_OK</A> at the bottom of the function, or an appropriate error code from <A HREF="FMOD_RESULT.html">FMOD_RESULT</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_STATE.html">FMOD_DSP_STATE</A></LI>
+<LI><A HREF="FMOD_DSP_DESCRIPTION.html">FMOD_DSP_DESCRIPTION</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

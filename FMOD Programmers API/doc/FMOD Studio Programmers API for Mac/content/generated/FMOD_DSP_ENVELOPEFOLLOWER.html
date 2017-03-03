@@ -1,0 +1,45 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_ENVELOPEFOLLOWER</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_ENVELOPEFOLLOWER</H1>
+<P>
+<p>Parameter types for the <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_ENVELOPEFOLLOWER</A> unit.
+This is a simple envelope follower for tracking the signal level.<br></p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_ENVELOPEFOLLOWER_ATTACK,
+  FMOD_DSP_ENVELOPEFOLLOWER_RELEASE,
+  FMOD_DSP_ENVELOPEFOLLOWER_ENVELOPE,
+  FMOD_DSP_ENVELOPEFOLLOWER_USESIDECHAIN
+} FMOD_DSP_ENVELOPEFOLLOWER;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_ENVELOPEFOLLOWER_ATTACK</I></P>
+<P class=indent>(Type:float) [r/w] - Attack time (milliseconds), in the range from 0.1 through 1000.  Default = 20. </P>
+<P class=dt><I>FMOD_DSP_ENVELOPEFOLLOWER_RELEASE</I></P>
+<P class=indent>(Type:float) [r/w] - Release time (milliseconds), in the range from 10 through 5000.  Default = 100 </P>
+<P class=dt><I>FMOD_DSP_ENVELOPEFOLLOWER_ENVELOPE</I></P>
+<P class=indent>(Type:float) [r]   - Current value of the envelope, in the range 0 to 1. Read-only. </P>
+<P class=dt><I>FMOD_DSP_ENVELOPEFOLLOWER_USESIDECHAIN</I></P>
+<P class=indent>(Type:data)  [r/w] - Data of type <A HREF="FMOD_DSP_PARAMETER_SIDECHAIN.html">FMOD_DSP_PARAMETER_SIDECHAIN</A>. Whether to analyse the sidechain signal instead of the input signal. Default is { false } </P>
+<h2>Remarks</h2><P>
+<p>This unit does not affect the incoming signal
+<br></p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_SetParameterFloat.html">DSP::setParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterFloat.html">DSP::getParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_SetParameterData.html">DSP::setParameterData</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterData.html">DSP::getParameterData</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

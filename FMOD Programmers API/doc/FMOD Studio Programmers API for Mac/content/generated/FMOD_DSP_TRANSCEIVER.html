@@ -1,0 +1,55 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_TRANSCEIVER</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_TRANSCEIVER</H1>
+<P>
+<p>Parameter types for the <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_TRANSCEIVER</A> filter.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_TRANSCEIVER_TRANSMIT,
+  FMOD_DSP_TRANSCEIVER_GAIN,
+  FMOD_DSP_TRANSCEIVER_CHANNEL,
+  FMOD_DSP_TRANSCEIVER_TRANSMITSPEAKERMODE
+} FMOD_DSP_TRANSCEIVER;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_TRANSCEIVER_TRANSMIT</I></P>
+<P class=indent>(Type:bool)  - [r/w] - FALSE = Transceiver is a 'receiver' (like a return) and accepts data from a channel.  TRUE = Transceiver is a 'transmitter' (like a send).  Default = FALSE. </P>
+<P class=dt><I>FMOD_DSP_TRANSCEIVER_GAIN</I></P>
+<P class=indent>(Type:float) - [r/w] - Gain to receive or transmit at in dB.  -80.0 to 10.0.  Default = 0. </P>
+<P class=dt><I>FMOD_DSP_TRANSCEIVER_CHANNEL</I></P>
+<P class=indent>(Type:int)   - [r/w] - Integer to select current global slot, shared by all Transceivers, that can be transmitted to or received from.  0 to 31.  Default = 0.</P>
+<P class=dt><I>FMOD_DSP_TRANSCEIVER_TRANSMITSPEAKERMODE</I></P>
+<P class=indent>(Type:int)   - [r/w] - Speaker mode (transmitter mode only).  Specifies either 0 (Auto) Default = 0.</P>
+<h2>Remarks</h2><P>
+<p>The transceiver only transmits and receives to a global array of 32 channels.   The transceiver can be set to receiver mode (like a return) and can receive the signal at a variable gain (<A HREF="FMOD_DSP_TRANSCEIVER.html">FMOD_DSP_TRANSCEIVER_GAIN</A>).
+The transceiver can also be set to transmit to a chnnel (like a send) and can transmit the signal with a variable gain (<A HREF="FMOD_DSP_TRANSCEIVER.html">FMOD_DSP_TRANSCEIVER_GAIN</A>).</p>
+
+<p>The <A HREF="FMOD_DSP_TRANSCEIVER.html">FMOD_DSP_TRANSCEIVER_TRANSMITSPEAKERMODE</A> is only applicable to the transmission format, not the receive format.   This means this parameter is ignored in 'receive mode'.  This allows receivers to receive at
+the speaker mode of the user's choice.   Receiving from a mono channel, is cheaper than receiving from a surround channel for example.
+The 3 speaker modes <A HREF="FMOD_DSP_TRANSCEIVER_SPEAKERMODE.html">FMOD_DSP_TRANSCEIVER_SPEAKERMODE_MONO</A>, <A HREF="FMOD_DSP_TRANSCEIVER_SPEAKERMODE.html">FMOD_DSP_TRANSCEIVER_SPEAKERMODE_STEREO</A>, <A HREF="FMOD_DSP_TRANSCEIVER_SPEAKERMODE.html">FMOD_DSP_TRANSCEIVER_SPEAKERMODE_SURROUND</A> are stored as seperate buffers in memory for a tranmitter channel.
+To save memory, use 1 common speaker mode for a transmitter.</p>
+
+<p>The transceiver is double buffered to avoid desyncing of transmitters and receivers.   This means there will be a 1 block delay on a receiver, compared to the data sent from a transmitter.</p>
+
+<p>Multiple transmitters sending to the same channel will be mixed together.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_SetParameterFloat.html">DSP::setParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterFloat.html">DSP::getParameterFloat</A></LI>
+<LI><A HREF="FMOD_DSP_SetParameterInt.html">DSP::setParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterInt.html">DSP::getParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_SetParameterBool.html">DSP::setParameterBool</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterBool.html">DSP::getParameterBool</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

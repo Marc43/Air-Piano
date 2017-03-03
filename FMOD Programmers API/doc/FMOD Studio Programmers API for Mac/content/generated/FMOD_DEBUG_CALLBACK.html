@@ -1,0 +1,47 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DEBUG_CALLBACK</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DEBUG_CALLBACK</H1>
+<P>
+<p>Callback for debug messages when using the logging version of FMOD.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT F_CALLBACK FMOD_DEBUG_CALLBACK(
+  FMOD_DEBUG_FLAGS <I>flags</I>,
+  const char *<I>file</I>,
+  int <I>line</I>,
+  const char *<I>func</I>,
+  const char *<I>message</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>flags</I></P>
+<P class=indent>Flags which detail the level and type of this log.</P>
+<P class=dt><I>file</I></P>
+<P class=indent>Source code file name where the message originated.</P>
+<P class=dt><I>line</I></P>
+<P class=indent>Source code line number where the message originated.</P>
+<P class=dt><I>func</I></P>
+<P class=indent>Class and function name where the message originated.</P>
+<P class=dt><I>message</I></P>
+<P class=indent>Actual debug message associated with the callback.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This callback will fire directly from the log line, as such it can be from any thread.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Debug_Initialize.html">FMOD_Debug_Initialize</A></LI>
+<LI><A HREF="FMOD_DEBUG_FLAGS.html">FMOD_DEBUG_FLAGS</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

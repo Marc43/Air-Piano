@@ -1,0 +1,71 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::Bank::getStringInfo</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::Bank::getStringInfo</H1>
+<P>
+<p>Retrieves the string table entry for the given index.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::Bank::getStringInfo(
+  int <I>index</I>,
+  FMOD_GUID *<I>id</I>,
+  char *<I>path</I>,
+  int <I>size</I>,
+  int *<I>retrieved</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_Bank_GetStringInfo(
+  FMOD_STUDIO_BANK *<I>bank</I>,
+  int <I>index</I>,
+  FMOD_GUID *<I>id</I>,
+  char *<I>path</I>,
+  int <I>size</I>,
+  int *<I>retrieved</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.Bank.getStringInfo(
+  int <i>index</i>,
+  out Guid <i>id</i>,
+  out string <i>path</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>index</dt>
+<dd>Index of string table entry to retrieve.</dd>
+<dt>id</dt>
+<dd>Address of a variable to receive the ID.  Specify 0 or NULL to ignore.</dd>
+<dt>path</dt>
+<dd>Address of a buffer to receive the path. Specify 0 or NULL to ignore.</dd>
+<dt>size</dt>
+<dd>Size of the path buffer in bytes. Required if <em>path</em> parameter is not NULL.</dd>
+<dt>retrieved</dt>
+<dd>Address of a variable to receive the size of the retrieved path in bytes, including the terminating null character. Optional. Specify 0 or NULL to ignore.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>The string table contains mappings from ID to path and is automatically used by
+<A HREF="FMOD_Studio_System_LookupID.html">Studio::System::lookupID</A> and <A HREF="FMOD_Studio_System_LookupPath.html">Studio::System::lookupPath</A>.  This function can be called to
+get the string data directly.</p>
+
+<p>If the retrieved path is too long to fit in the supplied buffer, it will be truncated and this
+function will return <A HREF="FMOD_RESULT.html">FMOD_ERR_TRUNCATED</A>. Use the <em>retrieved</em> parameter to obtain the minimum
+buffer size required to hold the full path.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_Bank_GetStringCount.html">Studio::Bank::getStringCount</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,47 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_CHANNELMIX_OUTPUT</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_CHANNELMIX_OUTPUT</H1>
+<P>
+<p>Parameter types for the <A HREF="FMOD_DSP_CHANNELMIX.html">FMOD_DSP_CHANNELMIX_OUTPUTGROUPING</A> parameter for <A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE_CHANNELMIX</A> effect.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_DSP_CHANNELMIX_OUTPUT_DEFAULT,
+  FMOD_DSP_CHANNELMIX_OUTPUT_ALLMONO,
+  FMOD_DSP_CHANNELMIX_OUTPUT_ALLSTEREO,
+  FMOD_DSP_CHANNELMIX_OUTPUT_ALLQUAD,
+  FMOD_DSP_CHANNELMIX_OUTPUT_ALL5POINT1,
+  FMOD_DSP_CHANNELMIX_OUTPUT_ALL7POINT1,
+  FMOD_DSP_CHANNELMIX_OUTPUT_ALLLFE
+} FMOD_DSP_CHANNELMIX_OUTPUT;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_DEFAULT</I></P>
+<P class=indent>Output channel count = input channel count.  Mapping: See <A HREF="FMOD_SPEAKER.html">FMOD_SPEAKER</A> enumeration. </P>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_ALLMONO</I></P>
+<P class=indent>Output channel count = 1.  Mapping: Mono, Mono, Mono, Mono, Mono, Mono, ... (each channel all the way up to <A HREF="FMOD_MAX_CHANNEL_WIDTH.html">FMOD_MAX_CHANNEL_WIDTH</A> channels are treated as if they were mono) </P>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_ALLSTEREO</I></P>
+<P class=indent>Output channel count = 2.  Mapping: Left, Right, Left, Right, Left, Right, ... (each pair of channels is treated as stereo all the way up to <A HREF="FMOD_MAX_CHANNEL_WIDTH.html">FMOD_MAX_CHANNEL_WIDTH</A> channels) </P>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_ALLQUAD</I></P>
+<P class=indent>Output channel count = 4.  Mapping: Repeating pattern of Front Left, Front Right, Surround Left, Surround Right. </P>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_ALL5POINT1</I></P>
+<P class=indent>Output channel count = 6.  Mapping: Repeating pattern of Front Left, Front Right, Center, LFE, Surround Left, Surround Right. </P>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_ALL7POINT1</I></P>
+<P class=indent>Output channel count = 8.  Mapping: Repeating pattern of Front Left, Front Right, Center, LFE, Surround Left, Surround Right, Back Left, Back Right.  </P>
+<P class=dt><I>FMOD_DSP_CHANNELMIX_OUTPUT_ALLLFE</I></P>
+<P class=indent>Output channel count = 6.  Mapping: Repeating pattern of LFE in a 5.1 output signal.  </P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_SetParameterInt.html">DSP::setParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_GetParameterInt.html">DSP::getParameterInt</A></LI>
+<LI><A HREF="FMOD_DSP_TYPE.html">FMOD_DSP_TYPE</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

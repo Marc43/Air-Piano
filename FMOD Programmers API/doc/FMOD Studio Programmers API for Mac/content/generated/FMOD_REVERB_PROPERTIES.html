@@ -1,0 +1,67 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_REVERB_PROPERTIES</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_REVERB_PROPERTIES</H1>
+<P>
+<p>Structure defining a reverb environment.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  float <I>DecayTime</I>;
+  float <I>EarlyDelay</I>;
+  float <I>LateDelay</I>;
+  float <I>HFReference</I>;
+  float <I>HFDecayRatio</I>;
+  float <I>Diffusion</I>;
+  float <I>Density</I>;
+  float <I>LowShelfFrequency</I>;
+  float <I>LowShelfGain</I>;
+  float <I>HighCut</I>;
+  float <I>EarlyLateMix</I>;
+  float <I>WetLevel</I>;
+} FMOD_REVERB_PROPERTIES;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>DecayTime</I></P>
+<P class=indent>[r/w] 0.0    20000.0 1500.0  Reverberation decay time (ms)                                             </P>
+<P class=dt><I>EarlyDelay</I></P>
+<P class=indent>[r/w] 0.0    300.0   7.0     Initial reflection delay time (ms)                                        </P>
+<P class=dt><I>LateDelay</I></P>
+<P class=indent>[r/w] 0.0    100     11.0    Late reverberation delay time relative to initial reflection (ms)         </P>
+<P class=dt><I>HFReference</I></P>
+<P class=indent>[r/w] 20.0   20000.0 5000    Reference high frequency (Hz)                                             </P>
+<P class=dt><I>HFDecayRatio</I></P>
+<P class=indent>[r/w] 10.0   100.0   50.0    High-frequency to mid-frequency decay time ratio (%)                      </P>
+<P class=dt><I>Diffusion</I></P>
+<P class=indent>[r/w] 0.0    100.0   100.0   Value that controls the echo density in the late reverberation decay (%)  </P>
+<P class=dt><I>Density</I></P>
+<P class=indent>[r/w] 0.0    100.0   100.0   Value that controls the modal density in the late reverberation decay (%) </P>
+<P class=dt><I>LowShelfFrequency</I></P>
+<P class=indent>[r/w] 20.0   1000.0  250.0   Reference low frequency (Hz)                                              </P>
+<P class=dt><I>LowShelfGain</I></P>
+<P class=indent>[r/w] -36.0  12.0    0.0     Relative room effect level at low frequencies (dB)                        </P>
+<P class=dt><I>HighCut</I></P>
+<P class=indent>[r/w] 20.0   20000.0 20000.0 Relative room effect level at high frequencies (Hz)                       </P>
+<P class=dt><I>EarlyLateMix</I></P>
+<P class=indent>[r/w] 0.0    100.0   50.0    Early reflections level relative to room effect (%)                       </P>
+<P class=dt><I>WetLevel</I></P>
+<P class=indent>[r/w] -80.0  20.0    -6.0    Room effect level at mid frequencies (dB)                                 </P>
+<h2>Remarks</h2><P>
+<p>Note the default reverb properties are the same as the <A HREF="FMOD_REVERB_PRESETS.html">FMOD_PRESET_GENERIC</A> preset.</p>
+
+<p>All members are read/write [r/w], written to by FMOD when queried with <A HREF="FMOD_System_GetReverbProperties.html">System::getReverbProperties</A> and read by FMOD when set with <A HREF="FMOD_System_SetReverbProperties.html">System::setReverbProperties</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_System_SetReverbProperties.html">System::setReverbProperties</A></LI>
+<LI><A HREF="FMOD_System_GetReverbProperties.html">System::getReverbProperties</A></LI>
+<LI><A HREF="FMOD_REVERB_PRESETS.html">FMOD_REVERB_PRESETS</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

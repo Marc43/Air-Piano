@@ -1,0 +1,39 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_CHANNELCONTROL_DSP_INDEX</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_CHANNELCONTROL_DSP_INDEX</H1>
+<P>
+<p>These enums denote special types of node within a DSP chain.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef enum {
+  FMOD_CHANNELCONTROL_DSP_HEAD,
+  FMOD_CHANNELCONTROL_DSP_FADER,
+  FMOD_CHANNELCONTROL_DSP_TAIL
+} FMOD_CHANNELCONTROL_DSP_INDEX;
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_CHANNELCONTROL_DSP_HEAD</I></P>
+<P class=indent>Head of the DSP chain.   Equivalent of index 0. </P>
+<P class=dt><I>FMOD_CHANNELCONTROL_DSP_FADER</I></P>
+<P class=indent>Built in fader DSP. </P>
+<P class=dt><I>FMOD_CHANNELCONTROL_DSP_TAIL</I></P>
+<P class=indent>Tail of the DSP chain.  Equivalent of the number of dsps minus 1. </P>
+<h2>Remarks</h2><P>
+<p>By default there is 1 fader for a ChannelGroup or Channel, and it is the head.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Channel_GetDSP.html">Channel::getDSP</A></LI>
+<LI><A HREF="FMOD_ChannelGroup_GetDSP.html">ChannelGroup::getDSP</A></LI>
+<LI><A HREF="FMOD_ChannelControl_GetNumDSPs.html">ChannelControl::getNumDSPs</A></LI>
+<LI><A HREF="FMOD_ChannelControl_SetDSPIndex.html">ChannelControl::setDSPIndex</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

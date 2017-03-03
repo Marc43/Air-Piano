@@ -1,0 +1,67 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_DSP_STATE_FUNCTIONS</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_DSP_STATE_FUNCTIONS</H1>
+<P>
+<p>Struct containing functions to give plugin developers the ability to query system state, access system level functionality and helpers.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>typedef struct {
+  FMOD_DSP_ALLOC_FUNC <I>alloc</I>;
+  FMOD_DSP_REALLOC_FUNC <I>realloc</I>;
+  FMOD_DSP_FREE_FUNC <I>free</I>;
+  FMOD_DSP_GETSAMPLERATE_FUNC <I>getsamplerate</I>;
+  FMOD_DSP_GETBLOCKSIZE_FUNC <I>getblocksize</I>;
+  FMOD_DSP_STATE_DFT_FUNCTIONS *<I>dft</I>;
+  FMOD_DSP_STATE_PAN_FUNCTIONS *<I>pan</I>;
+  FMOD_DSP_GETSPEAKERMODE_FUNC <I>getspeakermode</I>;
+  FMOD_DSP_GETCLOCK_FUNC <I>getclock</I>;
+  FMOD_DSP_GETLISTENERATTRIBUTES_FUNC <I>getlistenerattributes</I>;
+  FMOD_DSP_LOG_FUNC <I>log</I>;
+  FMOD_DSP_GETUSERDATA_FUNC <I>getuserdata</I>;
+} FMOD_DSP_STATE_FUNCTIONS;
+</CODE></PRE>
+<h2>Members</h2>
+<P class=dt><I>alloc</I></P>
+<P class=indent>[r] Function to allocate memory using the FMOD memory system. </P>
+<P class=dt><I>realloc</I></P>
+<P class=indent>[r] Function to reallocate memory using the FMOD memory system. </P>
+<P class=dt><I>free</I></P>
+<P class=indent>[r] Function to free memory allocated with FMOD_DSP_ALLOC_FUNC. </P>
+<P class=dt><I>getsamplerate</I></P>
+<P class=indent>[r] Function to query the system sample rate. </P>
+<P class=dt><I>getblocksize</I></P>
+<P class=indent>[r] Function to query the system block size, DSPs will be requested to process blocks of varying length up to this size. </P>
+<P class=dt><I>dft</I></P>
+<P class=indent>[r] Struct containing DFT functions to enable a plugin to perform optimized time-frequency domain conversion. </P>
+<P class=dt><I>pan</I></P>
+<P class=indent>[r] Struct containing panning helper functions for spatialization plugins. </P>
+<P class=dt><I>getspeakermode</I></P>
+<P class=indent>[r] Function to query the system speaker modes.  One is the mixer's default speaker mode, the other is the output mode the system is downmixing or upmixing to.</P>
+<P class=dt><I>getclock</I></P>
+<P class=indent>[r] Function to get the clock of the current DSP, as well as the subset of the input buffer that contains the signal. </P>
+<P class=dt><I>getlistenerattributes</I></P>
+<P class=indent>[r] Callback for getting the absolute listener attributes set via the API (returned as left-handed co-ordinates). </P>
+<P class=dt><I>log</I></P>
+<P class=indent>[r] Function to write to the FMOD logging system. </P>
+<P class=dt><I>getuserdata</I></P>
+<P class=indent>[r] Function to get the user data attached to this DSP. See FMOD_DSP_DESCRIPTION::userdata. </P>
+<h2>Remarks</h2><P>
+<p>Members marked with [r] mean read only for the developer, read/write for the FMOD system.</p>
+
+<p>Members marked with [w] mean read/write for the developer, read only for the FMOD system.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_DSP_STATE.html">FMOD_DSP_STATE</A></LI>
+<LI><A HREF="FMOD_DSP_STATE_DFT_FUNCTIONS.html">FMOD_DSP_STATE_DFT_FUNCTIONS</A></LI>
+<LI><A HREF="FMOD_DSP_STATE_PAN_FUNCTIONS.html">FMOD_DSP_STATE_PAN_FUNCTIONS</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

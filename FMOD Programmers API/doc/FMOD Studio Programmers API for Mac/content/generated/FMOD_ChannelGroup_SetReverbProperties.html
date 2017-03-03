@@ -1,0 +1,59 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>ChannelGroup::setReverbProperties</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>ChannelGroup::setReverbProperties</H1>
+<P>
+<p>Sets the wet level (or send level) of a particular reverb instance.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT ChannelGroup::setReverbProperties(
+  int <I>instance</I>,
+  float <I>wet</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_ChannelGroup_SetReverbProperties(
+  FMOD_CHANNELGROUP *<I>channelgroup</I>,
+  int <I>instance</I>,
+  float <I>wet</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT ChannelGroup.setReverbProperties(
+  int <i>instance</i>,
+  float <i>wet</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>instance</dt>
+<dd>Index of the particular reverb instance to target, from 0 to <A HREF="FMOD_REVERB_MAXINSTANCES.html">FMOD_REVERB_MAXINSTANCES</A> inclusive.</dd>
+<dt>wet</dt>
+<dd>Send level for the signal to the reverb, from 0 (none) to 1.0 (full), default = 1.0 for Channels, 0.0 for ChannelGroups. See remarks.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>A Channel is automatically connected to all existing reverb instances due to the default wet level of 1.0. A ChannelGroup
+however will not send to any reverb by default requiring an explicit call to this function.</p>
+
+<p>A ChannelGroup reverb is optimal for the case where you want to send 1 mixed signal to the reverb, rather than a lot
+of individual channel reverb sends. It is advisable to do this to reduce CPU if you have many Channels inside a ChannelGroup.</p>
+
+<p>Keep in mind when setting a wet level for a ChannelGroup, any Channels under that ChannelGroup will still have their
+existing sends to the reverb. To avoid this doubling up you should explicitly set the Channel wet levels to 0.0.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_ChannelControl_GetReverbProperties.html">ChannelControl::getReverbProperties</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,56 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>What's New in 1.04</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>What's New in 1.04</h1>
+
+<p>This section describes the major features introduced in the 1.04 release.  See the <a href="revision.html">Detailed Revision History</a> for information regarding each patch release.</p>
+
+<h2>Studio Profiling</h2>
+
+<p>FMOD Studio now supports profiling.  Profiling sends event, parameter, and bus information across the network to FMOD Studio, allowing the profiling session to be visualised and replayed.  Profiling is supported automatically when the <A HREF="../FMOD_STUDIO_INITFLAGS.html">FMOD_STUDIO_INIT_LIVEUPDATE</A> flag is used.</p>
+
+<p>Note that the existing low level profiler is still supported, and can be used for in-depth analysis of the DSP graph when using the Studio API or the Low Level API.  The low level profiler is provided in the Windows or Mac Programmer's API package as the "FMOD Profiler" executable.  The low level profiler is supported automatically when either the <A HREF="../FMOD_STUDIO_INITFLAGS.html">FMOD_STUDIO_INIT_LIVEUPDATE</A> or the low level <A HREF="../FMOD_INITFLAGS.html">FMOD_INIT_PROFILE_ENABLE</A> flag is used.</p>
+
+<h2>Audio Tables</h2>
+
+<p>FMOD Studio now supports adding audio tables to banks. These are designed to hold large numbers of sounds for use cases like localized VO. Each entry in the table is identified by a key string, and the mapping from key to sound can be changed by loading a different audio table.</p>
+
+<p>To use an audio table entry, look it up with <A HREF="../FMOD_Studio_System_GetSoundInfo.html">Studio::System::getSoundInfo</A> and then pass the resulting information to <A HREF="../FMOD_System_CreateSound.html">System::createSound</A>. This sound will contain a subsound that can be used with <A HREF="../FMOD_STUDIO_EVENT_CALLBACK_TYPE.html">FMOD_STUDIO_EVENT_CALLBACK_CREATE_PROGRAMMER_SOUND</A> or played back directly. Note that the bank containing the audio table must be loaded for the lookup to succeed.</p>
+
+<h2>Sub-Events Deprecated</h2>
+
+<p>Sub-events are now deprecated. This means Studio::EventInstance::createSubEvent will be removed in a future release. Note that Event Sounds are still supported, and are the preferred mechanism for event nesting.</p>
+
+<h2>Event Callback Changed</h2>
+
+<p><A HREF="../FMOD_STUDIO_EVENT_CALLBACK.html">FMOD_STUDIO_EVENT_CALLBACK</A> now has an extra FMOD_STUDIO_EVENTINSTANCE* parameter. This simplifies callback implementation, as you no longer need to check the callback type in order to get the event.</p>
+
+<h2>Deprecated Functions Removed</h2>
+
+<p>Some functions that were deprecated have now been removed:</p>
+
+<ul>
+<li>Studio::EventInstance::getLoadingState - use <A HREF="../FMOD_Studio_EventDescription_GetSampleLoadingState.html">Studio::EventDescription::getSampleLoadingState</A> instead</li>
+<li>Studio.Factory.System_Create (C# only) - use <A HREF="../FMOD_Studio_System_Create.html">Studio.System.create</A> instead</li>
+<li>Studio.System.init (C# only) - use <A HREF="../FMOD_Studio_System_Initialize.html">Studio.System.initialize</A> instead</li>
+</ul>
+
+<h2>PS3 Support</h2>
+
+<p>FMOD Studio now officially supports PS3.</p>
+
+<h2>WiiU Support</h2>
+
+<p>FMOD Studio now officially supports WiiU.</p>
+
+<h2>Linux Support</h2>
+
+<p>FMOD Studio now officially supports Linux.</p>
+
+<h2>Windows Phone 8.1 Support</h2>
+
+<p>FMOD Studio now officially supports Windows Phone 8.1.</p>

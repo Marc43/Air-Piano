@@ -1,0 +1,39 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::CommandReplay::start</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::CommandReplay::start</H1>
+<P>
+<p>Starts the command replay running.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::CommandReplay::start();</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_CommandReplay_Start(FMOD_STUDIO_COMMANDREPLAY *<I>commandreplay</I>);</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.CommandReplay.start();</CODE></PRE>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function starts the replay running.  The state
+of the replay can be called from <A HREF="FMOD_Studio_CommandReplay_GetPlaybackState.html">Studio::CommandReplay::getPlaybackState</A>.</p>
+
+<p>If the replay is already running then it will restart from the beginning.</p>
+
+<p>Once the replay finishes it will automatically stop.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_System_LoadCommandReplay.html">Studio::System::loadCommandReplay</A></LI>
+<LI><A HREF="FMOD_Studio_CommandReplay_Stop.html">Studio::CommandReplay::stop</A></LI>
+<LI><A HREF="FMOD_Studio_CommandReplay_GetPlaybackState.html">Studio::CommandReplay::getPlaybackState</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,197 @@
+
+body
+{
+    margin: 2px;
+    padding: 0px 8px 0px 34px;
+    background: #ffffff; 
+    color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 70%;
+}
+
+h1, h2, h3, h4
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin-left: -26px;
+}
+
+h1
+{
+    font-size: 200%;
+    margin-top: .5em;
+    margin-bottom: .5em; 
+}
+
+h2
+{
+    font-size: 140%;
+    margin-top: 1em;
+    margin-bottom: .6em; 
+}
+
+h3
+{
+    font-size: 115%;
+    margin-top: 1em;
+    margin-bottom: .6em;
+}
+
+h4
+{
+    font-size: 100%;
+    margin-top: 1em;
+    margin-bottom: .6em; 
+}
+
+.api_reference h2
+{
+    font-size: 115%;
+    margin-top: 1.6em;
+    margin-bottom: .6em;
+    margin-left: -13px;
+}
+
+.api_reference h3
+{
+    font-size: 100%;
+    margin-top: .6em;
+    margin-bottom: .6em;
+    margin-left: 0em;
+}
+
+p
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+p.header
+{
+    margin: 0px -8px 0px -34px; /* compensate for body padding */
+    padding: 3px 4px 4px 4px;
+    font-style: italic;
+    font-family: Verdana, sans-serif;
+    font-size: 9pt;
+    color: #FFFFFF;
+    background:  #40555A;
+}
+
+.indent
+{
+    margin-left: 1.9em; 
+    margin-right: 1.9em;
+}
+
+.indent1
+{
+    margin-left: 12pt;
+}
+
+a:link
+{
+    color: #0066ff;
+}
+
+a:visited
+{
+    color: #996600; 
+}
+
+a:hover
+{
+    color: #cc9900;
+}
+
+pre
+{
+    margin-top: .6em;
+    margin-bottom: .6em; 
+}
+
+pre, code
+{
+    font: 100% Courier New, Courier, mono; 
+    color: #660000;
+    background-color: #F8F8F8;
+    padding: 2pt,4pt;
+    display: block;
+}
+
+pre.syntax
+{
+    background: #F8F8F8;
+    padding: 2pt,4pt;
+    cursor: text;
+    color: #000000;
+}
+
+.dt
+{
+    margin-bottom: -.6em; 
+}
+
+table
+{
+    width: 90%;
+    background: #999999;
+    margin-top: .6em;
+    margin-bottom: .3em;
+}
+
+ul p, ol p, dl p
+{
+    margin-left: 0em;
+}
+
+dl
+{
+    margin-top: 0em; 
+    margin-bottom: 0em; 
+}
+
+dd
+{
+    margin-bottom: 0em;  
+    margin-left: 1.9em; 
+}
+
+dt
+{
+    margin-top: .6em; 
+    font-style: italic;
+}
+
+ul, ol
+{
+    margin-top: .6em; 	
+    margin-bottom: 0em;
+}
+
+ol
+{
+    margin-left: 3.6em; 
+}	
+
+ul
+{
+    list-style-type: disc; 
+    margin-left: 1.9em; 
+}
+
+li
+{
+    margin-bottom: .6em;
+}
+
+ul ol, ol ol
+{
+    list-style-type: lower-alpha;
+}
+
+td
+{ 
+    padding: 4px 8px;
+    background: #ffffff;
+    vertical-align: top;
+    font-size: 70%;
+}

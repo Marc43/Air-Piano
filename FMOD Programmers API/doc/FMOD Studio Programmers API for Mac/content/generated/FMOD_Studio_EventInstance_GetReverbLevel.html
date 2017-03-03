@@ -1,0 +1,55 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::EventInstance::getReverbLevel</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::EventInstance::getReverbLevel</H1>
+<P>
+<p>Retrieves the send level to a Low Level reverb instance.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::EventInstance::getReverbLevel(
+  int <I>index</I>,
+  float *<I>level</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_EventInstance_GetReverbLevel(
+  FMOD_STUDIO_EVENTINSTANCE *<I>eventinstance</I>,
+  int <I>index</I>,
+  float *<I>level</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.EventInstance.getReverbLevel(
+  int <i>index</i>,
+  out float <i>level</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>index</dt>
+<dd>Index of the Low Level reverb instance to target, from 0 to 3.</dd>
+<dt>level</dt>
+<dd>Address of a variable to receive the send level for the signal to the reverb, from 0 (none) to 1 (full).</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function gets the level of signal sent from the event instance to a Low Level reverb instance.</p>
+
+<p><strong>NOTE</strong>: Use this function in preference to obtaining the event's ChannelGroup via <A HREF="FMOD_Studio_EventInstance_GetChannelGroup.html">Studio::EventInstance::getChannelGroup</A>
+and calling <A HREF="FMOD_ChannelGroup_GetReverbProperties.html">ChannelGroup::getReverbProperties</A> directly. This function is safe to use anytime.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_EventInstance_SetReverbLevel.html">Studio::EventInstance::setReverbLevel</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,59 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>System::getNumNestedPlugins</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>System::getNumNestedPlugins</H1>
+<P>
+<p>Returns the number of plugins nested in the one plugin file.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT System::getNumNestedPlugins(
+  unsigned int <I>handle</I>,
+  int *<I>count</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_System_GetNumNestedPlugins(
+  FMOD_SYSTEM *<I>system</I>,
+  unsigned int <I>handle</I>,
+  int *<I>count</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT System.getNumNestedPlugins(
+  uint <i>handle</i>,
+  out int <i>count</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>handle</dt>
+<dd>Handle obtained from <A HREF="FMOD_System_LoadPlugin.html">System::loadPlugin</A>.</dd>
+<dt>count</dt>
+<dd>Returned number of plugins.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>Plugins normally have a single definition in them, in which case the count is always 1.</p>
+
+<p>For plugins that have a list of definitions, this function returns the number of plugins that
+have been defined.  <A HREF="FMOD_System_GetNestedPlugin.html">System::getNestedPlugin</A> can be used to find each handle.</p>
+
+<p>See the DSP Plugin API Programmer Topic for more information.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_System_LoadPlugin.html">System::loadPlugin</A></LI>
+<LI><A HREF="FMOD_System_GetNestedPlugin.html">System::getNestedPlugin</A></LI>
+<LI><A HREF="FMOD_PLUGINLIST.html">FMOD_PLUGINLIST</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

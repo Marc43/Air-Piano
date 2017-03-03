@@ -1,0 +1,59 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::CommandReplay::getCommandString</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::CommandReplay::getCommandString</H1>
+<P>
+<p>Retrieves a text string representation of the command at the given index.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::CommandReplay::getCommandString(
+  int <I>commandIndex</I>,
+  char *<I>buffer</I>,
+  int <I>length</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_CommandReplay_GetCommandString(
+  FMOD_STUDIO_COMMANDREPLAY *<I>commandreplay</I>,
+  int <I>commandIndex</I>,
+  char *<I>buffer</I>,
+  int <I>length</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.CommandReplay.getCommandString(
+  int <i>commandIndex</i>,
+  out string <i>description</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>commandIndex</dt>
+<dd>The index of the command.</dd>
+<dt>buffer</dt>
+<dd>Address of the variable to receive the string.</dd>
+<dt>length</dt>
+<dd>The capacity of the buffer.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>If the retrieved path is too long to fit in the supplied buffer, it will be truncated and this
+function will return <A HREF="FMOD_RESULT.html">FMOD_ERR_TRUNCATED</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI>    <A HREF="FMOD_Studio_CommandReplay_GetCommandCount.html">Studio::CommandReplay::getCommandCount</A></LI>
+<LI>    <A HREF="FMOD_Studio_CommandReplay_GetCommandInfo.html">Studio::CommandReplay::getCommandInfo</A></LI>
+<LI>    <A HREF="FMOD_Studio_CommandReplay_GetCommandAtTime.html">Studio::CommandReplay::getCommandAtTime</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

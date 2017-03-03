@@ -1,0 +1,61 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::System::getEvent</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::System::getEvent</H1>
+<P>
+<p>Retrieves an EventDescription by path or ID string.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::System::getEvent(
+  const char *<I>path</I>,
+  Studio::EventDescription **<I>event</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_System_GetEvent(
+  FMOD_STUDIO_SYSTEM *<I>system</I>,
+  const char *<I>path</I>,
+  FMOD_STUDIO_EVENTDESCRIPTION **<I>event</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.System.getEvent(
+  string <i>path</i>,
+  out EventDescription <i>_event</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>path</dt>
+<dd>The path or the ID string that identifies the event or snapshot.</dd>
+<dt>event</dt>
+<dd>Address of a variable to receive the EventDescription object.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function allows you to retrieve a handle to any loaded event description.</p>
+
+<p>The path field can be the full event path, such as 'event:/UI/Cancel' or 'snapshot:/IngamePause',
+or the ID in the form '{2a3e48e6-94fc-4363-9468-33d2dd4d7b00}'.</p>
+
+<p>Note that path lookups will only succeed if the strings bank has been loaded.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_ParseID.html">Studio::parseID</A></LI>
+<LI><A HREF="FMOD_Studio_System_LookupID.html">Studio::System::lookupID</A></LI>
+<LI><A HREF="FMOD_Studio_System_GetEventByID.html">Studio::System::getEventByID</A></LI>
+<LI><A HREF="FMOD_Studio_EventDescription_IsSnapshot.html">Studio::EventDescription::isSnapshot</A></LI>
+<LI><A HREF="FMOD_Studio_EventDescription_CreateInstance.html">Studio::EventDescription::createInstance</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

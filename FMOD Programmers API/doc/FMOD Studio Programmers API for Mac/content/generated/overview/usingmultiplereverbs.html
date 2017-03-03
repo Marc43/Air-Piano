@@ -1,0 +1,80 @@
+<LINK REL="stylesheet" href="../../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Using multiple reverbs</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<h1>Using multiple reverbs</h1>
+
+<h2>Introduction</h2>
+
+<p>In some situations, multiple styles of reverberations within a single environment must be modeled.  For example, imagine a large church hall with a tunnel down into the catacombs.  The reverb applied to the player's footsteps within the church hall (such as <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_STONEROOM</A>) could be quite different to that of the monster sounds emitting from the tunnel (which may be applied with both <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_SEWERPIPE</A> and <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_STONEROOM</A>). To handle this situation, multiple instances of the reverb DSP are required.  As many as four instances of the reverb DSP can be added to the FMOD DSP Network (at a cost of more CPU time and memory usage).<br>
+<br>
+<strong>Note:</strong> Should you want to model multiple reverbs types within an environment without the extra resource expense of multiple physical reverbs, see the 3D reverb tutorial, which covers automated 3D reverb zones using single reverb instance.<br>
+<br>
+In this section we will look at examples of:</p>
+
+<ul>
+<li>Adding physical reverbs using the low level API</li>
+<li>Querying an instance's reverb properties</li>
+<li>Controlling the wet/dry mix of each reverb instance per channel</li>
+</ul>
+
+<p>In the FMOD Studio UI you would typically allow the sound designer to set up their own reverbs on group buses, and use sends and mixer snapshots to allow the sound designer to control the reverb mix for events.</p>
+
+<h2>Setting up the reverbs</h2>
+
+<p>Below is an example of setting up four reverb instances.  You do not need to explicitly create the extra reverb instances - the FMOD Studio engine creates them and connects them to the DSP Network when you reference them.<br>
+<br/>
+In the following example we will use <A HREF="../FMOD_System_SetReverbProperties.html">System::setReverbProperties</A> to specify four different reverb effects.<br/>
+<br/>
+First we define four different <A HREF="../FMOD_REVERB_PROPERTIES.html">FMOD_REVERB_PROPERTIES</A> structures.  The example below uses presets.  You can define your own reverb settings but presets make it easier to get some common reverbs working.<br></p>
+
+<pre><code><A HREF="../FMOD_REVERB_PROPERTIES.html">FMOD_REVERB_PROPERTIES</A> prop1 = <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_HALLWAY</A>;
+<A HREF="../FMOD_REVERB_PROPERTIES.html">FMOD_REVERB_PROPERTIES</A> prop2 = <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_SEWERPIPE</A>;
+<A HREF="../FMOD_REVERB_PROPERTIES.html">FMOD_REVERB_PROPERTIES</A> prop3 = <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_PARKINGLOT</A>;
+<A HREF="../FMOD_REVERB_PROPERTIES.html">FMOD_REVERB_PROPERTIES</A> prop4 = <A HREF="../FMOD_REVERB_PRESETS.html">FMOD_PRESET_CONCERTHALL</A>;
+</code></pre>
+
+<p>We then change the 'Instance' member to set which reverb DSP unit will be used for each preset, then call the <A HREF="../FMOD_System_SetReverbProperties.html">System::setReverbProperties</A> function.</p>
+
+<pre><code>prop1.Instance = 0;
+result = system-&gt;setReverbProperties(&amp;prop1);
+prop2.Instance = 1;
+result = system-&gt;setReverbProperties(&amp;prop2);
+prop3.Instance = 2;
+result = system-&gt;setReverbProperties(&amp;prop3);
+prop4.Instance = 3;
+result = system-&gt;setReverbProperties(&amp;prop4);
+</code></pre>
+
+<h2>Getting the REVERB properties</h2>
+
+<p>Should you wish to get the current System reverb properties, you must first set the Instance member before calling <A HREF="../FMOD_System_GetReverbProperties.html">System::getReverbProperties</A>. In this example we will get the properties for Instance 3.</p>
+
+<pre><code><A HREF="../FMOD_REVERB_PROPERTIES.html">FMOD_REVERB_PROPERTIES</A> prop = { 0 };
+prop.Instance = 3;
+result = system-&gt;getReverbProperties(&amp;prop);
+</code></pre>
+
+<h2>Setting the wet/dry mix per Channel</h2>
+
+<p>Each channel of the FMOD Studio mixer can set their wet/dry mix for each reverb with <A HREF="../FMOD_Channel_SetReverbProperties.html">Channel::setReverbProperties</A>. <br/>
+By default a channel will send to all instances.  This example sets the instance 1 send value to linear 0.0 (-80 db) (off).</p>
+
+<pre><code>result = channel-&gt;setReverbProperties(1, 0.0f);
+</code></pre>
+
+<p>To get the reverb mix level to be full volume again, simply set it to 1 (0db)</p>
+
+<pre><code>result = channel-&gt;setReverbProperties(1, 1.0f);
+</code></pre>
+
+<p>This system supercedes the now obsolete method of using FMOD_REVERB_CHANNELPROPERTIES and flags to specify which instance.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>

@@ -1,0 +1,35 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_STUDIO_SYSTEM_CALLBACK_TYPE</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_STUDIO_SYSTEM_CALLBACK_TYPE</H1>
+<P>
+<p>These callback types are used with <A HREF="FMOD_Studio_System_SetCallback.html">Studio::System::setCallback</A>.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>#define FMOD_STUDIO_SYSTEM_CALLBACK_PREUPDATE 0x00000001
+#define FMOD_STUDIO_SYSTEM_CALLBACK_POSTUPDATE 0x00000002
+#define FMOD_STUDIO_SYSTEM_CALLBACK_BANK_UNLOAD 0x00000004
+#define FMOD_STUDIO_SYSTEM_CALLBACK_ALL 0xFFFFFFFF
+</CODE></PRE>
+<h2>Values</h2>
+<P class=dt><I>FMOD_STUDIO_SYSTEM_CALLBACK_PREUPDATE</I></P>
+<P class=indent>Called at the start of the main Studio update.  For async mode this will be on its own thread. </P>
+<P class=dt><I>FMOD_STUDIO_SYSTEM_CALLBACK_POSTUPDATE</I></P>
+<P class=indent>Called at the end of the main Studio update.  For async mode this will be on its own thread. </P>
+<P class=dt><I>FMOD_STUDIO_SYSTEM_CALLBACK_BANK_UNLOAD</I></P>
+<P class=indent>Called when bank has just been unloaded, after all resources are freed. CommandData will be the bank handle.</P>
+<P class=dt><I>FMOD_STUDIO_SYSTEM_CALLBACK_ALL</I></P>
+<P class=indent>Pass this mask to <A HREF="FMOD_Studio_System_SetCallback.html">Studio::System::setCallback</A> to receive all callback types. </P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_STUDIO_SYSTEM_CALLBACK.html">FMOD_STUDIO_SYSTEM_CALLBACK</A></LI>
+<LI><A HREF="FMOD_Studio_System_SetCallback.html">Studio::System::setCallback</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,48 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>FMOD_STUDIO_COMMANDREPLAY_FRAME_CALLBACK</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>FMOD_STUDIO_COMMANDREPLAY_FRAME_CALLBACK</H1>
+<P>
+<p>Callback for when the command replay goes to the next frame.</p>
+</P>
+<h3>C/C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT F_CALLBACK FMOD_STUDIO_COMMANDREPLAY_FRAME_CALLBACK(
+  FMOD_STUDIO_COMMANDREPLAY *<I>replay</I>,
+  int <I>commandIndex</I>,
+  float <I>currentTime</I>,
+  void *<I>userdata</I>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<P class=dt><I>replay</I></P>
+<P class=indent>Pointer to the command replay object.</P>
+<P class=dt><I>commandIndex</I></P>
+<P class=indent>The current playback command index.</P>
+<P class=dt><I>currentTime</I></P>
+<P class=indent>The current playback time.</P>
+<P class=dt><I>userdata</I></P>
+<P class=indent>The userdata assigned into the given replay, or NULL if not set.</P>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p><u>C++ Users</u>.  Cast <code>FMOD_STUDIO_COMMANDREPLAY *</code> to <code>FMOD::Studio::CommandReplay *</code> inside the callback and use as normal.</p>
+
+<p>'userdata' is the userdata assigned to the system from <A HREF="FMOD_Studio_CommandReplay_SetUserData.html">Studio::CommandReplay::setUserData</A> function.</p>
+
+<p>The command replay file is batched into frames, where each frame will be executed only after the appropriate time as passed.  Each
+time a frame is passed this callback will be invoked.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_CommandReplay_SetFrameCallback.html">Studio::CommandReplay::setFrameCallback</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

@@ -1,0 +1,44 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::EventDescription::hasCue</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::EventDescription::hasCue</H1>
+<P>
+<p>Retrieves whether the event has any sustain points.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::EventDescription::hasCue(
+  bool *<I>cue</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_EventDescription_HasCue(
+  FMOD_STUDIO_EVENTDESCRIPTION *<I>eventdescription</I>,
+  FMOD_BOOL *<I>cue</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.EventDescription.hasCue(
+  out bool <i>cue</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>cue</dt>
+<dd>Address of a variable to receive the cue status.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_EventInstance_TriggerCue.html">Studio::EventInstance::triggerCue</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>

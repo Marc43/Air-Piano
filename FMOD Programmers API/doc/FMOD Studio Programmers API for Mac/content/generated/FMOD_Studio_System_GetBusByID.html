@@ -1,0 +1,56 @@
+<LINK REL="stylesheet" HREF="../static/styles.css">
+<HTML>
+<HEAD>
+<TITLE>Studio::System::getBusByID</TITLE>
+</HEAD>
+<BODY TOPMARGIN="0" class="api_reference">
+<p class="header">Firelight Technologies FMOD Studio API</p>
+<H1>Studio::System::getBusByID</H1>
+<P>
+<p>Retrieves a bus by ID.</p>
+</P>
+<h3>C++ Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT Studio::System::getBusByID(
+  const FMOD_GUID *<I>id</I>,
+  Studio::Bus **<I>bus</I>
+);
+</CODE></PRE>
+<h3>C Syntax</h3>
+<PRE class=syntax><CODE>FMOD_RESULT FMOD_Studio_System_GetBusByID(
+  FMOD_STUDIO_SYSTEM *<I>system</I>,
+  const FMOD_GUID *<I>id</I>,
+  FMOD_STUDIO_BUS **<I>bus</I>
+);
+</CODE></PRE>
+<h3>C# Syntax</h3>
+<PRE class=syntax><CODE>RESULT Studio.System.getBusByID(
+  Guid <i>guid</i>,
+  out Bus <i>bus</i>
+);
+</CODE></PRE>
+<h2>Parameters</h2>
+<dl>
+<dt>id</dt>
+<dd>The 128-bit GUID which identifies the bus.</dd>
+<dt>bus</dt>
+<dd>Address of a variable to receive the bus object.</dd>
+</dl>
+<h2>Return Values</h2><P>
+If the function succeeds then the return value is <A HREF="FMOD_RESULT.html">FMOD_OK</A>.<BR>
+If the function fails then the return value will be one of the values defined in the <A HREF="FMOD_RESULT.html">FMOD_RESULT</A> enumeration.<BR>
+</P>
+<h2>Remarks</h2><P>
+<p>This function allows you to retrieve a handle for any bus in the
+global mixer. The ID can be looked up using <A HREF="FMOD_Studio_System_LookupID.html">Studio::System::lookupID</A> or
+parsed from a string using <A HREF="FMOD_Studio_ParseID.html">Studio::parseID</A>.</p>
+</P>
+<h2>See Also</h2>
+<UL type=disc>
+<LI><A HREF="FMOD_Studio_ParseID.html">Studio::parseID</A></LI>
+<LI><A HREF="FMOD_Studio_System_LookupID.html">Studio::System::lookupID</A></LI>
+<LI><A HREF="FMOD_Studio_System_GetBus.html">Studio::System::getBus</A></LI>
+</UL>
+<BR><BR><BR>
+<P align=center><font size=-2>Version 1.09.01 Built on Feb 9, 2017</font></P>
+<BR>
+</HTML>
