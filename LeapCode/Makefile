@@ -1,4 +1,4 @@
-all: LeeMotion.o LeapTest
+all: LeeMotion.o AirPiano
 
 OS := $(shell uname)
 ARCH := $(shell uname -m)
@@ -20,13 +20,13 @@ ifeq ($(OS), Darwin)
 	install_name_tool -change @loader_path/libLeap.dylib ../LeapSDK/lib/libLeap.dylib 
 endif
 
-LeapTest: LeapTest.cc LeeMotion.o
-	$(CXX) -Wall -g -I../LeapSDK/include LeapTest.cc LeeMotion.o -o LeapTest $(LEAP_LIBRARY)
+AirPiano: AirPiano.cc LeeMotion.o
+	$(CXX) -Wall -g -I../LeapSDK/include AirPiano.cc LeeMotion.o -o LeapTest $(LEAP_LIBRARY)
 ifeq ($(OS), Darwin)
-	install_name_tool -change @loader_path/libLeap.dylib ../LeapSDK/lib/libLeap.dylib LeapTest
+	install_name_tool -change @loader_path/libLeap.dylib ../LeapSDK/lib/libLeap.dylib AirPiano
 endif
 
 
 
 clean:
-	rm -rf LeapTest LeapTest.dSYM LeeMotion.o
+	rm -rf AirPiano AirPiano.dSYM LeeMotion.o
