@@ -11,10 +11,10 @@ using namespace std;
 using namespace Leap;
 
 struct DataToTreat {
-    int f_id; //Hand id
-    int htype; //Type of hand
-    vector<pair <int, f_direction> > ftype (5); //Type of finger and vector pointing out of the finger
-    float height; //Hand height
+    int h_id; //Hand id (if -1, does not exist)
+    bool right; //Type of hand (true Right, false Left)
+    vector<pair <int, Vector> > ftype; //Type of finger and vector pointing out of the finger
+    Vector h_position; //Hand position...
     Vector h_normal; //Normal vector of the palm
 };
 
@@ -43,14 +43,11 @@ class LeeMotion {
         Vector getFingerDirection (const Finger &finger);
         /* Get the direction of a given finger */
         
-        list<Hand> getHands ();
+        HandList getHands ();
         /* Get the hands in frame */
         
         Vector getHandNormal (const Hand &hand);
         /* Get the normal of a given hand */
-        
-        Vector directionHand();
-        
         
 };
 

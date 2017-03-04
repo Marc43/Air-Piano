@@ -20,28 +20,15 @@ FingerList LeeMotion::getFingers (const Hand &hand) {
 }
 
 Vector LeeMotion::getFingerDirection (const Finger &finger) {
-    Vector vector;
-    return vector;
+    Bone b = finger.bone(Leap::Bone::TYPE_DISTAL);
+    return b.direction();
 }
 
-list<Hand> LeeMotion::getHands () {
-    list<Hand> lh;
-    return lh;
+HandList LeeMotion::getHands () {
+    HandList hl = act.hands();
+    return hl;
 }
 
 Vector LeeMotion::getHandNormal (const Hand &hand) {
-    Vector vector;
-    return vector;
+    return hand.palmNormal();
 }
-
-Vector LeeMotion::directionHand() {
-        HandList hands = act.hands();
-        Hand hand;
-        for (Leap::HandList::const_iterator hl = hands.begin(); hl != hands.end(); hl++) hand = *hl;
-        Vector dir = hand.direction();
-        
-        return dir;
-}
-
-        
-    
