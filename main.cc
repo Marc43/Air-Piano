@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <set>
 #include <cstring>
 #include "Reproduce_music.hh"
 using namespace std;
@@ -36,23 +37,31 @@ map<int, musical_note_data> read_data_from_txt(const char* const path_to_read) {
     }
     else {
         while (infile >> next_read) {
-            vector<string> line_readed = split(next_read, ';');
-            musical_note_data data_aux;
-            data_aux.route = new char[line_readed[1].length() + 1];
-            data_map[atoi(line_readed[0].c_str())] = data_aux;
         }
     }
     return data_map;
 }
 
 int main() {
-    const char* const path = "musical_notes_data.txt";
-    //Reproduce_music test(read_data_from_txt(path));
-    map<int, musical_note_data> data_map = read_data_from_txt(path);
-    map<int, musical_note_data>::iterator it;
+    map<int, musical_note_data> data_map;
+    musical_note_data aux;
+    aux.route = "./Sounds/drumloop.wav";
+    data_map[1] = aux;
+    aux.route = "./Sounds/singing.wav";
+    data_map[2] = aux;
+    Reproduce_music test(data_map);
+    int myints[]= {1, 2};
+    std::set<int> second (myints,myints+2);
+    set<int>::iterator it2;
+    /*for (it2 = second.begin(); it2 != second.end(); ++it2) {
+        cout << *it2 << endl;
+    }*/
+    test.update_musical_notes(second);
+    test.play_musical_notes();
+    while(1);
+    /*map<int, musical_note_data>::iterator it;
 
     for (it = data_map.begin(); it != data_map.end(); ++it) {
         cout << it->first << " " << it->second.route << endl;
-    }
-
+    }*/
 }

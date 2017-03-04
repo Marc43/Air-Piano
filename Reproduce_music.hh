@@ -1,8 +1,9 @@
 #include "Headers/fmod.hpp"
-#include "Headers/common.h"
+#include "Headers/fmod_errors.h"
 #include <set>
 #include <map>
 #include <string>
+#include <iostream>
 using namespace std;
 
 struct musical_note_data {
@@ -19,7 +20,7 @@ private:
 
   FMOD::System       *system;
   FMOD::Sound        *sound[32];
-  FMOD::Channel      *channel[32];
+  FMOD::Channel      *channel ;
   FMOD_RESULT         result;
   int                 count;
   unsigned int        version;

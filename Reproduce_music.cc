@@ -2,17 +2,29 @@
 
     Reproduce_music::Reproduce_music(map<int, musical_note_data> base_data) {
         this->musical_note_map = base_data;
-        /*if (version < FMOD_VERSION) {
-            Common_Fatal("FMOD lib version %08x doesn't match header version %08x", version, FMOD_VERSION);
-        }*/
 
-        result = system->init(10, FMOD_INIT_NORMAL, 0);
+        channel = 0;
+        FMOD::System_Create(&system);
 
+        result = system->getVersion(&version);
+        cout << FMOD_ErrorString(result) << endl;
+        if (version < FMOD_VERSION) {
+            cout << "FMOD lib version " << version << " doesn't match header version " << FMOD_VERSION << endl;
+        }
+
+        int driverCount = 0;
+       system->getNumDrivers(&driverCount);
+
+        if (driverCount == 0)
+        {
+           cout << "No drivers" << endl;
+        }
+        result = system->init(32, FMOD_INIT_NORMAL, NULL);
+        cout << FMOD_ErrorString(result) << endl;
         map<int, musical_note_data>::iterator it;
-        int i = 0;
         for (it = musical_note_map.begin(); it != musical_note_map.end(); it++) {
-            result = system->createSound(it->second.route, FMOD_LOOP_NORMAL, 0, &sound[i]);
-            ++i;
+            result = system->createSound(it->second.route, FMOD_DEFAULT, 0, &sound[it->first]);
+            cout << FMOD_ErrorString(result) << endl;
         }
     }
 
@@ -29,9 +41,8 @@
             set<int>::iterator find_it;
             find_it = previous_notes.find(*set_it);
             if (find_it == previous_notes.end()) {
-                result = system->playSound(sound[*set_it], 0, true, &channel[*set_it]);
-
-                result = channel[count]->setPaused(false);
+                result = system->playSound(sound[*set_it], NULL, false, NULL);
+                cout << FMOD_ErrorString(result) << endl;
             }
         }
     }
