@@ -26,20 +26,33 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-map<int, musical_note_data> read_data_from_txt(string path_to_read) {
+map<int, musical_note_data> read_data_from_txt(const char* const path_to_read) {
     map<int, musical_note_data> data_map;
     std::ifstream infile(path_to_read);
     string next_read;
-    while (infile >> next_read) {
-        vector<string> line_readed = split(next_read, ';');
-        musical_note_data data_aux;
-        data_aux.route = new char[line_readed[1].length() + 1];
-        data_map[atoi(line_readed[0].c_str())] = data_aux;
+    if( !infile ) {
+        std::cout << "Can't open file " << path_to_read << std::endl;
+        std::exit( -1 );
+    }
+    else {
+        while (infile >> next_read) {
+            vector<string> line_readed = split(next_read, ';');
+            musical_note_data data_aux;
+            data_aux.route = new char[line_readed[1].length() + 1];
+            data_map[atoi(line_readed[0].c_str())] = data_aux;
+        }
     }
     return data_map;
 }
 
 int main() {
-    Reproduce_music test(read_data_from_txt("musical_notes_data.txt"));
-    cout << "Data llegida i classe creada" << endl;
+    const char* const path = "musical_notes_data.txt";
+    //Reproduce_music test(read_data_from_txt(path));
+    map<int, musical_note_data> data_map = read_data_from_txt(path);
+    map<int, musical_note_data>::iterator it;
+
+    for (it = data_map.begin(); it != data_map.end(); ++it) {
+        cout << it->first << " " << it->second.route << endl;
+    }
+
 }

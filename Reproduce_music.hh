@@ -23,7 +23,6 @@ private:
   FMOD_RESULT         result;
   int                 count;
   unsigned int        version;
-  void               *extradriverdata;
 
 public:
   Reproduce_music(map<int, musical_note_data> base_data);
