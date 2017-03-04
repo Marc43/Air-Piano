@@ -1,8 +1,7 @@
 #include <iostream>
-º
 #include <vector>
 #include <map>
-#include
+#include "Leap.h"
 using namespace Leap;
 
 class LeapMotion {
