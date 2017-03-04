@@ -7,10 +7,8 @@ LeeMotion::LeeMotion () {
     this->act = act; //Null instance (we have to wait until the asynchronous connexion is done...)
 }
 
-Frame LeeMotion::updateFrame () {
+void LeeMotion::updateFrame () {
     act = lpm.frame();
-    
-    return act;
 }
 
 bool LeeMotion::isConnected () {
