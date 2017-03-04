@@ -1,36 +1,43 @@
-#include <iostream>
-#include "Leap.h"
-#include <vector>
-#include <map>
-
+#include "LeapMotion.hh"
 using namespace Leap;
 
-class LeapMotion {
-    private:
-        Controller dispositivo;
-        vector<Finger>
 
-    public:
-        virtual void onConnect(const Controller&);
-        virtual void onDisconnect(const Controller&);
-        virtual void onFrame(const Controller&);
+    LeapMotion::LeapMotion(){
+        Controller conexion;
+        controller = conexion;
+    }
+
+    //Destructores
+    LeapMotion::~LeapMotion(){};
+
+    //Consultores
+
+    bool LeapMotion::Is_connected(){
+        return controller.isConnected();
+    }
+
+
+
+    vector<int> LeapMotion::Direction_hand(Hand hand){
+        HandList hands = scene.hands();
+        Hand hand;
+        for (Leap::HandList::const_iterator hl = hands.begin(); hl != hands.end(); hl++){
+            hand = *h1;
+        }
+        vector <int> v = vector<int>(3,0);
+        v[0] = hand.x;
+        v[1] = hand.y;
+        v[2] = hand.z;
+        return v;
+
+    }
+
+    vector<vector<int>> LeapMotion::Direction_fingers(Hand hand){
+
+    }
+
+    //Modificadores
+    void Update_frame(){
+        scene = controller.frame();
+    }
 };
-
-void LeapEventListener::onConnect(const Controller& controller) {
-    std::cout << "Connected" << std::endl;
-    // Enable gestures, set Config values:
-    controller.enableGesture(Gesture::TYPE_SWIPE);
-    controller.config().setFloat("Gesture.Swipe.MinLength", 200.0);
-    controller.config().save();
-}
-
-//Not dispatched when running in a debugger
-void LeapEventListener::onDisconnect(const Controller& controller) {
-    std::cout << "Disconnected" << std::endl;
-}
-
-void LeapEventListener::onFrame(const Controller& controller) {
-    std::cout << "New frame available" << std::endl;
-    Frame frame = controller.frame();
-    // Process this frame's data...
-}
