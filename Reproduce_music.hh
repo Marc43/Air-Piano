@@ -1,13 +1,13 @@
-#include "fmod.hpp"
-#include "common.h"
+#include "Headers/fmod.hpp"
+#include "Headers/common.h"
 #include <set>
 #include <map>
 #include <string>
 using namespace std;
 
 struct musical_note_data {
-    string route;
-}
+    char *route;
+};
 
 class Reproduce_music {
 private:

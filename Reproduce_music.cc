@@ -1,10 +1,9 @@
 #include "Reproduce_music.hh"
 
-class Reproduce_music {
     Reproduce_music::Reproduce_music(map<int, musical_note_data> base_data) {
         this->musical_note_map = base_data;
 
-        *extradriverdata = 0;
+        extradriverdata = 0;
         Common_Init(&extradriverdata);
 
         result = FMOD::System_Create(&system);
@@ -35,7 +34,7 @@ class Reproduce_music {
 
     void Reproduce_music::play_musical_notes(){
         set<int>::iterator set_it;
-        for (set_it = actual_notes.begin(); set_it != actual_notes.end(); it++) {
+        for (set_it = actual_notes.begin(); set_it != actual_notes.end(); set_it++) {
             set<int>::iterator find_it;
             find_it = previous_notes.find(*set_it);
             if (find_it == previous_notes.end()) {
@@ -51,4 +50,3 @@ class Reproduce_music {
     void Reproduce_music::update_musical_note_data(map<int, musical_note_data> base_data){
         this->musical_note_map = base_data;
     }
-}

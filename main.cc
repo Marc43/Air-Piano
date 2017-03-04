@@ -5,11 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <cstring>
+#include "Reproduce_music.hh"
 using namespace std;
-
-struct musical_note_data {
-    string route;
-};
 
 template<typename Out>
 void split(const std::string &s, char delim, Out result) {
@@ -35,8 +33,13 @@ map<int, musical_note_data> read_data_from_txt(string path_to_read) {
     while (infile >> next_read) {
         vector<string> line_readed = split(next_read, ';');
         musical_note_data data_aux;
-        data_aux.route = line_readed[1];
+        data_aux.route = new char[line_readed[1].length() + 1];
         data_map[atoi(line_readed[0].c_str())] = data_aux;
     }
     return data_map;
+}
+
+int main() {
+    Reproduce_music test(read_data_from_txt("musical_notes_data.txt"));
+    cout << "Data llegida i classe creada" << endl;
 }
