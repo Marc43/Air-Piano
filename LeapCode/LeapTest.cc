@@ -4,13 +4,7 @@
 #include <cmath>
 #include "LeeMotion.hh"
 
-struct DataToTreat {
-    int h_id; //Hand id (if -1, does not exist)
-    bool right; //Type of hand (true Right, false Left)
-    vector<pair <int, Vector> > ftype; //Type of finger and vector pointing out of the finger
-    Vector h_position; //Hand position...
-    Vector h_normal; //Normal vector of the palm
-};
+//GUARDARME 
 
 int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position){
     //if ()
@@ -18,7 +12,7 @@ int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_p
 }
 
 bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNormalDirection){
-    float angle = (180 * fingerDirection.AngleTo(VhandNormalDirection))/PI;
+    float angle = (180 * fingerDirection.angleTo(handNormalDirection))/PI;
     return angle <= 60;
 }
 
@@ -39,26 +33,6 @@ set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData){
 int main(){
     LeeMotion leapMotion;
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
-    while(not leapMotion.isConnected()){};
-    while (1){
-        HandList::const_iterator it = hl.begin();
-        FingerList fl = leapMotion.getFingers(*it);
-        FingerList::const_iterator cit = fl.begin();
-        Vector v = leapMotion.getFingerDirection(*cit);
-//             cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
-        Vector pos = (*it).palmPosition();
-        cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << endl;*/
-
-    /*LeeMotion leapMotion;
-    while(not leapMotion.isConnected()){};
-    while (1){
-        leapMotion.updateFrame();
-        //Llammar funcion obtener datos leapMotion
-        //set<int> notesToReproduce = ConvertDataToNote(leapMotionData);
-
-    }*/
-
-/*
     while(not leapMotion.isConnected()){};
     while (1){
         leapMotion.updateFrame();
@@ -100,17 +74,32 @@ int main(){
 
             data.first.h_normal = lh.palmNormal();
             data.second.h_normal = rh.palmNormal();
-
-*/
         }
     }
+
+
+    //Llammar funcion obtener datos leapMotion
+    set<int> notesToReproduce = ConvertDataToNote(leapMotionData);
 }
+
+    /*while(not leapMotion.isConnected()){};
+    while (1){
+        leapMotion.updateFrame();
+        HandList hl = leapMotion.getHands();
+        HandList::const_iterator it = hl.begin();
+        FingerList fl = leapMotion.getFingers(*it);
+        FingerList::const_iterator cit = fl.begin();
+        Vector v = leapMotion.getFingerDirection(*cit);
+        //cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
+        Vector pos = (*it).palmPosition();
+        cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << endl;
+    }*/
 
 
           /*  HandList::const_iterator it = hl.begin();
             FingerList fl = leapMotion.getFingers(*it);
             FingerList::const_iterator cit = fl.begin();
             Vector v = leapMotion.getFingerDirection(*cit);
-//             cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
+            cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
             Vector pos = (*it).palmPosition();
             cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << endl;*/
