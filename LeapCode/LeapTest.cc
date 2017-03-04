@@ -15,14 +15,20 @@ bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNor
     return angle <= 60;
 }
 
-set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData){
+set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior){
     set<int> ActiveFingers;
     for (int i = 0; i < leapMotionData.size(); i++){
         DataToTreat handInformation = leapMotionData[i];
         if (handInformation.h_id != -1){
             for (int j = 0; j < handInformation.ftype.size(); j++){
                 if (IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
-                    //ObtainIDActiveFinger();
+                    bool isRightHand = handInformation.right;
+                    int fingerType = handInformation.ftype.first;
+                    int h_position = h_position.y;
+                    int id_note = ObtainIDActiveFinger(isRightHand, fingerType, h_position);
+                    if (notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
+                        ActiveFingers.insert(id_note);
+                    }
                 }
             }
         }
@@ -99,12 +105,16 @@ vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> da
 int main(){
     LeeMotion leapMotion;
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
-    while(not leapMotion.isConnected()){};
+    while(!leapMotion.isConnected()){};
+    set<int> notesToReproduce;
+    set<int> notesToReproduceAnterior;
+
     while (1){
+        notesToReproduceAnterior = notesToReproduce;
         leapMotion.updateFrame();
         GetNewStruct(leapMotion, data);
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
-        set<int> notesToReproduce = ConvertDataToNote(leapMotionData);
+        notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior);
     }
 }
 
