@@ -2,6 +2,7 @@
 #define TIME_H
 
 class LeeMotion {
+    
     private:
         
         Controller lpm; //LeapMotion

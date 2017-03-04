@@ -21,6 +21,15 @@ FingerList::getFingers (const Hand &hand) {
 Vector::getFingerDirection (const Finger &finger) {
     
 }
+
+List<Hand>::getHands () {
+    
+}
+
+Vector::getHandNormal (const Hand &hand) {
+    
+}
+
         
 // //         LeeMotion(Controller lpm);
 // //         /*Constructor...*/
