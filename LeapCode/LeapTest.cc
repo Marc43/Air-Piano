@@ -1,14 +1,19 @@
 #include <iostream>
 #include <string.h>
-#include "Leap.h"
+#include "LeeMotion.hh"
 
-using namespace Leap;
-
-int main(int argc, char** argv) {
-
-    // Keep this process running until Enter is pressed
-    std::cout << "Press Enter to quit..." << std::endl;
-    std::cin.get();
-
-    return 0;
+int main(){
+    while (1){
+        LeeMotion leapMotion;
+        while(not leapMotion.isConnected()){};
+        Frame frame = leapMotion.updateFrame();
+        cout << "Frame id: " << frame.id()
+          << ", timestamp: " << frame.timestamp()
+          << ", hands: " << frame.hands().count()
+          << ", fingers: " << frame.fingers().count();
+        /*cout << "COORDENADAS XYZ: " << endl;
+        cout << leapMotion.directionHand().x << endl;
+        cout << leapMotion.directionHand().y << endl;
+        cout << leapMotion.directionHand().z << endl;*/
+    }
 }

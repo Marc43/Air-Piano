@@ -1,5 +1,14 @@
-#ifndef TIME_H
-#define TIME_H
+#ifndef LEEMOTION_H
+#define LEEMOTION_H
+
+#include <iostream>
+#include <vector>
+#include <list>
+#include <map>
+#include "Leap.h"
+
+using namespace std;
+using namespace Leap;
 
 class LeeMotion {
     
@@ -10,12 +19,15 @@ class LeeMotion {
         
     public:
         
-        LeeMotion (Controller lpm);
+        LeeMotion ();
         /*Constructor...*/
         
-        bool updateFrame ();
+        Frame updateFrame ();
         /* Updates this->act to the 
            real actual frame     */
+        
+        bool isConnected ();
+        /* true if LM is connected, otherwise, false */
         
         FingerList getFingers (const Hand &hand);
         /* Get the fingers of a given hand */
@@ -23,13 +35,13 @@ class LeeMotion {
         Vector getFingerDirection (const Finger &finger);
         /* Get the direction of a given finger */
         
-        List<Hand> getHands ();
+        list<Hand> getHands ();
         /* Get the hands in frame */
         
         Vector getHandNormal (const Hand &hand);
         /* Get the normal of a given hand */
         
-        
+        Vector directionHand();
         
         
 };

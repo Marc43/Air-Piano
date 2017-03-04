@@ -1,56 +1,49 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include "Leap.h"
-using namespace Leap;
+#include "LeeMotion.hh"
 
-LeeMotion::LeeMotion (Controller lpm) {
-    this->lpm = lpm;
-    act = lpm.frame(); //We get the latest frame of lpm (leapmotion controller)...
+LeeMotion::LeeMotion () {
+    Controller lpm;
+    this->lpm = lpm; //lEApmOTION
+    Frame act;
+    this->act = act; //Null instance (we have to wait until the asynchronous connexion is done...)
 }
 
-bool::updateFrame () {
-    if (lpm.isConnected()) {act = lpm.frame(); return true;}
-    return false;
+Frame LeeMotion::updateFrame () {
+    act = lpm.frame();
+    
+    return act;
 }
 
-FingerList::getFingers (const Hand &hand) {
+bool LeeMotion::isConnected () {
+    return lpm.isConnected();
+}
+
+FingerList LeeMotion::getFingers (const Hand &hand) {
     return hand.fingers();
 }
 
-Vector::getFingerDirection (const Finger &finger) {
-    
+Vector LeeMotion::getFingerDirection (const Finger &finger) {
+    Vector vector;
+    return vector;
 }
 
-List<Hand>::getHands () {
-    
+list<Hand> LeeMotion::getHands () {
+    list<Hand> lh;
+    return lh;
 }
 
-Vector::getHandNormal (const Hand &hand) {
-    
+Vector LeeMotion::getHandNormal (const Hand &hand) {
+    Vector vector;
+    return vector;
+}
+
+Vector LeeMotion::directionHand() {
+        HandList hands = act.hands();
+        Hand hand;
+        for (Leap::HandList::const_iterator hl = hands.begin(); hl != hands.end(); hl++) hand = *hl;
+        Vector dir = hand.direction();
+        
+        return dir;
 }
 
         
-// //         LeeMotion(Controller lpm);
-// //         /*Constructor...*/
-// //         
-// //         bool updateFrame();
-// //         /* Updates this->act to the 
-// //            real actual frame     */
-//         
-//         List<Finger> getFingers(const Hand &hand);
-//         /* Get the fingers of a given hand */
-        
-        Vector getFingerDirection(const Finger &finger);
-        /* Get the direction of a given finger */
-        
-        List<Hand> getHands();
-        /* Get the hands in frame */
-        
-        Vector getHandNormal(const Hand &hand);
-        /* Get the normal of a given hand */
-        
-        
-        
-        
-        
+    
