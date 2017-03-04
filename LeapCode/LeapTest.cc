@@ -4,10 +4,21 @@
 #include <cmath>
 #include "LeeMotion.hh"
 
+int finger; int hand; int height;
 
 int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position){
-    //if ()
-    return 1;
+    map<int, musical_note_data> infoFinger = ;
+    map<int, musical_note_data>::const_iterator it = infoFinger.begin();
+    bool idFound = false;
+    int idValue = -1;
+    while(!idFound && it != infoFinger.end()){
+        if (it->second.hand == isRightHand && it->second.finger == fingerType && it->second){
+            idValue = it->first;
+            idFound = true;
+        }
+        it++;
+    }
+    return idValue;
 }
 
 bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNormalDirection){
