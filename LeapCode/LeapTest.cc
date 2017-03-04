@@ -87,6 +87,14 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
     }
 }
 
+vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> data) {
+    vector <DataToTreat> dtt(2);
+    dtt [0] = data.first;
+    dtt [1] = data.second;
+    
+    return dtt;
+}
+
 int main(){
     LeeMotion leapMotion;
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
