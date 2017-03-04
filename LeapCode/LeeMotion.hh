@@ -10,18 +10,22 @@
 using namespace std;
 using namespace Leap;
 
+struct DataToTreat {
+    int f_id; //Hand id
+    int ftype; //Type of finger
+    float height; //Hand height
+    Vector h_normal; //Normal vector of the palm
+    Vector f_normal; //Vector pointing out of the finger
+};
+
 class LeeMotion {
     
     private:
         
         Controller lpm; //LeapMotion
         Frame act;  //Actual Frame 
-        
-        struct DataToTreat {
-            int f_id; //Hand id
-            int ftype; //Type of finger
-            Vector h_normal; //Normal vector 
-        };
+        pair<DataToTreat, DataToTreat> hands;
+
         
     public:
         
