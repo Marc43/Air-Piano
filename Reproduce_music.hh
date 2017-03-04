@@ -7,20 +7,17 @@
 using namespace std;
 
 struct musical_note_data {
-    char *route;
+    char * route; int finger; int hand; int height;
 };
 
 class Reproduce_music {
 private:
-  set<int> previous_notes;
-
   set<int> actual_notes;
 
   map<int, musical_note_data> musical_note_map;
 
   FMOD::System       *system;
   FMOD::Sound        *sound[32];
-  FMOD::Channel      *channel ;
   FMOD_RESULT         result;
   int                 count;
   unsigned int        version;

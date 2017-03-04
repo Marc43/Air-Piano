@@ -3,7 +3,6 @@
     Reproduce_music::Reproduce_music(map<int, musical_note_data> base_data) {
         this->musical_note_map = base_data;
 
-        channel = 0;
         FMOD::System_Create(&system);
 
         result = system->getVersion(&version);
@@ -31,19 +30,14 @@
     Reproduce_music::~Reproduce_music(){}
 
     void Reproduce_music::update_musical_notes(set<int> new_musical_notes){
-          this->previous_notes = actual_notes;
           this->actual_notes = new_musical_notes;
     }
 
     void Reproduce_music::play_musical_notes(){
         set<int>::iterator set_it;
         for (set_it = actual_notes.begin(); set_it != actual_notes.end(); set_it++) {
-            set<int>::iterator find_it;
-            find_it = previous_notes.find(*set_it);
-            if (find_it == previous_notes.end()) {
-                result = system->playSound(sound[*set_it], NULL, false, NULL);
-                cout << FMOD_ErrorString(result) << endl;
-            }
+            result = system->playSound(sound[*set_it], NULL, false, NULL);
+            cout << FMOD_ErrorString(result) << endl;
         }
     }
 
