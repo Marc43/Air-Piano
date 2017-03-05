@@ -1,13 +1,56 @@
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include <map>
+#include <vector>
+#include <iterator>
+#include <string>
 #include <string.h>
 #include <set>
+#include <cstring>
 #include <cmath>
 #include "LeeMotion.hh"
+#include "Reproduce_music.hh"
 
-int finger; int hand; int height;
+template<typename Out>
+void split(const std::string &s, char delim, Out result) {
+    std::stringstream ss;
+    ss.str(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        *(result++) = item;
+    }
+}
 
-int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position){
-    map<int, musical_note_data> infoFinger = ;
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, std::back_inserter(elems));
+    return elems;
+}
+
+map<int, musical_note_data> read_data_from_txt(string path_to_read) {
+    map<int, musical_note_data> data_map;
+    std::ifstream input(path_to_read); //put your program together with thsi file in the same folder.
+    if(input.is_open()){
+        while(!input.eof()){
+            string data;
+            getline(input,data);
+            vector<string> splitted_data = split(data, ';'); //convert to integer
+            musical_note_data aux;
+            aux.finger = atoi(splitted_data[1].c_str());
+            aux.hand = atoi(splitted_data[2].c_str());
+            aux.height = atoi(splitted_data[3].c_str());
+            char* chr = strdup(splitted_data[4].c_str());
+            aux.route = chr;
+            free(chr);
+            data_map[atoi(splitted_data[0].c_str())] = aux;
+       }
+    }
+    return data_map;
+}
+
+int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position, const map<int, musical_note_data>& infoFinger){
     map<int, musical_note_data>::const_iterator it = infoFinger.begin();
     bool idFound = false;
     int idValue = -1;
@@ -26,7 +69,7 @@ bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNor
     return angle <= 60;
 }
 
-set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior){
+set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior, const map<int, musical_note_data>& infoFinger){
     set<int> ActiveFingers;
     for (int i = 0; i < leapMotionData.size(); i++){
         DataToTreat handInformation = leapMotionData[i];
@@ -36,7 +79,7 @@ set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<
                     bool isRightHand = handInformation.right;
                     int fingerType = handInformation.ftype.first;
                     int h_position = h_position.y;
-                    int id_note = ObtainIDActiveFinger(isRightHand, fingerType, h_position);
+                    int id_note = ObtainIDActiveFinger(isRightHand, fingerType, h_position, infoFinger);
                     if (notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
                         ActiveFingers.insert(id_note);
                     }
@@ -114,7 +157,9 @@ vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> da
 }
 
 int main(){
+    map<int, musical_note_data> note_data = infoFingerread_data_from_txt("DB_sounds.txt");
     LeeMotion leapMotion;
+    Reproduce_music music_player(note_data);
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
@@ -125,7 +170,9 @@ int main(){
         leapMotion.updateFrame();
         GetNewStruct(leapMotion, data);
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
-        notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior);
+        notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
+        music_player.update_musical_notes(notesToReproduce);
+        music_player.play_musical_notes();
     }
 }
 
