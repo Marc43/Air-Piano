@@ -36,3 +36,11 @@ Vector LeeMotion::getHandNormal (const Hand &hand) {
     //return v;
     return hand.palmNormal();
 }
+
+Vector LeeMotion::getHandDirection (const Hand &hand) {
+    //return hand.direction();
+    //Vector v = hand.palmPosition();
+    //v.y = -v.y;
+    //return v;
+    return hand.direction();
+}

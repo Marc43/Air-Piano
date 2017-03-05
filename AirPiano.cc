@@ -17,6 +17,12 @@ void f(int s) {
 
 }
 
+float calcular_angle (Vector v1,Vector v2){
+    float sup = abs(v1.x*v2.x + v1.y*v2.y + v1.z*v2.z);
+    float inf1 = sqrt(pow(v1.x,2) + pow(v1.y,2) + pow(v1.z,2));
+    float inf2 = sqrt(pow(v2.x,2) + pow(v2.y,2) + pow(v2.z,2));
+    return 180*acos(sup/(inf1*inf2))/PI;
+}
 
 template<typename Out>
 void split(const std::string &s, char delim, Out result) {
@@ -35,15 +41,12 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-/*map<int, musical_note_data> read_data_from_txt(string path_to_read) {
+map<int, musical_note_data> read_data_from_txt(string path_to_read) {
     map<int, musical_note_data> data_map;
-    std::cout << "hello" << endl;
     std::ifstream input(path_to_read); //put your program together with thsi file in the same folder.
     int i = 0;
     if(input.is_open()){
-        cout << "biene" << endl;
         while(!input.eof()){
-            cout << "ola k ase" << endl;
             string data;
             getline(input,data);
             vector<string> splitted_data = split(data, ';'); //convert to integer
@@ -51,15 +54,14 @@ std::vector<std::string> split(const std::string &s, char delim) {
             aux.hand = atoi(splitted_data[1].c_str());
             aux.finger = atoi(splitted_data[2].c_str());
             aux.height = atoi(splitted_data[3].c_str());
-            aux.route = splitted_data[4].c_str();
+            //aux.route = splitted_data[4].c_str();
             data_map[atoi(splitted_data[0].c_str())] = aux;
             cout << i++ << endl;
        }
     }
-    cout << "funciona" << endl;
 
     return data_map;
-}*/
+}
 
 int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, Vector& h_position, const map<int, musical_note_data>& infoFinger){
     map<int, musical_note_data>::const_iterator it = infoFinger.begin();
@@ -68,23 +70,16 @@ int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, Vector& h_positio
     int alçada = 0;
 
     if (h_position.y > 0 && h_position.y <= 130){
-        cout << "HI1" << endl;
         alçada = 0;
     }
     else if (h_position.y > 130 && h_position.y <= 210){
-        cout << "HI2" << endl;
         alçada = 130;
     }
     else {
-        cout << "HI3" << endl;
         alçada = 210;
     }
-    cout << isRightHand << " " << fingerType << " " << alçada << endl;
     while(!idFound && it != infoFinger.end()){
-
-        cout << (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height == alçada) << endl;
         if (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height == alçada){
-            cout << "Troba igualtat" << endl;
             idValue = it->first;
             idFound = true;
         }
@@ -93,13 +88,19 @@ int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, Vector& h_positio
     return idValue;
 }
 
-bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNormalDirection){
-    cout << "Direccio dit: " << fingerDirection.x << " " << fingerDirection.y << " " << fingerDirection.z << endl;
+bool IsFingerPositionActive(Vector fingerDirection, Vector handNormalDirection){
+    /*cout << "Direccio dit: " << fingerDirection.x << " " << fingerDirection.y << " " << fingerDirection.z << endl;
     cout << "Direccio dit: " << handNormalDirection.x << " " << handNormalDirection.y << " " << handNormalDirection.z << endl;
-    cout << PI << endl;
-    float angle = (180 * handNormalDirection.angleTo(fingerDirection)/PI);
-    cout << "Angle:" << angle << endl;
+    */
+    Vector v1 = handNormalDirection;
+    Vector v2 = fingerDirection;
+    v2.x = v1.x;
+    v2.z = v1.z;
+     float angle = calcular_angle(v1,v2);
+    cout << "Angle:" << angle  << endl;
     return int(angle) <= 70;
+
+
 }
 
 set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior, const map<int, musical_note_data>& infoFinger){
@@ -109,8 +110,7 @@ set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<
         if (handInformation.h_id != -1){
             cout << "Ma vàlida!" << endl;
             for (int j = 0; j < handInformation.ftype.size(); j++){
-                cout << "Dit " << (j+1) << endl;
-                if (IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
+                if (handInformation.ftype[j].first != 0 && IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
 
                     bool isRightHand = handInformation.right;
                     int fingerType = handInformation.ftype[j].first;
@@ -200,6 +200,7 @@ int main(){
     for (ita = note_data.begin(); ita != note_data.end(); ++ita) {
         cout << ita->first << " " << std::string(ita->second.route) << endl;
     }*/
+    map<int, musical_note_data> note_data = read_data_from_txt("DB_sounds.txt");
     LeeMotion leapMotion;
     Reproduce_music music_player;
 
@@ -207,11 +208,11 @@ int main(){
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
     set<int> notesToReproduceAnterior;
-    map<int, musical_note_data>::const_iterator it3 = note_data.begin();
+    /*map<int, musical_note_data>::const_iterator it3 = note_data.begin();
     while(it3 != note_data.end()){
         cout << it3->first << " " << it3->second.hand << " " << it3->second.finger << " " << it3->second.height << endl;
         it3++;
-    }
+    }*/
     while (1){
         notesToReproduceAnterior = notesToReproduce;
         leapMotion.updateFrame();
@@ -224,6 +225,12 @@ int main(){
         //cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
         Vector pos = (*it).palmPosition();
         cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << endl;
+
+        /*float angle = (180 * leapMotion.getHandNormal(*it).angleTo(leapMotion.getHandDirection(*it)/PI));
+        cout << "Angle:" << angle << " " << int(angle)  << endl;
+
+        angle = calcular_angle(leapMotion.getHandNormal(*it), leapMotion.getHandDirection(*it));
+        cout << "Angle:" << angle << " " << int(angle)  << endl;*/
 
         GetNewStruct(leapMotion, data);
 
