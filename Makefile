@@ -29,9 +29,9 @@ endif
 
 Reproduce_music.o: Reproduce_music.cc Reproduce_music.hh
 		$(CXX) -Wall -g -I/LeapSDK/include Reproduce_music.cc Reproduce_music.hh -c $(FMOD_LIBRARY)
-	ifeq ($(OS), Darwin)
-		install_name_tool -change @loader_path/libfmod.dylib ./LeapSDK/lib/libfmod.dylib
-	endif
+ifeq ($(OS), Darwin)
+	install_name_tool -change @loader_path/libfmod.dylib ./LeapSDK/lib/libfmod.dylib
+endif
 
 clean:
 	rm -rf AirPiano AirPiano.dSYM *.o

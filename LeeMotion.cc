@@ -30,5 +30,9 @@ HandList LeeMotion::getHands () {
 }
 
 Vector LeeMotion::getHandNormal (const Hand &hand) {
+    //return hand.direction();
+    //Vector v = hand.palmPosition();
+    //v.y = -v.y;
+    //return v;
     return hand.palmNormal();
 }

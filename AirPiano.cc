@@ -11,6 +11,12 @@
 #include <cmath>
 #include "LeeMotion.hh"
 #include "Reproduce_music.hh"
+#include <unistd.h>
+
+void f(int s) {
+
+}
+
 
 template<typename Out>
 void split(const std::string &s, char delim, Out result) {
@@ -29,7 +35,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-/*map<int, musical_note_data> read_data_from_txt(string path_to_read) {
+map<int, musical_note_data> read_data_from_txt(string path_to_read) {
     map<int, musical_note_data> data_map;
     std::cout << "hello" << endl;
     std::ifstream input(path_to_read); //put your program together with thsi file in the same folder.
@@ -42,10 +48,9 @@ std::vector<std::string> split(const std::string &s, char delim) {
             getline(input,data);
             vector<string> splitted_data = split(data, ';'); //convert to integer
             musical_note_data aux;
-            aux.finger = atoi(splitted_data[1].c_str());
-            aux.hand = atoi(splitted_data[2].c_str());
+            aux.hand = atoi(splitted_data[1].c_str());
+            aux.finger = atoi(splitted_data[2].c_str());
             aux.height = atoi(splitted_data[3].c_str());
-            aux.route = splitted_data[4].c_str();
             data_map[atoi(splitted_data[0].c_str())] = aux;
             cout << i++ << endl;
        }
@@ -53,14 +58,32 @@ std::vector<std::string> split(const std::string &s, char delim) {
     cout << "funciona" << endl;
 
     return data_map;
-}*/
+}
 
-int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position, const map<int, musical_note_data>& infoFinger){
+int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, Vector& h_position, const map<int, musical_note_data>& infoFinger){
     map<int, musical_note_data>::const_iterator it = infoFinger.begin();
     bool idFound = false;
     int idValue = -1;
+    int alçada = 0;
+
+    if (h_position.y > 0 && h_position.y <= 130){
+        cout << "HI1" << endl;
+        alçada = 0;
+    }
+    else if (h_position.y > 130 && h_position.y <= 210){
+        cout << "HI2" << endl;
+        alçada = 130;
+    }
+    else {
+        cout << "HI3" << endl;
+        alçada = 210;
+    }
+    cout << isRightHand << " " << fingerType << " " << alçada << endl;
     while(!idFound && it != infoFinger.end()){
-        if (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height){
+
+        cout << (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height == alçada) << endl;
+        if (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height == alçada){
+            cout << "Troba igualtat" << endl;
             idValue = it->first;
             idFound = true;
         }
@@ -70,8 +93,12 @@ int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_p
 }
 
 bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNormalDirection){
-    float angle = (180 * fingerDirection.angleTo(handNormalDirection))/PI;
-    return angle <= 60;
+    cout << "Direccio dit: " << fingerDirection.x << " " << fingerDirection.y << " " << fingerDirection.z << endl;
+    cout << "Direccio dit: " << handNormalDirection.x << " " << handNormalDirection.y << " " << handNormalDirection.z << endl;
+    cout << PI << endl;
+    float angle = (180 * handNormalDirection.angleTo(fingerDirection)/PI);
+    cout << "Angle:" << angle << endl;
+    return int(angle) <= 70;
 }
 
 set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior, const map<int, musical_note_data>& infoFinger){
@@ -79,13 +106,16 @@ set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<
     for (int i = 0; i < leapMotionData.size(); i++){
         DataToTreat handInformation = leapMotionData[i];
         if (handInformation.h_id != -1){
+            cout << "Ma vàlida!" << endl;
             for (int j = 0; j < handInformation.ftype.size(); j++){
+                cout << "Dit " << (j+1) << endl;
                 if (IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
+
                     bool isRightHand = handInformation.right;
                     int fingerType = handInformation.ftype[j].first;
                     Vector h_position = handInformation.h_position;
                     int id_note = ObtainIDNoteActiveFinger(isRightHand, fingerType, h_position, infoFinger);
-                    if (notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
+                    if (id_note != -1 && notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
                         ActiveFingers.insert(id_note);
                     }
                 }
@@ -154,6 +184,7 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
     }
 }
 
+
 vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> data) {
     vector <DataToTreat> dtt(2);
     dtt [0] = data.first;
@@ -163,165 +194,16 @@ vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> da
 }
 
 int main(){
-    map<int, musical_note_data> note_data;
-
-    musical_note_data aux;
-    aux.finger = 0;
-    aux.hand = 4;
-    aux.height = 0;
-    aux.route = "/Users/ferranmartinez/Air-Piano/Sounds/Util/-1/39175__jobro__piano-ff-028.wav";
-    note_data[1] = aux;
-
-    aux.finger = 0;
-    aux.hand = 3;
-    aux.height = 0;
-    aux.route = "/Users/ferranmartinez/Air-Piano/Sounds/Util/-1/39175__jobro__piano-ff-030.wav";
-    note_data[2] = aux;
-
-    aux.finger = 0;
-    aux.hand = 2;
-    aux.height = 0;
-    aux.route = "/Users/ferranmartinez/Air-Piano/Sounds/Util/-1/39175__jobro__piano-ff-032.wav";
-    note_data[3] = aux;
-
-    aux.finger = 0;
-    aux.hand = 2;
-    aux.height = 0;
-    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-033.wav";
-    note_data[4] = aux;
-
-    aux.finger = 1;
-    aux.hand = 1;
-    aux.height = 0;
-    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-035.wav";
-    note_data[5] = aux;
-
-    aux.finger = 1;
-    aux.hand = 2;
-    aux.height = 0;
-    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-037.wav";
-    note_data[6] = aux;
-
-    aux.finger = 1;
-    aux.hand = 3;
-    aux.height = 0;
-    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-039.wav";
-    note_data[7] = aux;
-
-    aux.finger = 1;
-    aux.hand = 4;
-    aux.height = 0;
-    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-040.wav";
-    note_data[8] = aux;
-
-    aux.finger = 0;
-    aux.hand = 4;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-040.wav";
-    note_data[9] = aux;
-
-    aux.finger = 0;
-    aux.hand = 3;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-042.wav";
-    note_data[10] = aux;
-
-    aux.finger = 0;
-    aux.hand = 4;
-    aux.height = 0;
-    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-028.wav";
-    note_data[1] = aux;
-
-    aux.finger = 0;
-    aux.hand = 2;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-044.wav";
-    note_data[11] = aux;
-
-    aux.finger = 0;
-    aux.hand = 1;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-045.wav";
-    note_data[12] = aux;
-
-    aux.finger = 1;
-    aux.hand = 1;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-047.wav";
-    note_data[13] = aux;
-
-    aux.finger = 1;
-    aux.hand = 2;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-049.wav";
-    note_data[14] = aux;
-
-    aux.finger = 1;
-    aux.hand = 3;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-051.wav";
-    note_data[15] = aux;
-
-    aux.finger = 1;
-    aux.hand = 4;
-    aux.height = 130;
-    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-052.wav";
-    note_data[16] = aux;
-
-    aux.finger = 0;
-    aux.hand = 4;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-052.wav";
-    note_data[17] = aux;
-
-    aux.finger = 0;
-    aux.hand = 3;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-054.wav";
-    note_data[18] = aux;
-
-    aux.finger = 0;
-    aux.hand = 2;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-056.wav";
-    note_data[19] = aux;
-
-    aux.finger = 0;
-    aux.hand = 1;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-057.wav";
-    note_data[20] = aux;
-
-    aux.finger = 1;
-    aux.hand = 1;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-059.wav";
-    note_data[21] = aux;
-
-    aux.finger = 1;
-    aux.hand = 2;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-061.wav";
-    note_data[22] = aux;
-
-    aux.finger = 1;
-    aux.hand = 3;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-063.wav";
-    note_data[23] = aux;
-
-    aux.finger = 1;
-    aux.hand = 4;
-    aux.height = 210;
-    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-064.wav";
-    note_data[24] = aux;
 
     /*map<int, musical_note_data>::iterator ita;
     for (ita = note_data.begin(); ita != note_data.end(); ++ita) {
-        cout << ita->first << " " << std::string(ita->second.route) << endl;
+        cout << ita->first << " " << st
+        d::string(ita->second.route) << endl;
     }*/
+    map<int, musical_note_data> note_data = read_data_from_txt("DB_sounds.txt");
     LeeMotion leapMotion;
     Reproduce_music music_player;
+
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
@@ -332,8 +214,8 @@ int main(){
         GetNewStruct(leapMotion, data);
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
         notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
-        music_player.update_musical_notes(notesToReproduce);
-        music_player.play_musical_notes();
+        //music_player.update_musical_notes(notesToReproduce);
+        //music_player.play_musical_notes();
     }
 }
 
