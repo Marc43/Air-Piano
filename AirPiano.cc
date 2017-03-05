@@ -13,9 +13,8 @@
 #include "Reproduce_music.hh"
 #include <unistd.h>
 
-void f(int s) {
+void f(int s) {}
 
-}
 
 float calcular_angle (Vector v1,Vector v2){
     float sup = abs(v1.x*v2.x + v1.y*v2.y + v1.z*v2.z);
@@ -92,32 +91,41 @@ bool IsFingerPositionActive(Vector fingerDirection, Vector handNormalDirection){
     /*cout << "Direccio dit: " << fingerDirection.x << " " << fingerDirection.y << " " << fingerDirection.z << endl;
     cout << "Direccio dit: " << handNormalDirection.x << " " << handNormalDirection.y << " " << handNormalDirection.z << endl;
     */
-    Vector v1 = handNormalDirection;
+    /*Vector v1 = handNormalDirection;
     Vector v2 = fingerDirection;
     v2.x = v1.x;
     v2.z = v1.z;
      float angle = calcular_angle(v1,v2);
     cout << "Angle:" << angle  << endl;
-    return int(angle) <= 70;
+    bool test = (angle >= 30);
+    cout<< test << endl;
+    return test;*/
+    cout << handNormalDirection.y << " " << fingerDirection.y << " " << (handNormalDirection.y -fingerDirection.y) << endl;
+    return ((handNormalDirection.y -fingerDirection.y)  > 10);
 
 
 }
 
-set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior, const map<int, musical_note_data>& infoFinger){
+set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, vector<bool>& activeNotes, const map<int, musical_note_data>& infoFinger){
     set<int> ActiveFingers;
     for (int i = 0; i < leapMotionData.size(); i++){
         DataToTreat handInformation = leapMotionData[i];
         if (handInformation.h_id != -1){
             cout << "Ma vàlida!" << endl;
             for (int j = 0; j < handInformation.ftype.size(); j++){
-                if (handInformation.ftype[j].first != 0 && IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
-
-                    bool isRightHand = handInformation.right;
-                    int fingerType = handInformation.ftype[j].first;
-                    Vector h_position = handInformation.h_position;
-                    int id_note = ObtainIDNoteActiveFinger(isRightHand, fingerType, h_position, infoFinger);
-                    if (id_note != -1 && notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
+                //if (handInformation.ftype[j].first != 0 &&  && IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
+                bool isRightHand = handInformation.right;
+                int fingerType = handInformation.ftype[j].first;
+                Vector h_position = handInformation.h_position;
+                bool toBeActivated = (handInformation.ftype[j].first != 0  && IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal));
+                int id_note = ObtainIDNoteActiveFinger(isRightHand, fingerType, h_position, infoFinger);
+                if (id_note != -1){
+                    if (!activeNotes[id_note] && toBeActivated){
                         ActiveFingers.insert(id_note);
+                        activeNotes[id_note] = true;
+                    }
+                    else if (activeNotes[id_note] && !toBeActivated){
+                        activeNotes[id_note] = false;
                     }
                 }
             }
@@ -174,8 +182,8 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
         data.first.h_position = lh.palmPosition();
         data.second.h_position = rh.palmPosition();
 
-        data.first.h_normal = lh.palmNormal();
-        data.second.h_normal = rh.palmNormal();
+        data.first.h_normal = leapMotion.getHandNormal(lh);
+        data.second.h_normal = leapMotion.getHandNormal(rh);
 
         Vector mi = data.first.h_position;
         Vector md = data.second.h_position;
@@ -208,17 +216,18 @@ int main(){
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
-    set<int> notesToReproduceAnterior;
+    vector<bool> activeNotes(25, false);
 
     /*map<int, musical_note_data>::const_iterator it3 = note_data.begin();
     while(it3 != note_data.end()){
         cout << it3->first << " " << it3->second.hand << " " << it3->second.finger << " " << it3->second.height << endl;
         it3++;
     }*/
-    while (1){
-        notesToReproduceAnterior = notesToReproduce;
-        leapMotion.updateFrame();
 
+    //En el codigo
+    signal(SIGALRM, f);
+    while (1){
+        leapMotion.updateFrame();
         HandList hl = leapMotion.getHands();
         HandList::const_iterator it = hl.begin();
         FingerList fl = leapMotion.getFingers(*it);
@@ -228,16 +237,21 @@ int main(){
         Vector pos = (*it).palmPosition();
         cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << endl;
 
-        /*float angle = (180 * leapMotion.getHandNormal(*it).angleTo(leapMotion.getHandDirection(*it)/PI));
+        float angle = (180 * leapMotion.getHandNormal(*it).angleTo(leapMotion.getHandDirection(*it)/PI));
         cout << "Angle:" << angle << " " << int(angle)  << endl;
 
         angle = calcular_angle(leapMotion.getHandNormal(*it), leapMotion.getHandDirection(*it));
-        cout << "Angle:" << angle << " " << int(angle)  << endl;*/
+        cout << "Angle:" << angle << " " << int(angle)  << endl;
         GetNewStruct(leapMotion, data);
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
-        notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
+        notesToReproduce = ConvertDataToNote(leapMotionData, activeNotes, note_data);
+        if (notesToReproduce.begin() != notesToReproduce.end()){
+            cout << "Reproduce!" << endl;
+        }
         music_player.update_musical_notes(notesToReproduce);
         music_player.play_musical_notes();
+        //alarm(10);
+        //pause();
     }
 }
 
