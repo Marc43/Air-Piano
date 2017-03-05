@@ -326,18 +326,14 @@ int main(){
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
     set<int> notesToReproduceAnterior;
-    cout << "hola" << endl;
     while (1){
         notesToReproduceAnterior = notesToReproduce;
         leapMotion.updateFrame();
         GetNewStruct(leapMotion, data);
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
         notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
-        cout << "antes" << endl;
         music_player.update_musical_notes(notesToReproduce);
-        cout << "durante" << endl;
         music_player.play_musical_notes();
-        cout << "despues" << endl;
     }
 }
 

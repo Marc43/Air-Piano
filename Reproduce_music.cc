@@ -175,11 +175,11 @@
         cout << FMOD_ErrorString(result) << endl;
         map<int, musical_note_data>::iterator it = musical_note_map.begin();
         int i = 1;
-        //for (it = musical_note_map.begin(); it != musical_note_map.end(); it++) {
+        for (it = musical_note_map.begin(); it != musical_note_map.end(); it++) {
             result = system->createSound(it->second.route, FMOD_DEFAULT, 0, &sound[i]);
             cout << FMOD_ErrorString(result) << " " << it->second.route << " " << sound[i] << " " << it-> first << endl;
             ++i;
-        //}
+        }
     }
 
     Reproduce_music::~Reproduce_music(){}
