@@ -29,11 +29,15 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-map<int, musical_note_data> read_data_from_txt(string path_to_read) {
+/*map<int, musical_note_data> read_data_from_txt(string path_to_read) {
     map<int, musical_note_data> data_map;
+    std::cout << "hello" << endl;
     std::ifstream input(path_to_read); //put your program together with thsi file in the same folder.
+    int i = 0;
     if(input.is_open()){
+        cout << "biene" << endl;
         while(!input.eof()){
+            cout << "ola k ase" << endl;
             string data;
             getline(input,data);
             vector<string> splitted_data = split(data, ';'); //convert to integer
@@ -41,14 +45,15 @@ map<int, musical_note_data> read_data_from_txt(string path_to_read) {
             aux.finger = atoi(splitted_data[1].c_str());
             aux.hand = atoi(splitted_data[2].c_str());
             aux.height = atoi(splitted_data[3].c_str());
-            char* chr = strdup(splitted_data[4].c_str());
-            aux.route = chr;
-            free(chr);
+            aux.route = splitted_data[4].c_str();
             data_map[atoi(splitted_data[0].c_str())] = aux;
+            cout << i++ << endl;
        }
     }
+    cout << "funciona" << endl;
+
     return data_map;
-}
+}*/
 
 int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position, const map<int, musical_note_data>& infoFinger){
     map<int, musical_note_data>::const_iterator it = infoFinger.begin();
@@ -109,12 +114,12 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
             }
             ++hdit;
         }
-        cout << "valido? " << lh.isValid() << ' ' << "valido?" << rh.isValid() << endl;
+        //cout << "valido? " << lh.isValid() << ' ' << "valido?" << rh.isValid() << endl;
         FingerList left_fl = leapMotion.getFingers(lh);
         FingerList right_fl = leapMotion.getFingers(rh);
         FingerList::const_iterator it1 = left_fl.begin();
         FingerList::const_iterator it2 = right_fl.begin();
-        cout << "id: " << lh.id() << ' ' << rh.id() << endl;
+        //cout << "id: " << lh.id() << ' ' << rh.id() << endl;
         int i = 0;
         while (it1 != left_fl.end() and i < 5) {
             Finger f = *it1;
@@ -143,8 +148,8 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
 
         Vector mi = data.first.h_position;
         Vector md = data.second.h_position;
-        cout << "Mano Izquierda: " << mi.x << ' ' << mi.y << ' ' << mi.z << endl;
-        cout << "Mano Derecha: " << md.x << ' ' << md.y << ' ' << md.z << endl;
+        //cout << "Mano Izquierda: " << mi.x << ' ' << mi.y << ' ' << mi.z << endl;
+        //cout << "Mano Derecha: " << md.x << ' ' << md.y << ' ' << md.z << endl;
 
     }
 }
@@ -158,22 +163,181 @@ vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> da
 }
 
 int main(){
-    map<int, musical_note_data> note_data = read_data_from_txt("DB_sounds.txt");
+    map<int, musical_note_data> note_data;
+
+    musical_note_data aux;
+    aux.finger = 0;
+    aux.hand = 4;
+    aux.height = 0;
+    aux.route = "/Users/ferranmartinez/Air-Piano/Sounds/Util/-1/39175__jobro__piano-ff-028.wav";
+    note_data[1] = aux;
+
+    aux.finger = 0;
+    aux.hand = 3;
+    aux.height = 0;
+    aux.route = "/Users/ferranmartinez/Air-Piano/Sounds/Util/-1/39175__jobro__piano-ff-030.wav";
+    note_data[2] = aux;
+
+    aux.finger = 0;
+    aux.hand = 2;
+    aux.height = 0;
+    aux.route = "/Users/ferranmartinez/Air-Piano/Sounds/Util/-1/39175__jobro__piano-ff-032.wav";
+    note_data[3] = aux;
+
+    aux.finger = 0;
+    aux.hand = 2;
+    aux.height = 0;
+    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-033.wav";
+    note_data[4] = aux;
+
+    aux.finger = 1;
+    aux.hand = 1;
+    aux.height = 0;
+    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-035.wav";
+    note_data[5] = aux;
+
+    aux.finger = 1;
+    aux.hand = 2;
+    aux.height = 0;
+    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-037.wav";
+    note_data[6] = aux;
+
+    aux.finger = 1;
+    aux.hand = 3;
+    aux.height = 0;
+    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-039.wav";
+    note_data[7] = aux;
+
+    aux.finger = 1;
+    aux.hand = 4;
+    aux.height = 0;
+    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-040.wav";
+    note_data[8] = aux;
+
+    aux.finger = 0;
+    aux.hand = 4;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-040.wav";
+    note_data[9] = aux;
+
+    aux.finger = 0;
+    aux.hand = 3;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-042.wav";
+    note_data[10] = aux;
+
+    aux.finger = 0;
+    aux.hand = 4;
+    aux.height = 0;
+    aux.route = "./Sounds/Util/-1/39175__jobro__piano-ff-028.wav";
+    note_data[1] = aux;
+
+    aux.finger = 0;
+    aux.hand = 2;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-044.wav";
+    note_data[11] = aux;
+
+    aux.finger = 0;
+    aux.hand = 1;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-045.wav";
+    note_data[12] = aux;
+
+    aux.finger = 1;
+    aux.hand = 1;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-047.wav";
+    note_data[13] = aux;
+
+    aux.finger = 1;
+    aux.hand = 2;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-049.wav";
+    note_data[14] = aux;
+
+    aux.finger = 1;
+    aux.hand = 3;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-051.wav";
+    note_data[15] = aux;
+
+    aux.finger = 1;
+    aux.hand = 4;
+    aux.height = 130;
+    aux.route = "./Sounds/Util/0/39175__jobro__piano-ff-052.wav";
+    note_data[16] = aux;
+
+    aux.finger = 0;
+    aux.hand = 4;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-052.wav";
+    note_data[17] = aux;
+
+    aux.finger = 0;
+    aux.hand = 3;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-054.wav";
+    note_data[18] = aux;
+
+    aux.finger = 0;
+    aux.hand = 2;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-056.wav";
+    note_data[19] = aux;
+
+    aux.finger = 0;
+    aux.hand = 1;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-057.wav";
+    note_data[20] = aux;
+
+    aux.finger = 1;
+    aux.hand = 1;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-059.wav";
+    note_data[21] = aux;
+
+    aux.finger = 1;
+    aux.hand = 2;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-061.wav";
+    note_data[22] = aux;
+
+    aux.finger = 1;
+    aux.hand = 3;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-063.wav";
+    note_data[23] = aux;
+
+    aux.finger = 1;
+    aux.hand = 4;
+    aux.height = 210;
+    aux.route = "./Sounds/Util/1/39175__jobro__piano-ff-064.wav";
+    note_data[24] = aux;
+
+    /*map<int, musical_note_data>::iterator ita;
+    for (ita = note_data.begin(); ita != note_data.end(); ++ita) {
+        cout << ita->first << " " << std::string(ita->second.route) << endl;
+    }*/
     LeeMotion leapMotion;
-    Reproduce_music music_player(note_data);
+    Reproduce_music music_player;
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
     set<int> notesToReproduceAnterior;
-
+    cout << "hola" << endl;
     while (1){
         notesToReproduceAnterior = notesToReproduce;
         leapMotion.updateFrame();
         GetNewStruct(leapMotion, data);
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
         notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
+        cout << "antes" << endl;
         music_player.update_musical_notes(notesToReproduce);
+        cout << "durante" << endl;
         music_player.play_musical_notes();
+        cout << "despues" << endl;
     }
 }
 
