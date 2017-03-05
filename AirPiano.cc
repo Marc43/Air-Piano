@@ -198,7 +198,8 @@ int main(){
 
     /*map<int, musical_note_data>::iterator ita;
     for (ita = note_data.begin(); ita != note_data.end(); ++ita) {
-        cout << ita->first << " " << std::string(ita->second.route) << endl;
+        cout << ita->first << " " << st
+        d::string(ita->second.route) << endl;
     }*/
     map<int, musical_note_data> note_data = read_data_from_txt("DB_sounds.txt");
     LeeMotion leapMotion;
@@ -208,6 +209,7 @@ int main(){
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
     set<int> notesToReproduceAnterior;
+
     /*map<int, musical_note_data>::const_iterator it3 = note_data.begin();
     while(it3 != note_data.end()){
         cout << it3->first << " " << it3->second.hand << " " << it3->second.finger << " " << it3->second.height << endl;
@@ -231,24 +233,11 @@ int main(){
 
         angle = calcular_angle(leapMotion.getHandNormal(*it), leapMotion.getHandDirection(*it));
         cout << "Angle:" << angle << " " << int(angle)  << endl;*/
-
         GetNewStruct(leapMotion, data);
-
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
         notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
-
-        set<int>::const_iterator it2 = notesToReproduce.begin();
-        cout << "ID notes:" << endl;
-        while(it2 != notesToReproduce.end()){
-            cout << *it2 << endl;
-            it2++;
-        }
         music_player.update_musical_notes(notesToReproduce);
         music_player.play_musical_notes();
-        signal(SIGALRM, f);
-        alarm(10);
-        pause();
-
     }
 }
 
