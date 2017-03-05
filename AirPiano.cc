@@ -11,6 +11,12 @@
 #include <cmath>
 #include "LeeMotion.hh"
 #include "Reproduce_music.hh"
+#include <unistd.h>
+
+void f(int s) {
+
+}
+
 
 template<typename Out>
 void split(const std::string &s, char delim, Out result) {
@@ -38,8 +44,8 @@ map<int, musical_note_data> read_data_from_txt(string path_to_read) {
             getline(input,data);
             vector<string> splitted_data = split(data, ';'); //convert to integer
             musical_note_data aux;
-            aux.finger = atoi(splitted_data[1].c_str());
-            aux.hand = atoi(splitted_data[2].c_str());
+            aux.hand = atoi(splitted_data[1].c_str());
+            aux.finger = atoi(splitted_data[2].c_str());
             aux.height = atoi(splitted_data[3].c_str());
             char* chr = strdup(splitted_data[4].c_str());
             aux.route = chr;
@@ -50,12 +56,30 @@ map<int, musical_note_data> read_data_from_txt(string path_to_read) {
     return data_map;
 }
 
-int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_position, const map<int, musical_note_data>& infoFinger){
+int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, Vector& h_position, const map<int, musical_note_data>& infoFinger){
     map<int, musical_note_data>::const_iterator it = infoFinger.begin();
     bool idFound = false;
     int idValue = -1;
+    int alçada = 0;
+
+    if (h_position.y > 0 && h_position.y <= 130){
+        cout << "HI1" << endl;
+        alçada = 0;
+    }
+    else if (h_position.y > 130 && h_position.y <= 210){
+        cout << "HI2" << endl;
+        alçada = 130;
+    }
+    else {
+        cout << "HI3" << endl;
+        alçada = 210;
+    }
+    cout << isRightHand << " " << fingerType << " " << alçada << endl;
     while(!idFound && it != infoFinger.end()){
-        if (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height){
+
+        cout << (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height == alçada) << endl;
+        if (it->second.hand == isRightHand && it->second.finger == fingerType && it->second.height == alçada){
+            cout << "Troba igualtat" << endl;
             idValue = it->first;
             idFound = true;
         }
@@ -65,8 +89,12 @@ int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, const Vector& h_p
 }
 
 bool IsFingerPositionActive(const Vector& fingerDirection, const Vector& handNormalDirection){
-    float angle = (180 * fingerDirection.angleTo(handNormalDirection))/PI;
-    return angle <= 60;
+    cout << "Direccio dit: " << fingerDirection.x << " " << fingerDirection.y << " " << fingerDirection.z << endl;
+    cout << "Direccio dit: " << handNormalDirection.x << " " << handNormalDirection.y << " " << handNormalDirection.z << endl;
+    cout << PI << endl;
+    float angle = (180 * handNormalDirection.angleTo(fingerDirection)/PI);
+    cout << "Angle:" << angle << endl;
+    return int(angle) <= 70;
 }
 
 set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<int>& notesToReproduceAnterior, const map<int, musical_note_data>& infoFinger){
@@ -74,13 +102,16 @@ set<int> ConvertDataToNote(const vector<DataToTreat>& leapMotionData, const set<
     for (int i = 0; i < leapMotionData.size(); i++){
         DataToTreat handInformation = leapMotionData[i];
         if (handInformation.h_id != -1){
+            cout << "Ma vàlida!" << endl;
             for (int j = 0; j < handInformation.ftype.size(); j++){
+                cout << "Dit " << (j+1) << endl;
                 if (IsFingerPositionActive(handInformation.ftype[j].second, handInformation.h_normal)){
+
                     bool isRightHand = handInformation.right;
                     int fingerType = handInformation.ftype[j].first;
                     Vector h_position = handInformation.h_position;
                     int id_note = ObtainIDNoteActiveFinger(isRightHand, fingerType, h_position, infoFinger);
-                    if (notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
+                    if (id_note != -1 && notesToReproduceAnterior.find(id_note) == notesToReproduceAnterior.end()){
                         ActiveFingers.insert(id_note);
                     }
                 }
@@ -149,6 +180,7 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
     }
 }
 
+
 vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> data) {
     vector <DataToTreat> dtt(2);
     dtt [0] = data.first;
@@ -160,20 +192,48 @@ vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> da
 int main(){
     map<int, musical_note_data> note_data = read_data_from_txt("DB_sounds.txt");
     LeeMotion leapMotion;
-    Reproduce_music music_player(note_data);
+    Reproduce_music music_player();
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
     set<int> notesToReproduceAnterior;
 
+    map<int, musical_note_data>::const_iterator it3 = note_data.begin();
+
+    while(it3 != note_data.end()){
+        cout << it3->first << " " << it3->second.hand << " " << it3->second.finger << " " << it3->second.height << endl;
+        it3++;
+    }
+
+
     while (1){
         notesToReproduceAnterior = notesToReproduce;
         leapMotion.updateFrame();
+
+        HandList hl = leapMotion.getHands();
+        HandList::const_iterator it = hl.begin();
+        FingerList fl = leapMotion.getFingers(*it);
+        FingerList::const_iterator cit = fl.begin();
+        Vector v = leapMotion.getFingerDirection(*cit);
+        //cout << "x: " << v.x << " y: " << v.y << " z: " << v.z << endl;
+        Vector pos = (*it).palmPosition();
+        cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << endl;
+
         GetNewStruct(leapMotion, data);
+
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
         notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
+        set<int>::const_iterator it2 = notesToReproduce.begin();
+        cout << "ID notes:" << endl;
+        while(it2 != notesToReproduce.end()){
+            cout << *it2 << endl;
+            it2++;
+        }
         music_player.update_musical_notes(notesToReproduce);
         music_player.play_musical_notes();
+        signal(SIGALRM, f);
+        alarm(10);
+        pause();
     }
 }
 
