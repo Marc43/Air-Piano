@@ -35,11 +35,15 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-map<int, musical_note_data> read_data_from_txt(string path_to_read) {
+/*map<int, musical_note_data> read_data_from_txt(string path_to_read) {
     map<int, musical_note_data> data_map;
+    std::cout << "hello" << endl;
     std::ifstream input(path_to_read); //put your program together with thsi file in the same folder.
+    int i = 0;
     if(input.is_open()){
+        cout << "biene" << endl;
         while(!input.eof()){
+            cout << "ola k ase" << endl;
             string data;
             getline(input,data);
             vector<string> splitted_data = split(data, ';'); //convert to integer
@@ -47,14 +51,15 @@ map<int, musical_note_data> read_data_from_txt(string path_to_read) {
             aux.hand = atoi(splitted_data[1].c_str());
             aux.finger = atoi(splitted_data[2].c_str());
             aux.height = atoi(splitted_data[3].c_str());
-            char* chr = strdup(splitted_data[4].c_str());
-            aux.route = chr;
-            free(chr);
+            aux.route = splitted_data[4].c_str();
             data_map[atoi(splitted_data[0].c_str())] = aux;
+            cout << i++ << endl;
        }
     }
+    cout << "funciona" << endl;
+
     return data_map;
-}
+}*/
 
 int ObtainIDNoteActiveFinger(bool isRightHand, int fingerType, Vector& h_position, const map<int, musical_note_data>& infoFinger){
     map<int, musical_note_data>::const_iterator it = infoFinger.begin();
@@ -140,12 +145,12 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
             }
             ++hdit;
         }
-        cout << "valido? " << lh.isValid() << ' ' << "valido?" << rh.isValid() << endl;
+        //cout << "valido? " << lh.isValid() << ' ' << "valido?" << rh.isValid() << endl;
         FingerList left_fl = leapMotion.getFingers(lh);
         FingerList right_fl = leapMotion.getFingers(rh);
         FingerList::const_iterator it1 = left_fl.begin();
         FingerList::const_iterator it2 = right_fl.begin();
-        cout << "id: " << lh.id() << ' ' << rh.id() << endl;
+        //cout << "id: " << lh.id() << ' ' << rh.id() << endl;
         int i = 0;
         while (it1 != left_fl.end() and i < 5) {
             Finger f = *it1;
@@ -174,8 +179,8 @@ void GetNewStruct (LeeMotion &leapMotion, pair<DataToTreat, DataToTreat> &data) 
 
         Vector mi = data.first.h_position;
         Vector md = data.second.h_position;
-        cout << "Mano Izquierda: " << mi.x << ' ' << mi.y << ' ' << mi.z << endl;
-        cout << "Mano Derecha: " << md.x << ' ' << md.y << ' ' << md.z << endl;
+        //cout << "Mano Izquierda: " << mi.x << ' ' << mi.y << ' ' << mi.z << endl;
+        //cout << "Mano Derecha: " << md.x << ' ' << md.y << ' ' << md.z << endl;
 
     }
 }
@@ -190,22 +195,23 @@ vector<DataToTreat> ConvertPairToVector (const pair<DataToTreat, DataToTreat> da
 }
 
 int main(){
-    map<int, musical_note_data> note_data = read_data_from_txt("DB_sounds.txt");
+
+    /*map<int, musical_note_data>::iterator ita;
+    for (ita = note_data.begin(); ita != note_data.end(); ++ita) {
+        cout << ita->first << " " << std::string(ita->second.route) << endl;
+    }*/
     LeeMotion leapMotion;
-    Reproduce_music music_player();
+    Reproduce_music music_player;
+
     pair<DataToTreat, DataToTreat> data; //Respectively, LEFT AND RIGHT.
     while(!leapMotion.isConnected()){};
     set<int> notesToReproduce;
     set<int> notesToReproduceAnterior;
-
     map<int, musical_note_data>::const_iterator it3 = note_data.begin();
-
     while(it3 != note_data.end()){
         cout << it3->first << " " << it3->second.hand << " " << it3->second.finger << " " << it3->second.height << endl;
         it3++;
     }
-
-
     while (1){
         notesToReproduceAnterior = notesToReproduce;
         leapMotion.updateFrame();
@@ -223,6 +229,7 @@ int main(){
 
         vector<DataToTreat> leapMotionData = ConvertPairToVector(data);
         notesToReproduce = ConvertDataToNote(leapMotionData, notesToReproduceAnterior, note_data);
+
         set<int>::const_iterator it2 = notesToReproduce.begin();
         cout << "ID notes:" << endl;
         while(it2 != notesToReproduce.end()){
@@ -234,6 +241,7 @@ int main(){
         signal(SIGALRM, f);
         alarm(10);
         pause();
+
     }
 }
 

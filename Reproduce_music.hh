@@ -23,7 +23,7 @@ private:
   unsigned int        version;
 
 public:
-  Reproduce_music(map<int, musical_note_data> base_data);
+  Reproduce_music();
 
   ~Reproduce_music();
 
