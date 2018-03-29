@@ -1,3 +1,6 @@
+ONE YEAR LATER WE DECIDED TO DEVELOPE A NEWER VERSION
+## https://github.com/ferranmafe/UMI
+
 # Air-Piano
 ## De la música a los dedos...
 
